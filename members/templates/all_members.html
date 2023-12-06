@@ -9,11 +9,24 @@
 
   <p><a href="/">HOME</a></p>
 
-  <h1>Members</h1>
+  <h3>Young Members (age<20)</h3>
   
   <ul>
     {% for x in mymembers %}
-      <li><a href="details/{{ x.id }}">{{ x.firstname }} {{ x.lastname }}</a></li>
+      {% if x.age < 20 %}
+      <li><a href="details/{{ x.id }}">{{ x.firstname }} {{ x.lastname }}</a>, {{x.age}}</li>
+      {% endif %}
     {% endfor %}
   </ul>
+
+  <h3>Adult Members (age>=20)</h3>
+  
+  <ul>
+    {% for x in mymembers %}
+      {% if x.age >= 20 %}
+      <li><a href="details/{{ x.id }}">{{ x.firstname }} {{ x.lastname }}</a>, {{x.age}}</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+
 {% endblock %}
