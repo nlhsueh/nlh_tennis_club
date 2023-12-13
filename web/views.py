@@ -20,9 +20,11 @@ def login(request):
             if user is not None:
                 auth.login(request, user)
                 message = f'{username} login successfully'
-                print (message)
-                return redirect('main')
-            message = 'Login failed.'
+                main_html = loader.get_template('main.html')
+                context = {'user': request.user}
+                return HttpResponse(main_html.render(context, request))
+            else:
+                message = 'Login failed.'
             print (message)
     else:
         # 載入登入頁
@@ -38,4 +40,6 @@ def login(request):
 def logout(request):
     ''' 登出 '''
     auth.logout(request)
-    return redirect('main')
+    main_html = loader.get_template('main.html')
+    context = {'user': request.user}
+    return HttpResponse(main_html.render(context, request))
