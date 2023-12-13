@@ -19,12 +19,16 @@ def login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 auth.login(request, user)
+                message = f'{username} login successfully'
+                print (message)
                 return redirect('main')
             message = 'Login failed.'
+            print (message)
     else:
         # 載入登入頁
         post_form = LoginForm()
     context = {
+        'user':request.user,
         'post_form': post_form,
         'message': message,
     }

@@ -1,0 +1,24 @@
+{% extends "master.html" %}
+
+{% block title %}
+My Tennis Club
+{% endblock %}
+
+
+{% block content %}
+{{ post_form.errors }}
+{{ message }}
+<h1>My Tennis Club</h1>
+
+    <h3>Booking</h3>
+
+    <form action="." method="post">
+        {% csrf_token %}
+        <label for="username">Date: </label>
+        {{ post_form.date }}
+        {{ post_form.place }}
+        {{ post_form.user }}
+        <input type="submit" value="Submit">
+    </form>
+
+{% endblock %}

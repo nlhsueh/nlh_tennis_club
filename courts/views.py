@@ -46,9 +46,12 @@ def booking(request, place_id):
     return redirect('login')
 
 
-def booking_list(request):
+def my_bookings(request):
     bookings = Booking.objects.filter(user=request.user)
-    template = loader.get_template('all_bookings.html')
+    print (request.user)
+    for b in bookings:
+        print (b)
+    template = loader.get_template('my_bookings.html')
     context = {
         'bookings': bookings,
     }

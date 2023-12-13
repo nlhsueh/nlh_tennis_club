@@ -1,0 +1,17 @@
+{% extends "master.html" %}
+
+{% block title %}
+My Tennis Club - List of all bookings
+{% endblock %}
+
+
+{% block content %}
+
+<h1>Bookings</h1>
+
+<ul>
+    {% for booking in bookings %}
+    <li>{{booking.user}} 預約了{{ booking.date }} 的{{ booking.court.courtname }}</li>
+    {% endfor %}
+</ul>
+{% endblock %}
