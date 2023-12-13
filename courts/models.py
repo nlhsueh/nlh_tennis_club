@@ -1,4 +1,8 @@
 from django.db import models
+# User
+from django.contrib.auth.models import User
+# timezone
+from django.utils import timezone
 
 # Create your models here.
 class Court(models.Model):  
@@ -14,3 +18,11 @@ class Court(models.Model):
 
     def __str__(self):
         return f"{self.city} {self.courtname}"  
+    
+class Booking(models.Model):
+    court = models.ForeignKey(Court, models.CASCADE)
+    user = models.ForeignKey(User, models.CASCADE)
+    date = models.DateField(default = timezone.now)
+
+    class Meta:
+        unique_together = ('court', 'date')    
