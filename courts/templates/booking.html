@@ -4,21 +4,24 @@
 My Tennis Club
 {% endblock %}
 
-
 {% block content %}
-{{ post_form.errors }}
-{{ message }}
+{% comment %} {{ post_form.errors }} {% endcomment %}
 <h1>My Tennis Club</h1>
 
     <h3>Booking</h3>
 
     <form action="." method="post">
         {% csrf_token %}
-        <label for="username">Date: </label>
-        {{ post_form.date }}
-        {{ post_form.place }}
-        {{ post_form.user }}
-        <input type="submit" value="Submit">
+        {{ booking_form.user.label}}: 
+        {{ booking_form.user }} <br>
+
+        <label>球場: </label>
+        {{ booking_form.court }} <br>
+
+        {{ booking_form.date.label}}: 
+        {{ booking_form.date }} <br>
+
+        <input type="submit" value="確定預約">
     </form>
 
 {% endblock %}

@@ -4,8 +4,9 @@ from django.shortcuts import redirect
 from django.template import loader
 from .models import Court, Booking
 from courts.forms import BookingForm
+from datetime import date
+from django.contrib.auth.decorators import login_required
 
-# Create your views here.
 def courts(request):
   courts = Court.objects.all().values()
   template = loader.get_template('all_courts.html')
@@ -22,37 +23,41 @@ def details(request, id):
   }
   return HttpResponse(template.render(context, request))
 
-
-def booking(request, place_id):
+@login_required
+def booking(request, court_id):
+    print ('booking view is called')
     if request.user.is_authenticated:
-        template = loader.get_template('booking.html')
-        message = ''
         if request.method == 'GET':
-            post_form = BookingForm(initial={
-                'place': place_id,
-                'user': request.user})
+            print ('GET method to booking form')
+            initial = {
+                'court': court_id,
+                'user': request.user,
+                'date': date.today() }
+            booking_form = BookingForm(initial)
+            context = {'booking_form': booking_form}
+            booking_page = loader.get_template('booking.html')
+            # return HttpResponse(booking_page.render(context, request))
+            return render(request, 'booking.html', context)
         elif request.method == "POST":
-            post_form = BookingForm(request.POST)
-            if post_form.is_valid():
-                post_form.save()
-                message = 'Booking success.'
+            print ('POST method to booking form')
+            print (f"request.POST: {request.POST}")
+            booking_form = BookingForm(request.POST)
+            if booking_form.is_valid():
+                booking_form.save()
+                print ('Booking successfully (saved)')
+                result = 'Booking ok'
+            else:
+                print ('Booking fails (form is not valid)')
+                result = 'Booking fail'
+            return render(request, 'booking_result.html', {'result':result})
         else:
             return HttpResponseBadRequest()
-        context = {
-            'post_form': post_form,
-            'message': message,
-        }
-        return HttpResponse(template.render(context, request))
-    return redirect('login')
 
-
+@login_required
 def my_bookings(request):
+    ''' to show my booking list '''
     bookings = Booking.objects.filter(user=request.user)
-    print (request.user)
+    print (f'All bookings by {request.user}:')
     for b in bookings:
         print (b)
-    template = loader.get_template('my_bookings.html')
-    context = {
-        'bookings': bookings,
-    }
-    return HttpResponse(template.render(context, request))
+    return render(request, 'my_bookings.html', {'bookings':bookings})

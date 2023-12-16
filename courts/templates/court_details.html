@@ -8,8 +8,10 @@
 {% block content %}
   <h2>{{ court.courtname }}</h2>
   
-  <p>Location: {{ court.city }}</p>
-  <p>Court type: {{ court.courtname }}</p>
+  <p>所在都市: {{ court.city }}</p>
+  <p>球場名稱: {{ court.courtname }}</p>
+  <p><a href= {% url 'booking' court.id %}> 預約 </a>
+  {% comment %} <p><a href='/courts/booking/{{court.id}}'> 預約此球場 </a> {% endcomment %}
 
   <p>Back to: <a href='/courts'>Courts</a></p>
     

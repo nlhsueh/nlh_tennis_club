@@ -11,7 +11,8 @@
   
   <ul>
     {% for x in courts %}
-      <li><a href="details/{{ x.id }}">{{ x.courtname }} {{ x.courttype }}</a>, {{x.city}}</li>
+      {% comment %} <li><a href="details/{{ x.id }}">{{ x.courtname }} {{ x.courttype }}</a>, {{x.city}}</li> {% endcomment %}
+      <li><a href= {% url 'court_details' x.id %}>{{ x.courtname }} {{ x.courttype }}</a>, {{x.city}}</li>      
     {% endfor %}
   </ul>
 
