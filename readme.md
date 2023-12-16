@@ -5,7 +5,7 @@
     * 透過 urlpattern 引導到 views.login 後，此時的 request.method 為 GET, 我們建立一個 loginForm 後引導到 login.html。當我們填寫好 username, password 後按下 submit, 此時 request.method 為 POST。
     * 當 POST 時，透過 auth.login 來進行登入
     * login_form.clearned_data 的目的
-* [/members/templates/main.html](/members/template/main.html)
+* [/members/templates/main.html](/members/templates/main.html)
     * 首頁我們希望在為登入時出現 logout 的選項，登出時出現登入的選項。可以使用 `user.is_authenticated` 來判斷
 
 ```python=
@@ -28,8 +28,8 @@
     * 上述程式必須在 login 的情況下進行，可透過標記 `@login_required` 來註記。記得要匯入 `login_required`。
     * `my_bookings` 也是必須在登入後才能列出所有的預借，所以也加上 `@login_required`
 
-## 預約表單 (BookingForm) 的設計
-* 當我們要預約一個網球場時，需要一個 form，在此我們設計一個 `BookingForm`, 在 `[/courts/forms.py](/courts/forms.py)`
+## 預約表單 (BookingForm) 
+* 當我們要預約一個網球場時，需要一個 form，在此我們設計一個 `BookingForm`, 在 [/courts/forms.py](/courts/forms.py)
 * 需要繼承 `forms.ModelForm`
 * 透過 `class Meta` 來宣告一些設定: 資料的綁定、要呈現哪些欄位？每個欄位的介面如何呈現？每個資料欄位的標記為何：
     * model: 對應的資料來源。此例為 `Booking`
