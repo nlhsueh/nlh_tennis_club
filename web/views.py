@@ -3,38 +3,38 @@ from django.http import HttpResponse
 from django.shortcuts import redirect
 from django.template import loader
 from django.contrib import auth
+from django.shortcuts import render
 
 from web.forms import LoginForm
 
 def login(request):
     ''' 登入 '''
-    template = loader.get_template('login.html')
-    message = ''
-    if request.method == "POST":
-        # 輸入登入資料後
-        post_form = LoginForm(request.POST)
-        if post_form.is_valid():
-            username = post_form.cleaned_data['username']
-            password = post_form.cleaned_data['password']
+    login_page = loader.get_template('login.html')
+    if request.method == 'GET':
+        login_form = LoginForm()
+        context = {
+            'user': request.user,
+            'login_form': login_form,
+        }
+        return render(request, login_page, context)
+    elif request.method == "POST":
+        login_form = LoginForm(request.POST)
+        if login_form.is_valid():
+            username = login_form.cleaned_data['username']
+            password = login_form.cleaned_data['password']
             user = authenticate(username=username, password=password)
             if user is not None:
                 auth.login(request, user)
-                message = f'{username} login successfully'
-                main_html = loader.get_template('main.html')
-                context = {'user': request.user}
-                return HttpResponse(main_html.render(context, request))
+                main_page = loader.get_template('main.html')
+                context = {'user': request.user,
+                           'message': 'login ok'}
+                return render(request, main_page, context)
             else:
-                message = 'Login failed.'
-            print (message)
+                message = 'Login failed (auth fail)'
+        else:                    
+            print ('Login error (login form is not valid)')
     else:
-        # 載入登入頁
-        post_form = LoginForm()
-    context = {
-        'user':request.user,
-        'post_form': post_form,
-        'message': message,
-    }
-    return HttpResponse(template.render(context, request))
+        print ('Error on request (not GET/POST)')
 
 
 def logout(request):
