@@ -24,9 +24,9 @@
 * 流程控制 [/courts/views.py](/courts/views.py)
     * `booking(request, court_id)`: 如果是 GET 就先建立一個 `booking_form`, 然後開啟 `booking.html`; 如果是 POST 就進行檢查 (is_valid), 然後存起來 (`form.save()`)
     * 不論成功或失敗都轉到 `booking_result.html` 的頁面，但傳不同的訊息。
-* 預借需要先登入
-    * 上述程式必須在 login 的情況下進行，可透過標記 `@login_required` 來註記。記得要匯入 `login_required`。
-    * `my_bookings` 也是必須在登入後才能列出所有的預借，所以也加上 `@login_required`
+    * 預借需要先登入
+        * 上述程式必須在 login 的情況下進行，可透過標記 `@login_required` 來註記。記得要匯入 `login_required`。
+        * `my_bookings` 也是必須在登入後才能列出所有的預借，所以也加上 `@login_required`
 
 ## 預約表單 (BookingForm) 
 * 當我們要預約一個網球場時，需要一個 form，在此我們設計一個 `BookingForm`, 在 [/courts/forms.py](/courts/forms.py)
@@ -49,4 +49,4 @@
 
 * 在網址（[/courts/urls.py](/courts/urls.py)）中新增一個 `/my_bookings`
 * views 中透過 `Booking.objects.filter` 找出所有我的預約，在傳到 `my_bookings.html` 做呈現
-* [/courts/templates/my_bookings](/courts/templates/my_bookings): 透過 for loop 把所有的預約都印出來。
+* [/courts/templates/my_bookings.html](/courts/templates/my_bookings.html): 透過 for loop 把所有的預約都印出來。
