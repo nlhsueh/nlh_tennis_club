@@ -9,5 +9,23 @@
 ```python
 STATICFILES_DIRS = [BASE_DIR / "static"]
 ```
+* 你可以到 shell 中檢測這些變數的值
+```
+python manage.py shell
+```
+```
+from django.conf import settings
+print("BASE_DIR:", settings.BASE_DIR)
+print("STATICFILES_DIRS:", settings.STATICFILES_DIRS)
+```
 * 引用這些檔案：
-  * 
+  * [/members/master.html](/members/master.html) 我們在母片檔將這些設置加進去。注意要先執行 `{% load static %}`。
+
+```html
+{% load static %}
+<link rel="stylesheet" href="{% static '/css/club.css' %}"> 
+... 
+<br><img src='/static/img/garros.png' width='200' height='150'>
+<img src= {% static '/img/centre.jpeg' %} width='200' height='150'>
+```
+* 上方的 img 我特別寫了兩種方式，展示 static 的意義。
