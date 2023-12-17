@@ -3,11 +3,21 @@
 <head>
   <title>{% block title %}{% endblock %}</title>
 </head>
+
+{% load static %}
+<link rel="stylesheet" href="{% static '/css/club.css' %}"> 
+
 <body>
+
 <p><a href="/">HOME</a> | <a href="/admin">ADMIN</a>
+
+<br><img src='/static/img/garros.png' width='200' height='150'>
+<img src= {% static '/img/centre.jpeg' %} width='200' height='150'>
 
 {% block content %}
 {% endblock %}
+
+
 
 </body>
 </html>
