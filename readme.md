@@ -19,7 +19,7 @@ print("BASE_DIR:", settings.BASE_DIR)
 print("STATICFILES_DIRS:", settings.STATICFILES_DIRS)
 ```
 * 引用這些檔案：
-  * [/members/master.html](/members/master.html) 我們在母片檔將這些設置加進去。注意要先執行 `{% load static %}`。
+  * [/members/templates/master.html](/members/templates/master.html) 我們在母片檔將這些設置加進去。注意要先執行 `{% load static %}`。
 
 ```html
 {% load static %}
