@@ -16,7 +16,7 @@ def login(request):
             'user': request.user,
             'login_form': login_form,
         }
-        return render(request, login_page, context)
+        return HttpResponse(login_page.render(context, request))
     elif request.method == "POST":
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
@@ -28,7 +28,7 @@ def login(request):
                 main_page = loader.get_template('main.html')
                 context = {'user': request.user,
                            'message': 'login ok'}
-                return render(request, main_page, context)
+                return HttpResponse(login_page.render(context, request))
             else:
                 message = 'Login failed (auth fail)'
         else:                    

@@ -17,9 +17,9 @@ My Tennis Club
         <form action="." method="post">
             {% csrf_token %}
             <label for="username">Username: </label>
-            {{ post_form.username }}
+            {{ login_form.username }}
             <label for="password">Password: </label>
-            {{ post_form.password }}
+            {{ login_form.password }}
             <input type="submit" value="Submit">
         </form>
     {% endif %}
