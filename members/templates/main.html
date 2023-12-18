@@ -6,27 +6,41 @@
 
 
 {% block content %}
-  <h1>My Tennis Club</h1>
 
-  <h3>Members</h3>
-  
-  <p>Check out all our <a href="/members/">members</a></p>
+<div class="container mt-2">
+  <div class='row'>
+    <div class="col-md-6">
+        <h2 class='text-success'>Members</h2>
+        <p>
+          歡迎加入我們的網站！作為我們網球俱樂部的會員，您將享有一系列獨家福利和精彩體驗。首先，會員將獲得提前預訂球場的特權，確保您在最繁忙的時間獲得理想的場地。此外，我們將定期舉辦會員專屬活動，包括錦標賽、培訓工作坊和社交活動，這是與其他網球愛好者建立聯繫的絕佳機會。會員還可享受獨家折扣，涵蓋球場租用、訓練課程和俱樂部商品等。加入我們的會員群體，一同沉浸在網球的樂趣中，發現更多運動和社交的可能性。現在就加入，體驗尊貴的會員待遇，共同建立一個熱情而充滿活力的網球社區！</p>
+        
+          <button type="button" class="btn btn-primary" onclick="window.location.href='/members'">See Members</button>  
+    </div>
 
-  <h3>Courts</h3>
-  
-  <p>Check out all our <a href="/courts/">courts</a></p>
+    <div class="col-md-6">
+        <h2 class='text-success'>Court</h2>
+        <p>
+          網球球場，是一個凝聚運動激情與技藝表現的場所。其獨特的綠茵場地散發著活力，每一個白色的基線都宛如一道韻律的音符，等待著網球的優雅飛舞。在陽光灑落的時刻，球場成為夢想的舞臺，每一場比賽都是一場勇敢闖蕩的冒險。球場的環境充滿了友誼的味道，彷彿在每一個角落都有著無窮的可能性，等待著選手和愛好者們共同揮灑熱情，創造出屬於網球奇蹟的時刻。这是一個激勵心靈、塑造身體、促進交流的場地，球場不僅是比賽的舞臺，更是夢想與努力的見證者。</p>
+        
+          <button type="button" class="btn btn-primary" onclick="window.location.href='/courts'">See Courts</button>  
+    </div>
+  </div>    
+</div>
 
-  <h3>My bookings</h3>
-  
-  <p>Check out all our <a href="/courts/bookings/">my bookings</a></p>
+  <div class='container mt-2'>
+    <h3 class='text-primary'>My bookings</h3>
+    <p>Check out all our <a href="/courts/bookings/">my bookings</a></p>
+  </div>
 
   <hr>
   
-  {% if user.is_authenticated %}
-    <a href="{% url 'logout' %}">Logout </a> (Your have login as {{ user }}) 
-  {% else %}
-    <a href="{% url 'login' %}">Login</a>
-  {% endif %}
+  <div class='container mt-2'>
+    {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout </a> (Your have login as {{ user }}) 
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+    {% endif %}
+  </div>
 
   
 {% endblock %}

@@ -2,6 +2,10 @@
 <html>
 <head>
   <title>{% block title %}{% endblock %}</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 
 {% load static %}
@@ -9,15 +13,40 @@
 
 <body>
 
-<p><a href="/">HOME</a> | <a href="/admin">ADMIN</a>
+  <div class="p-5 bg-primary text-white rounded">
+    <h1>Hsueh Tennis Club</h1>
+    <p>Tennis is not merely a sport; it is an artistry of motion and a testament to the indomitable human spirit. With each graceful stroke across the vibrant court, players embark on a journey of self-discovery and resilience. Beyond the score, tennis is a narrative of determination, a dance of skill, and a celebration of camaraderie. The court becomes a canvas where challenges are met with unwavering resolve, and every match is a canvas for personal triumph. In the world of tennis, we find not just a game but a passionate pursuit, a commitment to surpassing limits, and a profound connection to the essence of life.</p>
+  </div>  
 
-<br><img src='/static/img/garros.png' width='200' height='150'>
-<img src= {% static '/img/centre.jpeg' %} width='200' height='150'>
+  <div class="container-fluid mt-3">
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/">HOME</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/admin">ADMIN</a>
+      </li>
+      {% if user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'logout' %}">Logout </a> (Your have login as {{ user }})
+      {% else %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url 'login' %}">Login</a>
+      {% endif %}
+    </ul>
+  </div>
+
+  <div class="container mt-2">
+    <div class="row mt-1">
+      <div class="col-sm-3 mt-1"><img src={% static '/img/centre.jpeg' %} class="rounded" width="100%" height="100%"></div>
+      <div class="col-sm-3 mt-1"><img src={% static '/img/garros.png' %} class="rounded" width="100%" height="100%"></div>
+      <div class="col-sm-3 mt-1"><img src={% static '/img/centre.jpeg' %} class="rounded" width="100%" height="100%"></div>
+      <div class="col-sm-3 mt-1"><img src={% static '/img/garros.png' %} class="rounded" width="100%" height="100%"></div>
+    </div>
+  </div>
 
 {% block content %}
 {% endblock %}
-
-
 
 </body>
 </html>
