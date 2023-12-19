@@ -28,10 +28,12 @@
       </li>
       {% if user.is_authenticated %}
         <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Logout </a> (Your have login as {{ user }})
+            <a class="nav-link" href="{% url 'logout' %}">Logout ({{ user }}) </a>
+        </li>    
       {% else %}
         <li class="nav-item">
             <a class="nav-link" href="{% url 'login' %}">Login</a>
+        </li>    
       {% endif %}
       <li class="nav-item">
         <a class="nav-link" href="/courts/bookings/">My bookings</a>
