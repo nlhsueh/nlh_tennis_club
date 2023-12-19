@@ -16,7 +16,8 @@ def login(request):
             'user': request.user,
             'login_form': login_form,
         }
-        return HttpResponse(login_page.render(context, request))
+        # return HttpResponse(login_page.render(context, request))
+        return render(request, 'login.html', context)
     elif request.method == "POST":
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
