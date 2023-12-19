@@ -1,31 +1,29 @@
-# version Static
+# version bs
 
-加上 static files, 例如 .css, .js, images 等靜態檔案。路徑要對，程式才能抓得到
+using bootstrap
 
-## Steps
-* 在專案目錄下新增 [/static](/static) 目錄，裡面再新增 css, js, img 等目錄
-  * 放一些圖片，和設定檔到適當的目錄下
-* 到 [/my_tennis_club/settings.py](/my_tennis_club/settings.py) 下找到 `STATIC_URL` 的設定，在下方新增：
-```python
-STATICFILES_DIRS = [BASE_DIR / "static"]
-```
-* 你可以到 shell 中檢測這些變數的值
-```
-python manage.py shell
-```
-```
-from django.conf import settings
-print("BASE_DIR:", settings.BASE_DIR)
-print("STATICFILES_DIRS:", settings.STATICFILES_DIRS)
-```
-* 引用這些檔案：
-  * [/members/templates/master.html](/members/templates/master.html) 我們在母片檔將這些設置加進去。注意要先執行 `{% load static %}`。
+[/members/templates/master.html](/members/templates/master.html)
+* 加上匯入 bs 的指令
+* 透過 `class="p-5 bg-primary text-white rounded"` 建立一個首頁的標示牆
+* 透過 `class="container-fluid"` 做一個大頁面，裡面放一個列表，透過 `class=nav, nav-item, nav-link`
+* 列表：HOME, ADMIN, login/logout, My-booking
+* 透過 <footer> 製作一個頁尾。
 
-```html
-{% load static %}
-<link rel="stylesheet" href="{% static '/css/club.css' %}"> 
-... 
-<br><img src='/static/img/garros.png' width='200' height='150'>
-<img src= {% static '/img/centre.jpeg' %} width='200' height='150'>
+[/members/templates/main.html](/members/templates/main.html)
+* 透過 container 製作一個非滿版的容器; 透過 col-sm-3 放置四個圖片 (12/3=4)
+* 再放一個 container 容器，裡面放一些文字。假設我們一列要有兩行，所以用 `col-md-6` (12/6=2)。
+
+[/web/templates/login.html](/web/templates/login.html)
+* 登入頁面 label 標記為 form-label
+
+[/web/forms.py](/web/forms.py)
+* username 和 password 也需要改成 form-control, 所以設定 widget 的 attrs
 ```
-* 上方的 img 我特別寫了兩種方式，展示 static 的意義。
+    username = forms.CharField(
+        max_length=20, 
+        widget=forms.TextInput(
+            attrs={'class': 'form-control'}
+        )
+    )
+```
+
