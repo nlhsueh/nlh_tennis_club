@@ -1,4 +1,5 @@
 {% extends "master.html" %}
+{% load static %}
 
 {% block title %}
   My Tennis Club
@@ -7,6 +8,17 @@
 
 {% block content %}
 
+{% comment %} 放一些照片好看 {% endcomment %}
+<div class="container mt-2">
+  <div class="row mt-1">
+    <div class="col-sm-3 mt-1"><img src={% static '/img/centre.jpeg' %} class="rounded" width="100%" height="100%"></div>
+    <div class="col-sm-3 mt-1"><img src={% static '/img/garros.png' %} class="rounded" width="100%" height="100%"></div>
+    <div class="col-sm-3 mt-1"><img src={% static '/img/centre.jpeg' %} class="rounded" width="100%" height="100%"></div>
+    <div class="col-sm-3 mt-1"><img src={% static '/img/garros.png' %} class="rounded" width="100%" height="100%"></div>
+  </div>
+</div>
+
+{% comment %} 會員與球場 {% endcomment %}
 <div class="container mt-2">
   <div class='row'>
     <div class="col-md-6">
@@ -26,21 +38,6 @@
     </div>
   </div>    
 </div>
-
-  <div class='container mt-2'>
-    <h3 class='text-primary'>My bookings</h3>
-    <p>Check out all our <a href="/courts/bookings/">my bookings</a></p>
-  </div>
-
-  <hr>
-  
-  <div class='container mt-2'>
-    {% if user.is_authenticated %}
-        <a href="{% url 'logout' %}">Logout </a> (Your have login as {{ user }}) 
-    {% else %}
-        <a href="{% url 'login' %}">Login</a>
-    {% endif %}
-  </div>
 
   
 {% endblock %}
