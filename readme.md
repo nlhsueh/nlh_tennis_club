@@ -27,7 +27,7 @@
     * 預借需要先登入
         * 上述程式必須在 login 的情況下進行，可透過標記 `@login_required` 來註記。記得要匯入 `login_required`。
         * `my_bookings` 也是必須在登入後才能列出所有的預借，所以也加上 `@login_required`
-        * 當我們執行 `@login_required` 所標註的方法時，如果當時沒有登入，就會預設的導到 `/account/login`, 但我們是將設置在 `/login/`, 所以必須要到 [/my_tennis_club/setting](/my_tennis_club/setting)下作修改，加入 `LOGIN_URL = '/login/'`
+        * 當我們執行 `@login_required` 所標註的方法時，如果當時沒有登入，就會預設的導到 `/account/login`, 但我們是將設置在 `/login/`, 所以必須要到 [/my_tennis_club/settings.py](/my_tennis_club/settings.py)下作修改，加入 `LOGIN_URL = '/login/'`
 
 ## 預約表單 (BookingForm) 
 * 當我們要預約一個網球場時，需要一個 form，在此我們設計一個 `BookingForm`, 在 [/courts/forms.py](/courts/forms.py)
