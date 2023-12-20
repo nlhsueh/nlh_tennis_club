@@ -4,7 +4,7 @@
 * [/web/view.py](/web/views.py)
     * 透過 urlpattern 引導到 views.login 後，此時的 request.method 為 GET, 我們建立一個 loginForm 後引導到 login.html。當我們填寫好 username, password 後按下 submit, 此時 request.method 為 POST。
     * 當 POST 時，透過 auth.login 來進行登入
-    * login_form.clearned_data 的目的
+    * login_form.clearned_data 的目的在清除一些不適當的輸入，例如前置或後置空白等。LoginForm 內可以定義 clean() 來客製化資料驗證的邏輯（例如帳號和密碼的長度）
 * [/members/templates/main.html](/members/templates/main.html)
     * 首頁我們希望在為登入時出現 logout 的選項，登出時出現登入的選項。可以使用 `user.is_authenticated` 來判斷
 
