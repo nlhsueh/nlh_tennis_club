@@ -32,7 +32,8 @@ def booking(request, court_id):
             initial = {
                 'court': court_id,
                 'user': request.user,
-                'date': date.today() }
+                'date': date.today(),
+                'reason': '' }
             booking_form = BookingForm(initial)
             context = {'booking_form': booking_form}
             booking_page = loader.get_template('booking.html')
@@ -49,7 +50,11 @@ def booking(request, court_id):
             else:
                 print ('Booking fails (form is not valid)')
                 result = 'Booking fail'
-            return render(request, 'booking_result.html', {'result':result})
+            context = {
+                'booking_form': booking_form,
+                'result': result, 
+            }    
+            return render(request, 'booking_result.html', context)
         else:
             return HttpResponseBadRequest()
 

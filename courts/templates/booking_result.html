@@ -8,6 +8,13 @@ My Tennis Club
 
 <p>
 {{ result }}
+
+{% if booking_form.errors %}
+<div style="color: red;">
+  {{ booking_form.errors }}
+</div>
+{% endif %}
+
 </p>
 
 {% endblock %}

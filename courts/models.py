@@ -31,6 +31,8 @@ class Booking(models.Model):
     user = models.ForeignKey(User, models.CASCADE)
     date = models.DateField(default = date.today())
 
+    reason = models.CharField(max_length=200, blank=True)
+
     def __str__(self):
         return f"{self.user}, {self.court}, {self.date}"
 
