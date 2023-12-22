@@ -4,15 +4,21 @@
   Details about {{ court.courtname }}
 {% endblock %}
 
-
 {% block content %}
-  <h2>{{ court.courtname }}</h2>
-  
-  <p>所在都市: {{ court.city }}</p>
-  <p>球場名稱: {{ court.courtname }}</p>
-  <p><a href= {% url 'booking' court.id %}> 預約 </a>
-  {% comment %} <p><a href='/courts/booking/{{court.id}}'> 預約此球場 </a> {% endcomment %}
 
+<div class="container m-5">
+    <div class="card mx-auto" style="width: 18rem;">
+      <img src= {{ court.photo.url }} class="card-img-top">
+      <div class="card-body">
+        <h5 class="card-title">{{ court.courtname }}</h5>
+        <p class="card-text"> {{ court.get_courttype_display }}球場，坐落於{{ court.city }}的知名球場。</p>
+        <a href={% url 'booking' court.id %} class="btn btn-primary">預約</a>
+      </div>
+    </div>
+</div>
+
+<div class="container m-5">
   <p>Back to: <a href='/courts'>Courts</a></p>
+</div>
     
 {% endblock %}

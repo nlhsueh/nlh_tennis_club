@@ -16,6 +16,9 @@ class Court(models.Model):
     ''' 列舉型態用 choices = 來設定 '''
     city = models.CharField(max_length=100)
 
+    photo = models.ImageField(upload_to='court_photos/', null=True, blank=True)
+
+
     def __str__(self):
         return f"{self.city} {self.courtname}"  
 

@@ -7,13 +7,24 @@
 
 {% block content %}
 
-  <h3>Courts</h3>
+<div class="container">
+  <h3 class="text-success">Courts</h3>
   
-  <ul>
-    {% for x in courts %}
-      {% comment %} <li><a href="details/{{ x.id }}">{{ x.courtname }} {{ x.courttype }}</a>, {{x.city}}</li> {% endcomment %}
-      <li><a href= {% url 'court_details' x.id %}>{{ x.courtname }} {{ x.courttype }}</a>, {{x.city}}</li>      
+  <table class="table table-striped table-bordered">
+    <tr>
+      <th> ID </th><th> 球場 </th><th> 所在城市 </th><th> 型態 </th><th> 照片 </th>
+    </tr>
+    {% for c in courts %}
+        <tr>
+          <td width="5%"> {{ c.id }} </td>
+          <td width="20%"><a href= {% url 'court_details' c.id %}>{{ c.courtname }}</a></td>
+          <td width="20%"> {{ c.city }} </td>
+          <td width="20%"> {{ c.courttype }} {{ c.get_courttype_display }} </td>
+          <td width="20%"> <img src={{ c.photo.url }}></td>
+        </tr>
     {% endfor %}
-  </ul>
+  </table>
+
+</div>  
 
 {% endblock %}
