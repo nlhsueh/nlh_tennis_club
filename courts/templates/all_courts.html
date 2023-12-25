@@ -20,7 +20,7 @@
           <td width="20%"><a href= {% url 'court_details' c.id %}>{{ c.courtname }}</a></td>
           <td width="20%"> {{ c.city }} </td>
           <td width="20%"> {{ c.courttype }} {{ c.get_courttype_display }} </td>
-          <td width="20%"> <img src={{ c.photo.url }}></td>
+          <td width="20%"> <img src={{ c.photo.url }} width="100px"></td>
         </tr>
     {% endfor %}
   </table>
