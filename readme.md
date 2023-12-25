@@ -8,6 +8,9 @@
 * `Court` 的類別，加上 `photo` 的欄位，用來儲存照片。欄位的型態是 ImageField
 * 透過 `upload_to` 來指定要上傳的目的地路徑。這裡路徑我們寫 `court_photos/`，是相對路徑，相對於 `setting` 中所設定的 `MEDIA_URL` 路徑。
 
+Fix bug: [/courts/views.py](/courts/views.py)
+* courts() 的第一行，要取得所有的球場，將 `courts = Court.objects.all.values()` 改為 `courts = Court.objects.all()`。修改後傳過去的 courts 才是一個完整物件的集合。
+
 [/my_tennis_club/settings.py](/my_tennis_club/settings.py)
 * 新增 `MEDIA_URL` 及 `MEDIA_ROOT` 的路徑-- 這是所有上傳的檔案的根目錄。
     * [/my_tennis_club/urls.py](/my_tennis_club/urls.py) 需要新增 `urlpatterns: urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)`。因為會用到 `static` 和 `setting`, 所以也要記得做 `import`。

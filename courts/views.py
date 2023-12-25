@@ -8,7 +8,7 @@ from datetime import date
 from django.contrib.auth.decorators import login_required
 
 def courts(request):
-  courts = Court.objects.all().values()
+  courts = Court.objects.all()
   template = loader.get_template('all_courts.html')
   context = {
     'courts': courts,
