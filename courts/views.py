@@ -37,8 +37,6 @@ def booking(request, court_id):
                 'reason': '' }
             booking_form = BookingForm(initial)
             context = {'booking_form': booking_form}
-            booking_page = loader.get_template('booking.html')
-            # return HttpResponse(booking_page.render(context, request))
             return render(request, 'booking.html', context)
         elif request.method == "POST":
             print ('POST method to booking form')
@@ -84,6 +82,6 @@ def getMember(request):
         member = Member.objects.get(user=request.user)
         print (member)
         return member
-    except Member.DoesNotExist:
+    except:
         print (f"The user {request.user} is not a member")
         return render(request, 'booking_error.html', None)

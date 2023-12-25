@@ -6,4 +6,3 @@ class CourtAdmin(admin.ModelAdmin):
 
 admin.site.register(Court, CourtAdmin)
 
-# admin.site.register(Member)
