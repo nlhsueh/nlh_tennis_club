@@ -7,24 +7,16 @@
 
 {% block content %}
 
-  <h3>Young Members (age<20)</h3>
-  
-  <ul>
-    {% for x in mymembers %}
-      {% if x.age < 20 %}
-      <li><a href="details/{{ x.id }}">{{ x.firstname }} {{ x.lastname }}</a>, {{x.age}}</li>
-      {% endif %}
-    {% endfor %}
-  </ul>
+<div class='container m-5'>
 
-  <h3>Adult Members (age>=20)</h3>
+  <h4 class='text-success'>會員</h4>
   
-  <ul>
-    {% for x in mymembers %}
-      {% if x.age >= 20 %}
-      <li><a href="details/{{ x.id }}">{{ x.firstname }} {{ x.lastname }}</a>, {{x.age}}</li>
-      {% endif %}
-    {% endfor %}
-  </ul>
+      <ul class="list-group">
+        {% for x in mymembers %}
+          <li class="list-group-item  bg-transparent"><a href="details/{{ x.id }}">{{ x.lastname }}{{ x.firstname }}</a>, ({{ x.user }}) {{x.age}} 歲</li>
+        {% endfor %}
+      </ul>
+
+</div>  
 
 {% endblock %}

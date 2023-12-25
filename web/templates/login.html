@@ -5,9 +5,14 @@ My Tennis Club
 {% endblock %}
 
 {% block content %}
-{{ login_form.errors }}
-{{ message }}
 
+{% comment %} login fail, show msg {% endcomment %}
+{% if err_login_msg %}
+    <div class="alert alert-danger">
+    <strong>Error:</strong>
+    {{ err_login_msg }}
+    </div>
+{% endif %}    
 
 <div class="container mt-2">
     <div class='row col-md-4'>

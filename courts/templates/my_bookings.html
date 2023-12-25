@@ -11,7 +11,7 @@ My Tennis Club - List of all bookings
 
 <ul>
     {% for booking in bookings %}
-    <li>{{booking.user}} 預約了{{ booking.date }} 的{{ booking.court.courtname }}, 因為 {{booking.reason }}</li>
+    <li>{{booking.user}} ({{member.firstname}}) 預約了{{ booking.date }} 的{{ booking.court.courtname }}, 因為 {{booking.reason }}</li>
     {% endfor %}
 </ul>
 {% endblock %}

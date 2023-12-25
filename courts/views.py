@@ -3,6 +3,7 @@ from django.http import HttpResponse, HttpResponseBadRequest
 from django.shortcuts import redirect
 from django.template import loader
 from .models import Court, Booking
+from members.models import Member
 from courts.forms import BookingForm
 from datetime import date
 from django.contrib.auth.decorators import login_required
@@ -42,6 +43,11 @@ def booking(request, court_id):
         elif request.method == "POST":
             print ('POST method to booking form')
             print (f"request.POST: {request.POST}")
+            try:
+                member = Member.objects.get(user=request.user)
+            except:
+                print (f'{request.user} is not a member')
+                pass
             booking_form = BookingForm(request.POST)
             if booking_form.is_valid():
                 booking_form.save()
@@ -53,6 +59,7 @@ def booking(request, court_id):
             context = {
                 'booking_form': booking_form,
                 'result': result, 
+                'member': member,
             }    
             return render(request, 'booking_result.html', context)
         else:
@@ -65,4 +72,18 @@ def my_bookings(request):
     print (f'All bookings by {request.user}:')
     for b in bookings:
         print (b)
-    return render(request, 'my_bookings.html', {'bookings':bookings})
+    member = getMember(request)    
+    print ('member.firstname', member.firstname)
+    context = {'member': member,
+               'bookings': bookings}
+    return render(request, 'my_bookings.html', context)
+
+def getMember(request):
+    print (request.user)
+    try:
+        member = Member.objects.get(user=request.user)
+        print (member)
+        return member
+    except Member.DoesNotExist:
+        print (f"The user {request.user} is not a member")
+        return render(request, 'booking_error.html', None)

@@ -6,11 +6,23 @@
 
 
 {% block content %}
-  <h1>{{ mymember.firstname }} {{ mymember.lastname }}</h1>
+
+<div class="container">
+  <h3 class="text-success">
+    {{ mymember.lastname }}{{ mymember.firstname }} 
+  </h3>
   
-  <p>Phone {{ mymember.phone }}</p>
-  <p>Member since: {{ mymember.joined_date }}</p>
+  <ul>
+    <li><strong>User ID: </strong>{{ mymember.user }}</li>
+    <li><strong>Phone: </strong>{{ mymember.phone }}</li>
+    <li><strong>Member since: </strong>{{ mymember.joined_date }}</li>
+    <li><strong>Age: </strong>{{ mymember.age }}</li>  
+  </ul>
   
-  <p>Back to <a href="/members">Members</a></p>
+</div>  
+
+<div class="container m-5">
+  <p>Back to: <a href='/members'>Members</a></p>
+</div>
   
 {% endblock %}

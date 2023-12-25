@@ -30,9 +30,15 @@ def login(request):
                            'message': 'login ok'}
                 return render(request, 'main.html', context)
             else:
-                message = 'Login failed (auth fail)'
+                err_login_msg = 'Login failed (user id/passworld not correct)'
         else:                    
-            print ('Login error (login form is not valid)')
+            err_login_msg = 'Login error (login form is not valid)'
+
+        # login fail
+        context = {'login_form': login_form, 
+                   'err_login_msg': err_login_msg}
+        return render(request, 'login.html', context)
+    
     else:
         print ('Error on request (not GET/POST)')
 
