@@ -1,6 +1,8 @@
 from django.http import HttpResponse
 from members.models import Member
 from django.template import loader
+from django.shortcuts import render
+from .forms import InputForm
 
 # def members(request):
 #     print ('request: ', request)
@@ -26,3 +28,18 @@ def details(request, id):
 def main(request):
   template = loader.get_template('main.html')
   return HttpResponse(template.render())
+
+def input(request):
+  template = loader.get_template('input.html')
+  context = {
+    'form': InputForm()
+  }
+  return HttpResponse(template.render(context, request))
+
+def input02(request):
+  print (request.method)
+  template = loader.get_template('input.html')
+  context = {
+    'form': InputForm()
+  }
+  return HttpResponse(template.render(context, request))
