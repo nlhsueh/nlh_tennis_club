@@ -2,11 +2,7 @@ from django.http import HttpResponse
 from members.models import Member
 from django.template import loader
 from django.shortcuts import render
-from .forms import InputForm
-
-# def members(request):
-#     print ('request: ', request)
-#     return HttpResponse("Hello world!")
+from .forms import CheckMemberForm, NewMemberForm
 
 def members(request):
   mymembers = Member.objects.all().values()
@@ -29,17 +25,47 @@ def main(request):
   template = loader.get_template('main.html')
   return HttpResponse(template.render())
 
-def input(request):
-  template = loader.get_template('input.html')
-  context = {
-    'form': InputForm()
-  }
-  return HttpResponse(template.render(context, request))
+def check_member(request):
+  if request.method == 'GET':
 
-def input02(request):
-  print (request.method)
-  template = loader.get_template('input.html')
-  context = {
-    'form': InputForm()
-  }
-  return HttpResponse(template.render(context, request))
+    if request.GET:
+      # get request from get submission
+      print ('提交 last form 後的 GET')
+      print (request.GET)
+      who_you_input = request.GET['last_name']
+      print ('who_you_input', who_you_input)
+      members = Member.objects.filter(lastname = who_you_input)
+      checked_members_page = loader.get_template('checked_members.html')
+      context = {
+        "lastname": who_you_input,
+        "checked_members": members
+      }
+      return HttpResponse(checked_members_page.render(context, request))      
+    else:
+      # original GET request
+      print ('第一次載入 form')
+      checking_member_page = loader.get_template('check_member.html')
+      context = {
+        'form': CheckMemberForm()
+      }
+      return HttpResponse(checking_member_page.render(context, request))
+  
+def new_member(request):
+  if request.method == 'GET':
+    template = loader.get_template('new_member.html')
+    context = {
+      'form': NewMemberForm()
+    }
+    return HttpResponse(template.render(context, request))
+  elif request.method == 'POST':
+    new_member_form = NewMemberForm(request.POST)
+    print ('new member form is created')
+    print (new_member_form)
+    if new_member_form.is_valid():
+        print ('valid and to save()')
+        new_member_form.save()
+        result = 'save ok'
+    else:
+        result = new_member_form.errors.as_data()
+    template = loader.get_template('new_member_result.html')
+    return HttpResponse(template.render({'result':result}, request))  
