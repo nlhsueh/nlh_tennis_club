@@ -9,17 +9,3 @@ class CheckMemberForm(forms.Form):
     # phone = forms.IntegerField(help_text = "Enter 6 digit roll number") 
     # joined_date = forms.DateField(label='加入日期',
     #                               widget= forms.SelectDateWidget)
-
-class NewMemberForm(forms.ModelForm): 
-    class Meta:
-        model = Member
-        fields = "__all__"
-
-        widgets = {
-                'joined_date': forms.SelectDateWidget(               
-                    attrs={'initial': date.today()}),   
-        }
-
-        labels = {
-            'joined_date': '加入日期'
-        }            
