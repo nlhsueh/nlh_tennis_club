@@ -49,23 +49,3 @@ def check_member(request):
         'form': CheckMemberForm()
       }
       return HttpResponse(checking_member_page.render(context, request))
-  
-def new_member(request):
-  if request.method == 'GET':
-    template = loader.get_template('new_member.html')
-    context = {
-      'form': NewMemberForm()
-    }
-    return HttpResponse(template.render(context, request))
-  elif request.method == 'POST':
-    new_member_form = NewMemberForm(request.POST)
-    print ('new member form is created')
-    print (new_member_form)
-    if new_member_form.is_valid():
-        print ('valid and to save()')
-        new_member_form.save()
-        result = 'save ok'
-    else:
-        result = new_member_form.errors.as_data()
-    template = loader.get_template('new_member_result.html')
-    return HttpResponse(template.render({'result':result}, request))  
