@@ -3,14 +3,14 @@
 {% block title %}
     Input Form
 {% endblock %}
-<h1>Add New Members</h1>
-
 
 {% block content %}
-    <form action = "" method = "post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" value='Submit'>
-    </form>
+<h1>Add New Members</h1>
+
+<form action = "" method = "post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input type="submit" value='Submit'>
+</form>
   
 {% endblock %}

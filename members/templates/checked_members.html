@@ -4,13 +4,16 @@
   My Tennis Club - List of checked members
 {% endblock %}
 
-
 {% block content %}
-  <h1>Members whose last name is {{ lastname }} </h1>
+  <h1>Checking Members: {{ lastname }} </h1>
   
-  <ul>
-    {% for x in checked_members %}
-      <li><a href="details/{{ x.id }}">{{ x.firstname }} {{ x.lastname }}</a></li>
-    {% endfor %}
-  </ul>
+    {% if checked_members %}
+        <ul>
+        {% for x in checked_members %}
+            <li><a href="details/{{ x.id }}">{{ x.firstname }} {{ x.lastname }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>查無此人</p>
+    {% endif %}            
 {% endblock %}
