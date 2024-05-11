@@ -3,7 +3,6 @@ from members.models import Member
 from django.template import loader
 from django.shortcuts import render
 from .forms import CheckMemberForm, NewMemberForm
-from django.views.decorators.cache import never_cache
 
 def members(request):
   mymembers = Member.objects.all().values()
@@ -22,17 +21,16 @@ def details(request, id):
   }
   return HttpResponse(template.render(context, request))
 
+
 def main(request):
   template = loader.get_template('main.html')
   return HttpResponse(template.render())
 
-@never_cache
+
 def check_member(request):
   if request.method == 'GET':
-
     if request.GET:
       # GET request from submission
-      print ('提交 last form 後的 GET')
       print ('request.GET: ', request.GET)
       who_you_input = request.GET['last_name']
       print ('who_you_input: ', who_you_input)
@@ -52,14 +50,12 @@ def check_member(request):
       }
       return HttpResponse(checking_member_page.render(context, request))
 
-@never_cache
+
 def new_member(request):
   if request.method == 'GET':
-    template = loader.get_template('new_member.html')
-    context = {
-      'form': NewMemberForm()
-    }
-    return HttpResponse(template.render(context, request))
+    new_member = loader.get_template('new_member.html')
+    context = {'form': NewMemberForm()}
+    return HttpResponse(new_member.render(context, request))
   elif request.method == 'POST':
     new_member_form = NewMemberForm(request.POST)
     print ('new_member_form: ', new_member_form)
@@ -69,5 +65,5 @@ def new_member(request):
         result = 'Add a new member successfully'
     else:
         result = new_member_form.errors.as_data()
-    template = loader.get_template('new_member_result.html')
-    return HttpResponse(template.render({'result':result}, request))  
+    new_member_result = loader.get_template('new_member_result.html')
+    return HttpResponse(new_member_result.render({'result':result}, request))  
