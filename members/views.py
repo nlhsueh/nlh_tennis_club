@@ -22,8 +22,9 @@ def details(request, id):
 
 def main(request):
     print ('main is called')
+    print(request.session.items()) 
     template = loader.get_template('main.html')
-    return HttpResponse(template.render())
+    return HttpResponse(template.render({}, request))
 
 def testing(request):
     template = loader.get_template('template.html')
