@@ -1,3 +1,13 @@
+
+前一版本：courts
+
+此一本版：web
+* 可以登入
+* 選擇球場後可進行預約; 預約時要選擇預約的時間。我們設定一個規則：一天內對於一個球場只能預約一次。
+* 選擇我的預約可以觀看我的預約。
+* 進行預約及觀看預約都需要登入。如果沒有登入就點擊，系統會直接導到登入頁。
+* 回到主頁，如果是登入狀態的話，會出現登出的選項。
+
 ## 登入
 * [/web/form.py](/web/forms.py)
     * 設計一個登入的表單 LoginForm, 包含 username 與 password。其中password 在輸入時希望遮蔽，所以我們設定 `widget=forms.PasswordInput`
@@ -31,10 +41,10 @@
 
 ## 預約表單 (BookingForm) 
 * 當我們要預約一個網球場時，需要一個 form，在此我們設計一個 `BookingForm`, 在 [/courts/forms.py](/courts/forms.py)
-* 需要繼承 `forms.ModelForm`
+* `BookingForm` 需要繼承 `forms.ModelForm`
 * 透過 `class Meta` 來宣告一些設定: 資料的綁定、要呈現哪些欄位？每個欄位的介面如何呈現？每個資料欄位的標記為何：
     * model: 對應的資料來源。此例為 `Booking`
-    * fields: 要呈現哪些資料在 form 中？如果是全部就寫 __all__, 如果是部分就用一個 list 來表示，list 為欄位的集合。
+    * fields: 要呈現哪些資料在 form 中？如果是全部就寫 `__all__`, 如果是部分就用一個 list 來表示，list 為欄位的集合。
     * widgets: 每個資料的呈現設定，例如是要用選擇，還是文字框。
     * labels: 每個資料的標記。因為 model 內的資料欄位是英文（例如 court），不容易理解。用 label 可以以解決此問題。
 
