@@ -1,0 +1,14 @@
+{% extends "master.html" %}
+
+{% block title %}
+    Query Member
+{% endblock %}
+<h1>Check Members by gender</h1>
+
+{% block content %}
+    <form action = "" method = "GET">
+        {{ form.as_p }}
+        <input type="submit" value='Submit'>
+    </form>
+  
+{% endblock %}

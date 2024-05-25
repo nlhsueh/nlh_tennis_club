@@ -6,11 +6,13 @@
 
 
 {% block content %}
-  <h1>{{ mymember.firstname }} {{ mymember.lastname }}</h1>
+  <h2>{{ mymember.firstname }} {{ mymember.lastname }}</h2>
+  <ul>
+    <li>Phone {{ mymember.phone }}</li>
+    <li>Member since: {{ mymember.joined_date }}</li>
+    <li>Gender: {{ mymember.gender }}</li>
+  </ul>
   
-  <p>Phone {{ mymember.phone }}</p>
-  <p>Member since: {{ mymember.joined_date }}</p>
-  
-  <p>Back to <a href="/members">Members</a></p>
+  <footer><p>Back to <a href="/members">Members</a></p></footer>
   
 {% endblock %}

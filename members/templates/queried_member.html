@@ -1,0 +1,16 @@
+{% extends "master.html" %}
+
+{% block title %}
+    Result of queried members
+{% endblock %}
+
+
+{% block content %}
+  <h3>Members whose gender is {{ gender }} </h3>
+  
+  <ul>
+    {% for x in queried_members %}
+      <li><a href="details/{{ x.id }}">{{ x.firstname }} {{ x.lastname }}</a></li>
+    {% endfor %}
+  </ul>
+{% endblock %}

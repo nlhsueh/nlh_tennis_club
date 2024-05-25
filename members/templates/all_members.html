@@ -7,22 +7,22 @@
 
 {% block content %}
 
-  <h3>Young Members (age<20)</h3>
+  <h3> Male Member </h3>
   
   <ul>
     {% for x in mymembers %}
-      {% if x.age < 20 %}
-      <li><a href="details/{{ x.id }}">{{ x.firstname }} {{ x.lastname }}</a>, {{x.age}}</li>
+      {% if x.gender == 'M' %}
+      <li><a href="details/{{ x.id }}">{{ x.firstname }} {{ x.lastname }}</a>, {{x.gender}}</li>
       {% endif %}
     {% endfor %}
   </ul>
 
-  <h3>Adult Members (age>=20)</h3>
+  <h3> Femal Member </h3>
   
   <ul>
     {% for x in mymembers %}
-      {% if x.age >= 20 %}
-      <li><a href="details/{{ x.id }}">{{ x.firstname }} {{ x.lastname }}</a>, {{x.age}}</li>
+      {% if x.gender == 'F' %}
+      <li><a href="details/{{ x.id }}">{{ x.firstname }} {{ x.lastname }}</a>, {{x.gender}}</li>
       {% endif %}
     {% endfor %}
   </ul>

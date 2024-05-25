@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from .models import Member
+from .forms import QueryMemberForm
 
 # Create your views here.
 def members(request):
@@ -26,9 +27,22 @@ def main(request):
     template = loader.get_template('main.html')
     return HttpResponse(template.render({}, request))
 
-def testing(request):
-    template = loader.get_template('template.html')
-    context = {
-      'fruits': ['Apple', 'Banana', 'Cherry'],   
-    }
-    return HttpResponse(template.render(context, request))
+def query_member(request):
+    if request.method == 'GET':
+
+        if request.GET:
+            gender = request.GET['gender']
+            members = Member.objects.filter(gender=gender)
+            template = loader.get_template('queried_member.html')
+            context = {
+                "gender": gender,
+                "queried_members": members
+            }
+            return HttpResponse(template.render(context, request))
+        else:
+            checking_member_page = loader.get_template('query_member.html')
+            context = {
+                'form': QueryMemberForm()
+            }
+            return HttpResponse(checking_member_page.render(context, request))        
+    
