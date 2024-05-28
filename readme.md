@@ -24,7 +24,7 @@ Solution
   * 到 [urls.py](/members/urls.py) 中加上路徑 query, 指向 query_member()
   * 新增查詢頁面 [query.html](/members/templates/query_member.html)
   * 新增一個 [query form](/members/forms.py), 透過 Meta 的設定呈現 gender
-  * 修改 [views.py](/members/views.py)，加上 query_member(). query_member() 會依據表單的性別進行 filter 的查詢，最後傳到 [queried_member.html]((/members/templates/queried_member.html)
+  * 修改 [views.py](/members/views.py)，加上 query_member(). query_member() 會依據表單的性別進行 filter 的查詢，最後傳到 [queried_member.html](/members/templates/queried_member.html)
 * PAGES
   * 透過修改 [master.html](/members/templates/master.html) 改變整體版面
     * 登入登出頁統合在網頁的上方
