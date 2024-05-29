@@ -9,7 +9,7 @@ user = models.OneToOneField(User, on_delete=models.CASCADE, default= None, blank
 ```
 * 因為一個 `user` 對應一個 `member`, 所以採用 `OneToOneField` 來建立 `user`。
 
-[/members/views.py](/members/views.py)
+[/courts/views.py](/courts/views.py)
 * 把對應的 `member` 找出來傳過去，我們宣告了一個新的 function `getMember()`
 
 [/members/templates/all_members.html](/members/templates/all_members.html)
