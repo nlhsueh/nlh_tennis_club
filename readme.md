@@ -29,8 +29,8 @@
 ### 📋 第 1 階段：基礎設置
 
 #### 1.1 安裝 HTMX 庫
+在 [master.html](members/templates/master.html) 中添加
 ```html
-<!-- 在 [master.html](my_tennis_club/templates/master.html) 中添加 -->
 <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 ```
 
@@ -219,7 +219,7 @@ def update_member(request, id):
 
 **實現步驟**：
 
-1. **在模板中添加篩選器**：
+1. **在 [all_courts.html](courts/templates/all_courts.html) 中添加篩選器**：
 ```html
 <select name="court-type" 
         hx-get="/courts/"
@@ -260,7 +260,7 @@ def courts(request):
 
 **實現步驟**：
 
-1. **場館項目添加觸發器**：
+1. **在 [court_details.html](courts/templates/court_details.html) 中添加觸發器**：
 ```html
 <div class="court-card"
      hx-get="{% url 'booking_form' court.id %}"
@@ -282,7 +282,7 @@ def booking_form(request, court_id):
     })
 ```
 
-3. **建立 [fragments/booking_form.html](courts/templates/fragments/booking_form.html) 進行即時驗證日期可用性**：
+3. **建立或更新 [fragments/booking_form.html](courts/templates/fragments/booking_form.html) 進行即時驗證日期可用性**：
 ```html
 <!-- fragments/booking_form.html -->
 <form hx-post="{% url 'create_booking' %}"
