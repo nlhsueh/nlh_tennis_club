@@ -24,6 +24,39 @@
 
 ---
 
+## 快速開始指南
+
+### ✨ 第一步：了解文件結構
+
+**已存在的文件**（無需修改）：
+- ✅ [members/templates/master.html](members/templates/master.html) - 主模板（已添加 HTMX）
+- ✅ [members/templates/all_members.html](members/templates/all_members.html) - 成員列表頁面
+- ✅ [members/templates/details.html](members/templates/details.html) - 成員詳情頁面
+- ✅ [courts/templates/all_courts.html](courts/templates/all_courts.html) - 場館列表頁面
+- ✅ [courts/templates/court_details.html](courts/templates/court_details.html) - 場館詳情頁面
+- ✅ [members/views.py](members/views.py) - 成員視圖
+- ✅ [courts/views.py](courts/views.py) - 場館視圖
+
+**需要創建的目錄**：
+```bash
+mkdir -p members/templates/fragments
+mkdir -p courts/templates/fragments
+```
+
+**需要創建的新片段文件**：
+
+**成員模塊**：
+- [members/templates/fragments/member_list.html](members/templates/fragments/member_list.html) - 成員列表片段
+- [members/templates/fragments/member_item.html](members/templates/fragments/member_item.html) - 單個成員項目
+- [members/templates/fragments/member_detail_modal.html](members/templates/fragments/member_detail_modal.html) - 成員詳情模態
+- [members/templates/fragments/member_edit_form.html](members/templates/fragments/member_edit_form.html) - 成員編輯表單
+
+**場館模塊**：
+- [courts/templates/fragments/court_list.html](courts/templates/fragments/court_list.html) - 場館列表片段
+- [courts/templates/fragments/booking_form.html](courts/templates/fragments/booking_form.html) - 預訂表單片段
+
+---
+
 ## 重構計畫 (5 個階段)
 
 ### 📋 第 1 階段：基礎設置
@@ -56,13 +89,18 @@ def members(request):
 ```
 
 #### 1.3 建立片段模板目錄
+
+需要在 `members/templates/` 下創建新的 `fragments/` 資料夾及以下文件：
 ```
 members/templates/
-├── [all_members.html](members/templates/all_members.html)           # 完整頁面
-├── fragments/
-│   ├── [member_list.html](members/templates/fragments/member_list.html)       # 成員列表片段
-│   ├── [member_item.html](members/templates/fragments/member_item.html)       # 單個成員項目
-│   └── [member_form.html](members/templates/fragments/member_form.html)       # 成員表單片段
+├── master.html                   # 已存在 ✓
+├── all_members.html              # 已存在 ✓
+├── details.html                  # 已存在 ✓
+├── fragments/                    # 需要創建
+│   ├── member_list.html          # 新建 - 成員列表片段
+│   ├── member_item.html          # 新建 - 單個成員項目
+│   ├── member_detail_modal.html  # 新建 - 成員詳情模態
+│   └── member_edit_form.html     # 新建 - 成員編輯表單
 ```
 
 ---
@@ -75,7 +113,7 @@ members/templates/
 
 **實現步驟**：
 
-1. **在 [all_members.html](members/templates/all_members.html) 中添加搜尋表單**：
+1. **修改 [all_members.html](members/templates/all_members.html)（已存在）**，在其中添加搜尋表單：
 ```html
 <!-- all_members.html -->
 <input type="text" 
@@ -120,7 +158,7 @@ def members(request):
 
 **實現步驟**：
 
-1. **在 [fragments/member_item.html](members/templates/fragments/member_item.html) 中添加 HTMX 觸發器**：
+1. **創建新文件 [member_item.html](members/templates/fragments/member_item.html)**（成員項目片段），在其中添加 HTMX 觸發器：
 ```html
 <!-- fragments/member_item.html -->
 <li class="list-group-item" 
@@ -139,7 +177,7 @@ def member_detail_modal(request, id):
     return render(request, 'fragments/member_detail_modal.html', {'mymember': mymember})
 ```
 
-3. **建立 [fragments/member_detail_modal.html](members/templates/fragments/member_detail_modal.html) 模態模板**：
+3. **創建新文件 [member_detail_modal.html](members/templates/fragments/member_detail_modal.html)**（詳情模態片段）：
 ```html
 <!-- fragments/member_detail_modal.html -->
 <div class="modal-header">
@@ -168,7 +206,7 @@ def member_detail_modal(request, id):
 </button>
 ```
 
-2. **在 [members/views.py](members/views.py) 中返回編輯表單**：
+2. **創建新文件 [member_edit_form.html](members/templates/fragments/member_edit_form.html)**（編輯表單片段）在 [members/views.py](members/views.py) 中返回編輯表單
 ```python
 def edit_member_form(request, id):
     member = Member.objects.get(id=id)
@@ -191,7 +229,7 @@ def update_member(request, id):
         return render(request, 'fragments/member_item.html', {'x': member})
 ```
 
-4. **建立 [fragments/member_edit_form.html](members/templates/fragments/member_edit_form.html) 編輯表單模板**：
+4. **創建新文件 [member_edit_form.html](members/templates/fragments/member_edit_form.html)**（編輯表單片段）：
 ```html
 <!-- fragments/member_edit_form.html -->
 <form hx-post="{% url 'update_member' member.id %}"
@@ -219,7 +257,7 @@ def update_member(request, id):
 
 **實現步驟**：
 
-1. **在 [all_courts.html](courts/templates/all_courts.html) 中添加篩選器**：
+1. **修改 [all_courts.html](courts/templates/all_courts.html)（已存在）**，添加篩選器：
 ```html
 <select name="court-type" 
         hx-get="/courts/"
@@ -260,7 +298,7 @@ def courts(request):
 
 **實現步驟**：
 
-1. **在 [court_details.html](courts/templates/court_details.html) 中添加觸發器**：
+1. **修改 [court_details.html](courts/templates/court_details.html)（已存在）**，添加觸發器：
 ```html
 <div class="court-card"
      hx-get="{% url 'booking_form' court.id %}"
@@ -282,7 +320,7 @@ def booking_form(request, court_id):
     })
 ```
 
-3. **建立或更新 [fragments/booking_form.html](courts/templates/fragments/booking_form.html) 進行即時驗證日期可用性**：
+3. **創建新文件 [booking_form.html](courts/templates/fragments/booking_form.html)**（預訂表單片段），進行即時驗證日期可用性：
 ```html
 <!-- fragments/booking_form.html -->
 <form hx-post="{% url 'create_booking' %}"
