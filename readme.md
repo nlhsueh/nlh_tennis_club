@@ -30,7 +30,7 @@
 
 #### 1.1 安裝 HTMX 庫
 ```html
-<!-- 在 master.html 中添加 -->
+<!-- 在 [master.html](my_tennis_club/templates/master.html) 中添加 -->
 <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 ```
 
@@ -42,7 +42,7 @@
 - 如果是 HTMX 請求，返回只含內容的片段
 - 如果是普通請求，返回完整頁面
 
-**範例**：
+**範例**（修改 [members/views.py](members/views.py)）：
 ```python
 def members(request):
     mymembers = Member.objects.all()
@@ -58,11 +58,11 @@ def members(request):
 #### 1.3 建立片段模板目錄
 ```
 members/templates/
-├── all_members.html           # 完整頁面
+├── [all_members.html](members/templates/all_members.html)           # 完整頁面
 ├── fragments/
-│   ├── member_list.html       # 成員列表片段
-│   ├── member_item.html       # 單個成員項目
-│   └── member_form.html       # 成員表單片段
+│   ├── [member_list.html](members/templates/fragments/member_list.html)       # 成員列表片段
+│   ├── [member_item.html](members/templates/fragments/member_item.html)       # 單個成員項目
+│   └── [member_form.html](members/templates/fragments/member_form.html)       # 成員表單片段
 ```
 
 ---
@@ -75,7 +75,7 @@ members/templates/
 
 **實現步驟**：
 
-1. **在模板中添加搜尋表單**：
+1. **在 [all_members.html](members/templates/all_members.html) 中添加搜尋表單**：
 ```html
 <!-- all_members.html -->
 <input type="text" 
@@ -90,7 +90,7 @@ members/templates/
 </div>
 ```
 
-2. **在視圖中處理搜尋參數**：
+2. **在 [members/views.py](members/views.py) 中處理搜尋參數**：
 ```python
 def members(request):
     mymembers = Member.objects.all()
@@ -120,7 +120,7 @@ def members(request):
 
 **實現步驟**：
 
-1. **在列表中添加 HTMX 觸發器**：
+1. **在 [fragments/member_item.html](members/templates/fragments/member_item.html) 中添加 HTMX 觸發器**：
 ```html
 <!-- fragments/member_item.html -->
 <li class="list-group-item" 
@@ -132,14 +132,14 @@ def members(request):
 </li>
 ```
 
-2. **創建返回模態內容的視圖**：
+2. **在 [members/views.py](members/views.py) 中創建返回模態內容的視圖**：
 ```python
 def member_detail_modal(request, id):
     mymember = Member.objects.get(id=id)
     return render(request, 'fragments/member_detail_modal.html', {'mymember': mymember})
 ```
 
-3. **模態模板**：
+3. **建立 [fragments/member_detail_modal.html](members/templates/fragments/member_detail_modal.html) 模態模板**：
 ```html
 <!-- fragments/member_detail_modal.html -->
 <div class="modal-header">
@@ -168,14 +168,14 @@ def member_detail_modal(request, id):
 </button>
 ```
 
-2. **返回編輯表單**：
+2. **在 [members/views.py](members/views.py) 中返回編輯表單**：
 ```python
 def edit_member_form(request, id):
     member = Member.objects.get(id=id)
     return render(request, 'fragments/member_edit_form.html', {'member': member})
 ```
 
-3. **處理表單提交**：
+3. **在 [members/views.py](members/views.py) 中處理表單提交**：
 ```python
 def update_member(request, id):
     member = Member.objects.get(id=id)
@@ -191,7 +191,7 @@ def update_member(request, id):
         return render(request, 'fragments/member_item.html', {'x': member})
 ```
 
-4. **編輯表單模板**：
+4. **建立 [fragments/member_edit_form.html](members/templates/fragments/member_edit_form.html) 編輯表單模板**：
 ```html
 <!-- fragments/member_edit_form.html -->
 <form hx-post="{% url 'update_member' member.id %}"
@@ -235,7 +235,7 @@ def update_member(request, id):
 </div>
 ```
 
-2. **在視圖中處理篩選**：
+2. **在 [courts/views.py](courts/views.py) 中處理篩選**：
 ```python
 def courts(request):
     courts = Court.objects.all()
@@ -270,7 +270,7 @@ def courts(request):
 </div>
 ```
 
-2. **視圖返回預訂表單**：
+2. **在 [courts/views.py](courts/views.py) 中新增視圖返回預訂表單**：
 ```python
 def booking_form(request, court_id):
     court = Court.objects.get(id=court_id)
@@ -282,7 +282,7 @@ def booking_form(request, court_id):
     })
 ```
 
-3. **即時驗證日期可用性**：
+3. **建立 [fragments/booking_form.html](courts/templates/fragments/booking_form.html) 進行即時驗證日期可用性**：
 ```html
 <!-- fragments/booking_form.html -->
 <form hx-post="{% url 'create_booking' %}"
@@ -301,7 +301,7 @@ def booking_form(request, court_id):
 </form>
 ```
 
-4. **檢查可用性視圖**：
+4. **在 [courts/views.py](courts/views.py) 中新增檢查可用性視圖**：
 ```python
 def check_availability(request):
     court_id = request.POST.get('court_id')
