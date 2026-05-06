@@ -1,0 +1,9 @@
+<!-- 單個成員項目片段 -->
+<li class="list-group-item bg-transparent" 
+    id="member-{{ x.id }}"
+    hx-get="{% url 'member_detail' x.id %}"
+    hx-target="#modal-content"
+    hx-on::after-swap="showModal()"
+    style="cursor: pointer;">
+  <a href="details/{{ x.id }}">{{ x.lastname }}{{ x.firstname }}</a>, ({{ x.user }}) {{x.age}} 歲
+</li>

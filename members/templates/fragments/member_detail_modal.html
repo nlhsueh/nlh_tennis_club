@@ -1,0 +1,21 @@
+<!-- 成員詳情模態片段 -->
+<div class="modal-header">
+  <h5 class="modal-title">成員詳情</h5>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+  <p><strong>姓名</strong>：{{ mymember.lastname }}{{ mymember.firstname }}</p>
+  <p><strong>使用者名稱</strong>：{{ mymember.user }}</p>
+  <p><strong>年齡</strong>：{{ mymember.age }} 歲</p>
+  <p><strong>電話</strong>：{{ mymember.phone }}</p>
+  <p><strong>入會日期</strong>：{{ mymember.joined_date }}</p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-primary"
+          hx-get="{% url 'edit_member_form' mymember.id %}"
+          hx-target="#modal-body"
+          hx-swap="innerHTML">
+    編輯
+  </button>
+  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">關閉</button>
+</div>

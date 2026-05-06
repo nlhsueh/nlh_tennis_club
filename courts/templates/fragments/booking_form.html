@@ -1,0 +1,26 @@
+<!-- 預訂表單片段 -->
+<form hx-post="{% url 'create_booking' %}"
+      hx-target="#booking-result"
+      hx-on::after-request="if(event.detail.xhr.status===201) showSuccessNotification('預訂成功！')"
+      class="needs-validation">
+  {% csrf_token %}
+  
+  <input type="hidden" name="court_id" value="{{ court.id }}">
+  
+  <div class="mb-3">
+    <label for="booking_date" class="form-label">預訂日期</label>
+    <input type="date" class="form-control" id="booking_date" name="booking_date" 
+           hx-post="{% url 'check_availability' %}"
+           hx-target="#availability-status"
+           hx-include="[name='court_id']"
+           required>
+    <div id="availability-status" class="mt-2"></div>
+  </div>
+  
+  <div class="mb-3">
+    <button type="submit" class="btn btn-primary">確認預訂</button>
+    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">取消</button>
+  </div>
+</form>
+
+<div id="booking-result"></div>

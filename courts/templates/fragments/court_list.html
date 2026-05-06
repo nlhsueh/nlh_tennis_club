@@ -1,0 +1,31 @@
+<!-- 場館列表片段 -->
+<div class="row">
+  {% for court in courts %}
+    <div class="col-md-4 mb-4">
+      <div class="card" 
+           hx-get="{% url 'court_details' court.id %}"
+           hx-target="#court-detail-modal"
+           hx-on::after-swap="showModal()"
+           style="cursor: pointer;">
+        {% if court.photo %}
+          <img src="{{ court.photo.url }}" class="card-img-top" alt="{{ court.courtname }}">
+        {% else %}
+          <div class="bg-light card-img-top" style="height: 200px; display: flex; align-items: center; justify-content: center;">
+            <span class="text-muted">無圖片</span>
+          </div>
+        {% endif %}
+        <div class="card-body">
+          <h5 class="card-title">{{ court.courtname }}</h5>
+          <p class="card-text">
+            <strong>城市</strong>：{{ court.city }}<br>
+            <strong>類型</strong>：{{ court.get_courttype_display }}
+          </p>
+        </div>
+      </div>
+    </div>
+  {% empty %}
+    <div class="col-12">
+      <p class="text-muted">沒有找到符合條件的場館。</p>
+    </div>
+  {% endfor %}
+</div>

@@ -1,0 +1,40 @@
+<!-- 成員編輯表單片段 -->
+<form hx-post="{% url 'update_member' member.id %}"
+      hx-target="#member-{{ member.id }}"
+      hx-swap="outerHTML"
+      class="needs-validation">
+  {% csrf_token %}
+  <div class="mb-3">
+    <label for="firstname" class="form-label">名字</label>
+    <input type="text" class="form-control" id="firstname" name="firstname" 
+           value="{{ member.firstname }}" required>
+  </div>
+  
+  <div class="mb-3">
+    <label for="lastname" class="form-label">姓氏</label>
+    <input type="text" class="form-control" id="lastname" name="lastname" 
+           value="{{ member.lastname }}" required>
+  </div>
+  
+  <div class="mb-3">
+    <label for="phone" class="form-label">電話</label>
+    <input type="tel" class="form-control" id="phone" name="phone" 
+           value="{{ member.phone|default:'' }}">
+  </div>
+  
+  <div class="mb-3">
+    <label for="age" class="form-label">年齡</label>
+    <input type="number" class="form-control" id="age" name="age" 
+           value="{{ member.age }}">
+  </div>
+  
+  <div class="mb-3">
+    <button type="submit" class="btn btn-success">保存</button>
+    <button type="button" class="btn btn-secondary"
+            hx-get="{% url 'member_detail' member.id %}"
+            hx-target="this"
+            hx-swap="outerHTML">
+      取消
+    </button>
+  </div>
+</form>
