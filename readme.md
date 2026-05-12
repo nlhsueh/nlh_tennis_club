@@ -164,7 +164,8 @@ def members(request):
 <li class="list-group-item" 
     hx-get="{% url 'member_detail_modal' x.id %}"
     hx-target="#modal-content"
-    hx-on::after-swap="showModal()"
+    data-bs-toggle="modal"
+    data-bs-target="#memberModal"
     style="cursor: pointer;">
   {{ x.lastname }}{{ x.firstname }} ({{ x.age }} 歲)
 </li>
@@ -402,7 +403,7 @@ def check_availability(request):
 
 <!-- 操作後顯示成功訊息 -->
 <button hx-post="{% url 'create_booking' %}"
-        hx-on::after-request="if(event.detail.xhr.status===201) showNotification('預訂成功！')">
+        hx-on::after-request="if(event.detail.xhr.status===201) { alert('預訂成功！'); window.location.reload(); }">
   預訂
 </button>
 ```
@@ -484,6 +485,34 @@ python manage.py runserver
 - **htmx** (當前分支) - HTMX 重構版本
 - **bind_user** - 前一個分支，使用傳統全頁刷新方式
 
+---
 
+## 🛠️ 已完成之實作細節 (Implementation Details)
 
+在本次的更新中，我們已將原先預先準備好的 HTMX fragments 完全整合進系統頁面與後端視圖中，主要完成了以下項目：
 
+### 1. UI 頁面的 HTMX 整合
+* **`members/templates/all_members.html`**：
+  - 移除了原本靜態渲染的迴圈，改以 `{% include "fragments/member_list.html" %}` 替代。
+  - 新增了具備 HTMX 屬性的搜尋框 (`<input hx-get="{% url 'members' %}" hx-target="#member-list" hx-trigger="input changed delay:500ms">`)，達到輸入時即時過濾成員列表的效果。
+  - 加入了 Bootstrap 的 Modal 容器 (`<div id="modal-content">`) 與 `showModal()` JavaScript 函式，供片段動態載入成員詳情與編輯表單。
+* **`courts/templates/all_courts.html`**：
+  - 移除了原先的靜態表格，改用 `{% include "fragments/court_list.html" %}`。
+  - 實作了 HTMX 下拉選單 (`<select hx-get="{% url 'courts' %}" hx-target="#court-list">`)，實現不刷新頁面的場地類型與城市過濾。
+  - 加入了對應的 Modal 容器與腳本，使場地詳情與預訂表單能在彈出視窗中無縫操作。
+
+### 2. 後端視圖 (Views) 支援 HTMX 請求
+* **`members/views.py` 與 `courts/views.py`**：
+  - 於 `members()` 和 `courts()` 列表視圖中，加入了過濾器邏輯，並使用 `if request.headers.get('HX-Request'):` 進行判斷。若偵測到是 HTMX 發出的 AJAX 請求，則只回傳對應的局部 HTML 片段 (例如 `fragments/member_list.html`)，而非整個包含框架的完整頁面。
+  - 於 `courts` 的 `details()` 視圖中，加入了相同的判斷以回傳新建立的 `court_detail_modal.html` 模態框片段，確保從列表點擊場館時可以完美顯示在彈出視窗中。
+
+### 3. URL 路由與附屬端點擴充
+* 為了讓前端的片段能正確與後端互動，我們在 `urls.py` 中新增了對應的路由與視圖處理：
+  - **Members 模塊**：新增 `member_detail` (用於在 Modal 顯示詳情)、`edit_member_form` (用於載入內聯編輯表單) 以及 `update_member` (用於處理 POST 資料更新)。
+  - **Courts 模塊**：新增 `booking_form` (用於在詳情 Modal 中非同步載入預訂表單)、`check_availability` (即時驗證日期是否已被預訂) 以及 `create_booking` (處理預訂請求並回傳成功/失敗提示)。
+
+### 4. 修復體驗問題與新增進階功能 (Bug Fixes & Enhancements)
+* **修復 Modal 無法開啟的問題**：移除了原先片段中不穩定的 `hx-on::after-swap="showModal()"`，改為使用原生的 Bootstrap 屬性 (`data-bs-toggle="modal" data-bs-target="..."`)。這可確保每次點擊時 Modal 必定彈出，並完美與 HTMX 的非同步內容載入結合。
+* **修復未定義之 JavaScript 錯誤**：將 `booking_form.html` 中因找不到 `showSuccessNotification` 而導致的錯誤，暫時更換為原生的 `alert('預訂成功！')` 與 `window.location.reload()` 來確保操作回饋正常運作。
+* ✨ **新增：我的預約清單即時取消 (動態動畫)**：在 `my_bookings.html` 中實作了 `hx-delete` 與 `hx-target="closest li"`。點擊取消預訂時，會發送刪除請求到後端，並且搭配 `hx-swap="outerHTML swap:0.5s"` 以及自訂 CSS 類別 `.htmx-swapping`，實現預約項目淡出並向右滑動消失的華麗過場效果。
+* ✨ **新增：會員編輯成功後自動關閉 Modal**：在 `member_edit_form.html` 中加入了 `hx-on::after-request`，當表單送出且後端回傳 200 成功狀態時，自動呼叫 Bootstrap 的 JavaScript API 來把 Modal 關閉，同時主列表中的會員資料已經被 HTMX 完美替換，達成極致的順暢體驗！

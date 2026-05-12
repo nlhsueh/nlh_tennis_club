@@ -5,7 +5,8 @@
       <div class="card" 
            hx-get="{% url 'court_details' court.id %}"
            hx-target="#court-detail-modal"
-           hx-on::after-swap="showModal()"
+           data-bs-toggle="modal"
+           data-bs-target="#courtModal"
            style="cursor: pointer;">
         {% if court.photo %}
           <img src="{{ court.photo.url }}" class="card-img-top" alt="{{ court.courtname }}">

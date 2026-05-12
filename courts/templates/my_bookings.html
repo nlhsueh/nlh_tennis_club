@@ -11,9 +11,27 @@ My Tennis Club - List of all bookings
 
     <h3 class="text-success m-2">{{ mymember.lastname}}{{ member.firstname }} ({{ member.user }}) 的預約</h3>
 
+    <style>
+      .htmx-swapping {
+        opacity: 0;
+        transform: translateX(100%);
+      }
+    </style>
+
     <ul class="list-group">
         {% for booking in bookings %}
-            <li class="list-group-item bg-transparent">因為 {{booking.reason }}， 預約了 {{ booking.date }} 的 {{ booking.court.courtname }} </li>
+            <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center"
+                style="transition: all 0.5s ease-out;">
+                <span>預約了 <strong>{{ booking.date }}</strong> 的 <strong>{{ booking.court.courtname }}</strong></span>
+                <button type="button" class="btn btn-sm btn-outline-danger"
+                        hx-delete="{% url 'cancel_booking' booking.id %}"
+                        hx-target="closest li"
+                        hx-swap="outerHTML swap:500ms">
+                    取消預訂
+                </button>
+            </li>
+        {% empty %}
+            <li class="list-group-item bg-transparent text-muted">目前沒有預約。</li>
         {% endfor %}
     </ul>
 

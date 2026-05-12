@@ -1,0 +1,23 @@
+<div class="modal-header">
+  <h5 class="modal-title">{{ court.courtname }}</h5>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+<div class="modal-body">
+  {% if court.photo %}
+    <img src="{{ court.photo.url }}" class="img-fluid mb-3" style="max-height: 200px; object-fit: cover; width: 100%;" alt="{{ court.courtname }}">
+  {% endif %}
+  <p><strong>類型：</strong> {{ court.get_courttype_display }}</p>
+  <p><strong>城市：</strong> {{ court.city }}</p>
+  
+  <hr>
+  <h5>預訂此場館</h5>
+  <div id="booking-form-container"
+       hx-get="{% url 'booking_form' court.id %}"
+       hx-trigger="load">
+    <div class="text-center">
+      <div class="spinner-border text-primary" role="status">
+        <span class="visually-hidden">載入中...</span>
+      </div>
+    </div>
+  </div>
+</div>

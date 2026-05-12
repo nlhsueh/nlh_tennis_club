@@ -2,6 +2,7 @@
 <form hx-post="{% url 'update_member' member.id %}"
       hx-target="#member-{{ member.id }}"
       hx-swap="outerHTML"
+      hx-on::after-request="if(event.detail.xhr.status === 200) bootstrap.Modal.getInstance(document.getElementById('memberModal')).hide()"
       class="needs-validation">
   {% csrf_token %}
   <div class="mb-3">

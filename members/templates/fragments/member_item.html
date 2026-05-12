@@ -3,7 +3,8 @@
     id="member-{{ x.id }}"
     hx-get="{% url 'member_detail' x.id %}"
     hx-target="#modal-content"
-    hx-on::after-swap="showModal()"
+    data-bs-toggle="modal"
+    data-bs-target="#memberModal"
     style="cursor: pointer;">
   <a href="details/{{ x.id }}">{{ x.lastname }}{{ x.firstname }}</a>, ({{ x.user }}) {{x.age}} 歲
 </li>

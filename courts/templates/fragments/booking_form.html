@@ -1,7 +1,7 @@
 <!-- 預訂表單片段 -->
 <form hx-post="{% url 'create_booking' %}"
       hx-target="#booking-result"
-      hx-on::after-request="if(event.detail.xhr.status===201) showSuccessNotification('預訂成功！')"
+      hx-on::after-request="if(event.detail.xhr.status===201) { alert('預訂成功！'); window.location.reload(); }"
       class="needs-validation">
   {% csrf_token %}
   

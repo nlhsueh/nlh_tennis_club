@@ -11,11 +11,34 @@
 
   <h4 class='text-success'>會員</h4>
   
-      <ul class="list-group">
-        {% for x in mymembers %}
-          <li class="list-group-item  bg-transparent"><a href="details/{{ x.id }}">{{ x.lastname }}{{ x.firstname }}</a>, ({{ x.user }}) {{x.age}} 歲</li>
-        {% endfor %}
-      </ul>
+  <input type="text" 
+         class="form-control mb-3"
+         name="search" 
+         placeholder="搜尋成員..."
+         hx-get="{% url 'members' %}"
+         hx-target="#member-list"
+         hx-trigger="input changed delay:500ms">
+
+  <div id="member-list">
+    {% include "fragments/member_list.html" %}
+  </div>
+
+  <!-- Modal for Member Details -->
+  <div class="modal fade" id="memberModal" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content" id="modal-content">
+        <!-- Content loaded via HTMX will appear here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript to show modal -->
+  <script>
+    function showModal() {
+      var myModal = new bootstrap.Modal(document.getElementById('memberModal'));
+      myModal.show();
+    }
+  </script>
 
 </div>  
 
