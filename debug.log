@@ -1,0 +1,4 @@
+cancel_booking called! method: DELETE, id: 11
+Booking deleted successfully
+cancel_booking called! method: DELETE, id: 12
+Booking deleted successfully
