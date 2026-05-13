@@ -10,6 +10,14 @@
       --color-primary: #10b981;
       --color-primary-dark: #059669;
     }
+    @layer components {
+      .btn-primary {
+        @apply w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-emerald-500 hover:bg-emerald-600 md:py-4 md:text-lg md:px-10 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-lg;
+      }
+      .member-card {
+        @apply bg-white overflow-hidden shadow-sm rounded-xl border border-gray-100 hover:shadow-md transition-shadow duration-300 ease-in-out group relative cursor-pointer;
+      }
+    }
   </style>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>

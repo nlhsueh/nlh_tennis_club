@@ -12,7 +12,7 @@
 
 <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
   {% for x in mymembers %}
-  <div class="bg-white overflow-hidden shadow-sm rounded-xl border border-gray-100 hover:shadow-md transition-shadow duration-300 ease-in-out group relative cursor-pointer">
+  <div class="member-card">
     <a href="details/{{ x.id }}" class="absolute inset-0 z-10"></a>
     <div class="p-6">
       <div class="flex items-center space-x-4">
