@@ -1,16 +1,42 @@
 {% extends "master.html" %}
 
-{% block title %}
-  My Tennis Club - List of all members
-{% endblock %}
-
+{% block title %}Members | My Tennis Club{% endblock %}
 
 {% block content %}
-  <h1>Members</h1>
-  
-  <ul>
-    {% for x in mymembers %}
-      <li><a href="details/{{ x.id }}">{{ x.firstname }} {{ x.lastname }}</a></li>
-    {% endfor %}
-  </ul>
+<div class="mb-8 flex items-center justify-between">
+  <h1 class="text-3xl font-extrabold text-gray-900 tracking-tight">Club Members</h1>
+  <span class="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-emerald-100 text-emerald-800">
+    Active Roster
+  </span>
+</div>
+
+<div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+  {% for x in mymembers %}
+  <div class="bg-white overflow-hidden shadow-sm rounded-xl border border-gray-100 hover:shadow-md transition-shadow duration-300 ease-in-out group relative cursor-pointer">
+    <a href="details/{{ x.id }}" class="absolute inset-0 z-10"></a>
+    <div class="p-6">
+      <div class="flex items-center space-x-4">
+        <div class="h-12 w-12 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center text-white font-bold text-lg shadow-inner">
+          {{ x.firstname|first|upper }}{{ x.lastname|first|upper }}
+        </div>
+        <div>
+          <h3 class="text-lg font-bold text-gray-900 group-hover:text-emerald-600 transition-colors duration-200">
+            {{ x.firstname }} {{ x.lastname }}
+          </h3>
+          <p class="text-sm text-gray-500 flex items-center mt-1">
+             <svg class="w-4 h-4 mr-1 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+             Member
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="bg-gray-50 px-6 py-3 border-t border-gray-100 flex justify-end">
+        <span class="text-emerald-600 text-sm font-medium flex items-center group-hover:translate-x-1 transition-transform duration-200">
+          View Profile
+          <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+        </span>
+    </div>
+  </div>
+  {% endfor %}
+</div>
 {% endblock %}
