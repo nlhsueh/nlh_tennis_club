@@ -1,0 +1,5 @@
+# 核心框架
+Django==5.0.4
+
+# 影像處理套件 (Django ImageField 必備)
+Pillow==10.3.0
