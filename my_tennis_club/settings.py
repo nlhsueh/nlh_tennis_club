@@ -126,6 +126,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+# Allow WhiteNoise to find static assets from the configured static directories
+# even if collectstatic was not executed in the build environment.
+WHITENOISE_USE_FINDERS = True
 # Use CompressedStaticFilesStorage so the app can run even if collectstatic has not
 # been run yet in the Render build environment. If you do run collectstatic, this
 # still supports compression and caching.
