@@ -47,4 +47,4 @@ using bootstrap
 
 > 注意：專案本地端預設使用 SQLite；如果在 Render 上使用正式資料庫，請務必改成使用 `DATABASE_URL` 指定的 Postgres。
 
-> 重要：如果 Render 仍然顯示使用 Python 3.14，請在服務設定裡手動指定 Python 版本為 `3.11.16`。專案中也已新增 `.python-version` 和 `runtime.txt`，應該會讓 Render 正確選到 `3.11.16`。
+> 重要：如果 Render 仍然顯示使用 Python 3.14，請在服務設定裡手動指定 Python 版本為 `3.11.15`。專案中也已新增 `.python-version` 和 `runtime.txt`，應該會讓 Render 正確選到 `3.11.15`。
