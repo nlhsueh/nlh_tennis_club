@@ -1,5 +1,5 @@
 Django==3.2.18
-gunicorn==22.1.0
+gunicorn==26.0.0
 whitenoise==6.5.0
 dj-database-url==1.0.0
 psycopg2-binary==2.9.10
