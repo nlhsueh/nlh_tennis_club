@@ -24,3 +24,51 @@ Fix bug: [/courts/views.py](/courts/views.py)
 
 [/courts/templates/court_details.html](/courts/templates/court_details.html) 印出球場的細節，這裡我們印出他的照片。用 bootstrap 的 `card` 元件來做輸出美化。
 
+---
+
+## 🏋️ 課堂練習
+
+### 練習一：為會員（Member）新增「個人大頭貼 (avatar)」欄位
+
+**目標**：模仿球場照片的作法，為俱樂部的會員加上個人頭像，並在會員列表或細節頁面中顯示。
+
+**提示**：
+1. **修改 Model**：在 [/members/models.py](/members/models.py) 的 `Member` 類別中新增一個 `avatar` 欄位：
+   ```python
+   avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
+   ```
+2. **資料庫遷移**：在終端機中執行：
+   ```bash
+   python manage.py makemigrations
+   python manage.py migrate
+   ```
+3. **註冊 Admin**：在 [/members/admin.py](/members/admin.py) 中，將 `avatar` 欄位加入 `list_display`，使管理員能在後台直接上傳與檢視頭像。
+4. **前端渲染**：在 [/members/templates/details.html](/members/templates/details.html) 中加入頭像顯示：
+   ```html
+   {% if mymember.avatar %}
+     <img src="{{ mymember.avatar.url }}" width="150px" style="border-radius: 50%;">
+   {% else %}
+     <span>（暫無頭像）</span>
+   {% endif %}
+   ```
+
+---
+
+### 練習二：為沒有上傳照片的球場設定「預設圖片 (Default Placeholder)」
+
+**目標**：目前如果球場沒有上傳照片，頁面會顯示 `📷 暫無球場照片` 文字。請練習改為使用一張預設的網球場圖片作為 placeholder，使版面在沒有照片時依然美觀。
+
+**提示**：
+1. 在 [/static/img/](/static/img/) 目錄下放一張預設的球場圖片（例如命名為 `default_court.jpeg`）。
+2. 在 [/courts/templates/court_details.html](/courts/templates/court_details.html) 中，利用 `{% static 'img/default_court.jpeg' %}` 來替換掉 `{% else %}` 中的純文字區塊：
+   ```html
+   {% load static %}
+   ...
+   {% if court.photo %}
+     <img src="{{ court.photo.url }}" class="card-img-top court-detail-img" alt="{{ court.courtname }}">
+   {% else %}
+     <img src="{% static 'img/default_court.jpeg' %}" class="card-img-top court-detail-img" alt="Default Court">
+   {% endif %}
+   ```
+3. 測試在後台新增一個沒有上傳圖片的球場，確認在詳情頁中能正確顯示這張預設圖片！
+
