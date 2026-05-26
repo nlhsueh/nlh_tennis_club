@@ -26,7 +26,13 @@ Fix bug: [/courts/views.py](/courts/views.py)
 
 ---
 
-## 🏋️ 課堂練習
+## 🏋️ 課堂練習與參考解答 (Branch: `img-ex`)
+
+> [!NOTE]
+> **本分支 (`img-ex`) 已完成以下兩個練習的參考解答實作！**
+> 您可以直接在此分支中運行並對照查看完整程式碼。
+
+---
 
 ### 練習一：為會員（Member）新增「個人大頭貼 (avatar)」欄位
 
@@ -52,6 +58,13 @@ Fix bug: [/courts/views.py](/courts/views.py)
    {% endif %}
    ```
 
+**💡 `img-ex` 參考解答說明**：
+1. **資料欄位與遷移**：我們在 [/members/models.py](/members/models.py) 中為 `Member` 加上了 `avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)`，並已自動產生並套用了資料庫遷移。
+2. **Admin 後台註冊**：我們已在 [/members/admin.py](/members/admin.py) 的 `list_display` 中加入 `"avatar"`，如此在後台管理系統即可以直接查看與上傳會員頭像。
+3. **前端視覺美化呈現**：
+   - **詳情頁**：在 [/members/templates/details.html](/members/templates/details.html) 中，我們以極具現代感的圓形相框顯示頭像 (Avatar)，當沒有上傳頭像時則顯示預設的 `👤` 符號。
+   - **列表頁**：更進一步，我們在 [/members/templates/all_members.html](/members/templates/all_members.html) 的列表項目中，在名字左側加入了精緻的迷你圓形頭像縮圖，大幅提升會員列表的視覺層次！
+
 ---
 
 ### 練習二：為沒有上傳照片的球場設定「預設圖片 (Default Placeholder)」
@@ -71,4 +84,9 @@ Fix bug: [/courts/views.py](/courts/views.py)
    {% endif %}
    ```
 3. 測試在後台新增一個沒有上傳圖片的球場，確認在詳情頁中能正確顯示這張預設圖片！
+
+**💡 `img-ex` 參考解答說明**：
+1. **提供預設圖片**：我們已將一張經典網球場照片 [default_court.jpeg](file:///Users/nlh/mini24-tools/nlh_tennis_club/static/img/default_court.jpeg) 放入靜態目錄 [/static/img/](/static/img/) 底下。
+2. **詳情頁面渲染**：在 [/courts/templates/court_details.html](/courts/templates/court_details.html) 中載入了 `{% load static %}`，並於 `{% else %}` 區塊中使用該預設圖案，取代原本的純文字提示，讓卡片元件在無自訂圖片時依然保持一致的版面與高質感。
+3. **列表頁面同步美化**：我們也一併更新了 [/courts/templates/all_courts.html](/courts/templates/all_courts.html) 的球場表格，當某個球場無自訂照片時，表格中亦會顯示這張預設的迷你球場縮圖，使整個球場資料列表的視覺風格一致。
 

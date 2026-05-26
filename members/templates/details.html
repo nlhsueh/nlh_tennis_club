@@ -9,14 +9,28 @@
   <span class="subtitle">成員詳細資料</span>
 </h1>
 
-<div class="detail-card">
-  <div class="detail-row">
-    <span class="label">電話</span>
-    <span class="value">{{ mymember.phone }}</span>
+<div class="detail-card d-flex align-items-center gap-4 flex-wrap" style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r); padding: 24px;">
+  <div class="avatar-container" style="width: 100px; height: 100px; border-radius: 50%; overflow: hidden; border: 2px solid var(--green-light); box-shadow: var(--shadow); background: var(--surface); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+    {% if mymember.avatar %}
+      <img src="{{ mymember.avatar.url }}" alt="{{ mymember.firstname }}" style="width: 100%; height: 100%; object-fit: cover;">
+    {% else %}
+      <span style="font-size: 32px; color: var(--text-sub);">👤</span>
+    {% endif %}
   </div>
-  <div class="detail-row">
-    <span class="label">加入日期</span>
-    <span class="value">{{ mymember.joined_date }}</span>
+  
+  <div class="details-info" style="flex: 1; display: flex; flex-direction: column; gap: 12px; min-width: 200px;">
+    <div class="detail-row d-flex justify-content-between align-items-center border-bottom pb-2">
+      <span class="label" style="font-size: 11px; font-weight: 700; color: var(--text-sub); text-transform: uppercase;">電話</span>
+      <span class="value" style="font-weight: 600;">{{ mymember.phone }}</span>
+    </div>
+    <div class="detail-row d-flex justify-content-between align-items-center border-bottom pb-2">
+      <span class="label" style="font-size: 11px; font-weight: 700; color: var(--text-sub); text-transform: uppercase;">加入日期</span>
+      <span class="value" style="font-weight: 600;">{{ mymember.joined_date }}</span>
+    </div>
+    <div class="detail-row d-flex justify-content-between align-items-center">
+      <span class="label" style="font-size: 11px; font-weight: 700; color: var(--text-sub); text-transform: uppercase;">年齡</span>
+      <span class="value" style="font-weight: 600;">{{ mymember.age }} 歲</span>
+    </div>
   </div>
 </div>
 

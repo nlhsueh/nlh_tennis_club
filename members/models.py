@@ -7,6 +7,7 @@ class Member(models.Model):
   phone = models.IntegerField(null=True)
   joined_date = models.DateField(null=True)
   age = models.IntegerField(default=20)
+  avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
 
   def __str__(self):
     return f"{self.firstname} {self.lastname}"  

@@ -1,4 +1,5 @@
 {% extends "master.html" %}
+{% load static %}
 
 {% block title %}{{ court.courtname }} — 球場詳情{% endblock %}
 
@@ -10,8 +11,8 @@
       <img src="{{ court.photo.url }}" class="card-img-top court-detail-img" alt="{{ court.courtname }}">
     </div>
   {% else %}
-    <div class="court-detail-img-container bg-light d-flex align-items-center justify-content-center text-muted" style="height: 240px;">
-      <span>📷 暫無球場照片</span>
+    <div class="court-detail-img-container">
+      <img src="{% static 'img/default_court.jpeg' %}" class="card-img-top court-detail-img" alt="Default Court">
     </div>
   {% endif %}
 

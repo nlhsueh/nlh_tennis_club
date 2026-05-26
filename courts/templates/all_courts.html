@@ -1,4 +1,5 @@
 {% extends "master.html" %}
+{% load static %}
 
 {% block title %}My Tennis Club - 球場列表{% endblock %}
 
@@ -29,13 +30,13 @@
           <span class="badge bg-success">{{ c.get_courttype_display }}</span>
         </td>
         <td>
-          {% if c.photo %}
-            <div class="court-table-img-wrapper">
+          <div class="court-table-img-wrapper">
+            {% if c.photo %}
               <img src="{{ c.photo.url }}" alt="{{ c.courtname }}" class="court-table-img">
-            </div>
-          {% else %}
-            <span class="text-muted small">無照片</span>
-          {% endif %}
+            {% else %}
+              <img src="{% static 'img/default_court.jpeg' %}" alt="Default Court" class="court-table-img">
+            {% endif %}
+          </div>
         </td>
       </tr>
       {% empty %}
