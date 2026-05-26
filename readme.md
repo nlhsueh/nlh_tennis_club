@@ -19,7 +19,7 @@ Fix bug: [/courts/views.py](/courts/views.py)
 * `list_display` 加上 `photo`, 以便在 admin 中呈現
 
 [/courts/templates/all_courts.html](/courts/templates/all_courts.html) 
-* 改用 bootstrap table 的方式呈現球隊列表
+* 改用 bootstrap table 的方式呈現球場列表
 * `courttype` 如果直接印出，會印出他的 key ("G"), 我們想印出的是有意義的 value ("草地")，因此用 `{{ c.get_courttype_display }}`。 `get_xxx_display` 會印出 `xxx` 的 value。
 
 [/courts/templates/court_details.html](/courts/templates/court_details.html) 印出球場的細節，這裡我們印出他的照片。用 bootstrap 的 `card` 元件來做輸出美化。
