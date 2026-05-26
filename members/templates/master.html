@@ -58,7 +58,17 @@
     <a href="/" class="nav-link">🎾 首頁</a>
     <a href="/members/" class="nav-link">👥 成員</a>
     <a href="/courts/" class="nav-link">🏟 球場</a>
-    <a href="/admin" class="nav-link admin">⚙️ Admin</a>
+    
+    <div class="nav-auth-section" style="margin-left: auto; display: flex; align-items: center; gap: 8px;">
+      {% if user.is_authenticated %}
+        <span class="user-status-text" style="font-size: 13px; font-weight: 600; color: var(--green-dark); background: rgba(82,183,136,0.12); padding: 5px 12px; border-radius: 99px; white-space: nowrap;">👤 {{ user.username }}</span>
+        <a href="{% url 'logout' %}" class="nav-link" style="background: #fff0ee; color: var(--clay); border-color: rgba(200,75,17,0.2); margin: 0;">🚪 登出</a>
+      {% else %}
+        <a href="{% url 'login' %}" class="nav-link" style="background: var(--green-dark); color: #fff; border-color: transparent; margin: 0;">🔑 登入</a>
+      {% endif %}
+    </div>
+
+    <a href="/admin" class="nav-link admin" style="margin-left: 0;">⚙️ Admin</a>
   </nav>
 
   <!-- Main Card -->
