@@ -6,13 +6,79 @@
 
 <h1 class="page-title">所有球場</h1>
 
-<ul class="item-list">
-  {% for x in courts %}
-  <li>
-    <a href="{% url 'court_details' x.id %}">{{ x.courtname }}</a>
-    <span class="item-meta">{{ x.city }}</span>
-  </li>
-  {% endfor %}
-</ul>
+<div class="table-responsive">
+  <table class="table table-striped table-bordered align-middle">
+    <thead class="table-dark">
+      <tr>
+        <th scope="col" style="width: 8%;">ID</th>
+        <th scope="col" style="width: 25%;">球場</th>
+        <th scope="col" style="width: 20%;">所在城市</th>
+        <th scope="col" style="width: 22%;">型態</th>
+        <th scope="col" style="width: 25%;">照片</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in courts %}
+      <tr>
+        <td><strong>{{ c.id }}</strong></td>
+        <td>
+          <a href="{% url 'court_details' c.id %}" class="court-link">{{ c.courtname }}</a>
+        </td>
+        <td>{{ c.city }}</td>
+        <td>
+          <span class="badge bg-success">{{ c.get_courttype_display }}</span>
+        </td>
+        <td>
+          {% if c.photo %}
+            <div class="court-table-img-wrapper">
+              <img src="{{ c.photo.url }}" alt="{{ c.courtname }}" class="court-table-img">
+            </div>
+          {% else %}
+            <span class="text-muted small">無照片</span>
+          {% endif %}
+        </td>
+      </tr>
+      {% empty %}
+      <tr>
+        <td colspan="5" class="text-center text-muted">暫無球場資訊</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+
+<style>
+  .table-responsive {
+    margin-bottom: 24px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    background: var(--surface);
+  }
+  .table {
+    margin-bottom: 0;
+  }
+  .court-link {
+    color: var(--green-dark);
+    font-weight: 600;
+    text-decoration: none;
+    transition: color 0.15s ease-in-out;
+  }
+  .court-link:hover {
+    color: var(--clay);
+  }
+  .court-table-img-wrapper {
+    width: 80px;
+    height: 50px;
+    border-radius: 6px;
+    overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .court-table-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+</style>
 
 {% endblock %}
