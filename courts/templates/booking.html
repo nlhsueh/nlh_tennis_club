@@ -1,30 +1,40 @@
 {% extends "master.html" %}
 
-{% block title %}
-My Tennis Club
-{% endblock %}
+{% block title %}預約球場{% endblock %}
 
 {% block content %}
-{% comment %} {{ post_form.errors }} {% endcomment %}
-<h1>My Tennis Club</h1>
 
-    <h3>Booking</h3>
+<h1 class="page-title">
+  預約球場
+  <span class="subtitle">請填寫以下預約資訊</span>
+</h1>
 
-    <form action="." method="post">
-        {% csrf_token %}
-        {{ booking_form.user.label}}: 
-        {{ booking_form.user }} <br>
+<div class="form-card">
+  <form action="." method="post">
+    {% csrf_token %}
 
-        <label>球場: </label>
-        {{ booking_form.court }} <br>
+    <div class="form-field">
+      <label>{{ booking_form.user.label }}</label>
+      {{ booking_form.user }}
+    </div>
 
-        {{ booking_form.date.label}}: 
-        {{ booking_form.date }} <br>
+    <div class="form-field">
+      <label>{{ booking_form.court.label }}</label>
+      {{ booking_form.court }}
+    </div>
 
-        {{ booking_form.reason.label}}: 
-        {{ booking_form.reason }} <br>
-        
-        <input type="submit" value="確定預約">
-    </form>
+    <div class="form-field">
+      <label>{{ booking_form.date.label }}</label>
+      {{ booking_form.date }}
+    </div>
+
+    <div class="form-field">
+      <label>{{ booking_form.reason.label }}</label>
+      {{ booking_form.reason }}
+    </div>
+
+    <input type="submit" value="✅ 確定預約">
+  </form>
+</div>
 
 {% endblock %}

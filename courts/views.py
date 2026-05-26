@@ -10,6 +10,7 @@ from django.contrib.auth.decorators import login_required
 
 def courts(request):
   courts = Court.objects.all()
+  courts = Court.objects.all()
   template = loader.get_template('all_courts.html')
   context = {
     'courts': courts,
@@ -41,22 +42,26 @@ def booking(request, court_id):
         elif request.method == "POST":
             print ('POST method to booking form')
             print (f"request.POST: {request.POST}")
+            member = None
             try:
                 member = Member.objects.get(user=request.user)
-            except:
+            except Member.DoesNotExist:
                 print (f'{request.user} is not a member')
-                pass
             booking_form = BookingForm(request.POST)
             if booking_form.is_valid():
                 booking_form.save()
                 print ('Booking successfully (saved)')
-                result = 'Booking ok'
+                result = '預約成功！'
+                success = True
             else:
                 print ('Booking fails (form is not valid)')
-                result = 'Booking fail'
+                errors = booking_form.errors.as_text()
+                result = f'預約失敗：{errors}'
+                success = False
             context = {
                 'booking_form': booking_form,
                 'result': result, 
+                'success': success,
                 'member': member,
             }    
             return render(request, 'booking_result.html', context)
@@ -70,8 +75,9 @@ def my_bookings(request):
     print (f'All bookings by {request.user}:')
     for b in bookings:
         print (b)
-    member = getMember(request)    
-    print ('member.firstname', member.firstname)
+    member = getMember(request)
+    if member:
+        print ('member.firstname', member.firstname)
     context = {'member': member,
                'bookings': bookings}
     return render(request, 'my_bookings.html', context)
@@ -82,6 +88,6 @@ def getMember(request):
         member = Member.objects.get(user=request.user)
         print (member)
         return member
-    except:
+    except Member.DoesNotExist:
         print (f"The user {request.user} is not a member")
-        return render(request, 'booking_error.html', None)
+        return None

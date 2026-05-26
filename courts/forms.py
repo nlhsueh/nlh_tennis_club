@@ -18,7 +18,10 @@ class BookingForm(forms.ModelForm):
             'court': forms.Select(),                # 下拉式選單
             'date': SelectDateWidget(               
                 attrs={'initial': date.today()}),   # 日期選單
-            'reason': forms.Textarea(),                
+            'reason': forms.Textarea(attrs={
+                'placeholder': '請輸入預約用途（至少 10 個字元），例如：社區網球練習賽、友誼雙打訓練等',
+                'rows': 4,
+            }),
         }
 
         labels = {
