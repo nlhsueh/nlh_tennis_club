@@ -61,3 +61,33 @@
 * 在網址（[/courts/urls.py](/courts/urls.py)）中新增一個 `/my_bookings`
 * views 中透過 `Booking.objects.filter` 找出所有我的預約，在傳到 `my_bookings.html` 做呈現
 * [/courts/templates/my_bookings.html](/courts/templates/my_bookings.html): 透過 for loop 把所有的預約都印出來。
+
+## 資料庫重置與初始資料
+
+如果你想要把本地資料庫清乾淨，重新建立 schema 並載入預設資料，可使用專案根目錄的 reset script。
+
+- macOS / Linux: `./reset_db.sh`
+- Windows: `reset_db.bat`
+
+這個腳本會執行：
+
+1. 刪除 `db.sqlite3`
+2. `python manage.py migrate`
+3. `python manage.py loaddata initial_data.json`
+
+目前預設的初始帳號如下：
+
+- `admin` / `Admin123!`
+- `alice` / `Alice123!`
+- `bob` / `Bob123!`
+- `carol` / `Carol123!`
+
+如果你要自行重置資料庫，也可以手動執行：
+
+```bash
+rm -f db.sqlite3 db.sqlite3-journal
+python manage.py migrate
+python manage.py loaddata initial_data.json
+```
+
+若要確認 `db.sqlite3` 不會被推到版本控制，請確保 `.gitignore` 中包含 `db.sqlite3`。

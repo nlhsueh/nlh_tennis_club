@@ -5,8 +5,17 @@ My Tennis Club
 {% endblock %}
 
 {% block content %}
-{{ post_form.errors }}
-{{ message }}
+{% if login_form.errors %}
+    <div class="error">
+        <strong>表單錯誤：</strong>
+        {{ login_form.errors }}
+    </div>
+{% endif %}
+{% if message %}
+    <div class="error">
+        {{ message }}
+    </div>
+{% endif %}
 <h1>My Tennis Club</h1>
 
 <h3>Login</h3>
