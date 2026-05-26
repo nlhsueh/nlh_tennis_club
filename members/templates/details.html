@@ -1,16 +1,25 @@
 {% extends "master.html" %}
 
-{% block title %}
-  Details about {{ mymember.firstname }} {{ mymember.lastname }}
-{% endblock %}
-
+{% block title %}{{ mymember.firstname }} {{ mymember.lastname }} — 成員詳情{% endblock %}
 
 {% block content %}
-  <h1>{{ mymember.firstname }} {{ mymember.lastname }}</h1>
-  
-  <p>Phone {{ mymember.phone }}</p>
-  <p>Member since: {{ mymember.joined_date }}</p>
-  
-  <p>Back to <a href="/members">Members</a></p>
-  
+
+<h1 class="page-title">
+  {{ mymember.firstname }} {{ mymember.lastname }}
+  <span class="subtitle">成員詳細資料</span>
+</h1>
+
+<div class="detail-card">
+  <div class="detail-row">
+    <span class="label">電話</span>
+    <span class="value">{{ mymember.phone }}</span>
+  </div>
+  <div class="detail-row">
+    <span class="label">加入日期</span>
+    <span class="value">{{ mymember.joined_date }}</span>
+  </div>
+</div>
+
+<a href="/members/" class="back-link">← 返回成員列表</a>
+
 {% endblock %}

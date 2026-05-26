@@ -1,38 +1,46 @@
 {% extends "master.html" %}
 
-{% block title %}
-My Tennis Club
-{% endblock %}
+{% block title %}登入 — My Tennis Club{% endblock %}
 
 {% block content %}
-{{ login_form.errors }}
-{{ message }}
 
+<h1 class="page-title">
+  會員登入
+  <span class="subtitle">請輸入您的帳號密碼</span>
+</h1>
 
-<div class="container mt-2">
-    <div class='row col-md-4'>
-        <h2 class='text-success'>Login</h2>
-        {% if request.user.is_authenticated %}
-            <a href="{% url 'logout' %}">Logout</a>
-        {% else %}
-            <form action="." method="post">
-                {% csrf_token %}
-                <div class='mb-3 mt-3'>
-                    <label for="username" class='form-label'>Username: </label>
-                    {{ login_form.username }}
-                </div>    
-
-                <div class='mb-3 mt-3'>
-                    <label for="password" class= 'form-label'>Password: </label>
-                    {{ login_form.password }}
-                </div>    
-
-                <div>
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                </div>                    
-            </form>
-        </div>            
-    {% endif %}
+{% if login_form.errors %}
+<div class="alert alert-error">
+  ⚠️ 表單錯誤：{{ login_form.errors }}
 </div>
+{% endif %}
+
+{% if message %}
+<div class="alert alert-error">
+  ⚠️ {{ message }}
+</div>
+{% endif %}
+
+{% if request.user.is_authenticated %}
+  <div class="auth-row">
+    <span class="username-badge">{{ request.user }}</span>
+    <a href="{% url 'logout' %}" class="btn btn-danger">🚪 登出</a>
+  </div>
+{% else %}
+  <div class="form-card">
+    <form action="." method="post">
+      {% csrf_token %}
+      <div class="form-field">
+        <label for="id_username">帳號</label>
+        {{ login_form.username }}
+      </div>
+      <div class="form-field">
+        <label for="id_password">密碼</label>
+        {{ login_form.password }}
+      </div>
+      <input type="submit" value="🔑 登入">
+    </form>
+  </div>
+{% endif %}
 
 {% endblock %}

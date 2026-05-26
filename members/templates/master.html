@@ -1,54 +1,92 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>{% block title %}{% endblock %}</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-</head>
+<html lang="zh-Hant">
 
-{% load static %}
-<link rel="stylesheet" href="{% static '/css/club.css' %}"> 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}My Tennis Club{% endblock %}</title>
+
+  <!-- Preconnect to Google Fonts (parallel, non-blocking) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Critical inline CSS: prevents white flash on every page load -->
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: #f7f9f6;
+      color: #1a2e22;
+      min-height: 100vh;
+      padding: 24px 16px 48px;
+    }
+
+    .app-card {
+      max-width: 660px;
+      margin: 0 auto;
+      background: #ffffff;
+      border-radius: 20px;
+      border: 1px solid #dde8de;
+      box-shadow: 0 4px 20px rgba(26, 58, 42, 0.10);
+      overflow: hidden;
+    }
+
+    .app-header {
+      background: linear-gradient(150deg, #1a3a2a 0%, #2d6a4f 100%);
+      padding: 28px 32px 24px;
+      text-align: center;
+    }
+  </style>
+
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'css/club.css' %}">
+</head>
 
 <body>
 
-  <div class="p-5 bg-primary text-white rounded">
-    <h1>Hsueh Tennis Club</h1>
-    <p>Tennis is not merely a sport; it is an artistry of motion and a testament to the indomitable human spirit. With each graceful stroke across the vibrant court, players embark on a journey of self-discovery and resilience. Beyond the score, tennis is a narrative of determination, a dance of skill, and a celebration of camaraderie. The court becomes a canvas where challenges are met with unwavering resolve, and every match is a canvas for personal triumph. In the world of tennis, we find not just a game but a passionate pursuit, a commitment to surpassing limits, and a profound connection to the essence of life.</p>
-  </div>  
+  <!-- Top Navigation -->
+  <nav class="site-nav">
+    <a href="/" class="nav-link">🎾 首頁</a>
+    <a href="/members/" class="nav-link">👥 成員</a>
+    <a href="/courts/" class="nav-link">🏟 球場</a>
+    <a href="/admin" class="nav-link admin">⚙️ Admin</a>
+  </nav>
 
-  <div class="container-fluid mt-3">
-    <ul class="nav">
-      <li class="nav-item">
-        <a class="nav-link" href="/">HOME</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/admin">ADMIN</a>
-      </li>
-      {% if user.is_authenticated %}
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'logout' %}">Logout ({{ user }}) </a>
-        </li>    
-      {% else %}
-        <li class="nav-item">
-            <a class="nav-link" href="{% url 'login' %}">Login</a>
-        </li>    
-      {% endif %}
-      <li class="nav-item">
-        <a class="nav-link" href="/courts/bookings/">My bookings</a>
-      </li>
-    </ul>
+  <!-- Main Card -->
+  <div class="app-card">
+
+    <header class="app-header">
+      <span class="site-brand">🎾 My Tennis Club</span>
+      <div class="header-images">
+        <div class="img-frame">
+          <img src="{% static 'img/garros.png' %}" alt="Roland Garros" width="200" height="130">
+          <span class="caption">Roland Garros</span>
+        </div>
+        <div class="img-frame">
+          <img src="{% static 'img/centre.jpeg' %}" alt="Wimbledon" width="200" height="130">
+          <span class="caption">Wimbledon</span>
+        </div>
+      </div>
+    </header>
+
+    <div class="app-body">
+      {% block content %}{% endblock %}
+    </div>
+
+    <footer class="app-footer">
+      © 2026 My Tennis Club · All rights reserved
+    </footer>
+
   </div>
-
-{% block content %}
-{% endblock %}
-
-<footer class="bg-secondary text-light text-center py-3 mt-1">
-  <div class="container">
-      <p>&copy; 2023 Hsueh Tennis Website Name. All rights reserved.</p>
-  </div>
-</footer>
 
 </body>
+
 </html>
