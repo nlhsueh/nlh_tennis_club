@@ -111,7 +111,7 @@
       "courtname": "Court A",
       "courttype": "G",
       "city": "Taipei",
-      "photo": null
+      "photo": "court_photos/contre.jpeg"
     }
   },
   {
@@ -121,7 +121,7 @@
       "courtname": "Court B",
       "courttype": "H",
       "city": "Taichung",
-      "photo": null
+      "photo": "court_photos/taichung.webp"
     }
   },
   {
@@ -131,7 +131,7 @@
       "courtname": "Court C",
       "courttype": "N",
       "city": "Kaohsiung",
-      "photo": null
+      "photo": "court_photos/roland.jpeg"
     }
   },
   {
@@ -141,7 +141,7 @@
       "courtname": "Court D",
       "courttype": "D",
       "city": "Tainan",
-      "photo": null
+      "photo": "court_photos/us.jpeg"
     }
   }
 ]
