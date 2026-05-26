@@ -38,16 +38,4 @@
     <span class="link-card-arrow">›</span>
   </a>
 </div>
-
-<hr class="divider">
-
-<div class="auth-row">
-  {% if user.is_authenticated %}
-  <span class="username-badge">{{ user }}</span>
-  <a href="{% url 'logout' %}" class="btn btn-danger">🚪 登出</a>
-  {% else %}
-  <a href="{% url 'login' %}" class="btn btn-primary">🔑 登入</a>
-  {% endif %}
-</div>
-
 {% endblock %}
