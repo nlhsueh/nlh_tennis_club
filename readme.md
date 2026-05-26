@@ -32,7 +32,4 @@ user = models.OneToOneField(User, on_delete=models.CASCADE, default= None, blank
 ```
 
 [/courts/templates/my_bookings.html](/courts/templates/my_bookings.html)
-* 前一版只印出 `user`, 這一版我們把 `member` 的姓名也印出來。所以在 [my_booking()](/courts/views.py) 中，`context` 加上 `member` 的資訊傳到 html。應用 `getMember()` 的函式來取得 member 物件。
-
-
-
+* 前一版只印出 `user`，這一版我們把 `member` 的姓名也印出來。所以在 [my_bookings()](/courts/views.py) 中，`context` 加上 `member` 的資訊傳到 html。應用 `getMember()` 的函式來取得 member 物件。
