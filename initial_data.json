@@ -110,7 +110,8 @@
     "fields": {
       "courtname": "Court A",
       "courttype": "G",
-      "city": "Taipei"
+      "city": "Taipei",
+      "photo": null
     }
   },
   {
@@ -119,7 +120,8 @@
     "fields": {
       "courtname": "Court B",
       "courttype": "H",
-      "city": "Taichung"
+      "city": "Taichung",
+      "photo": null
     }
   },
   {
@@ -128,7 +130,8 @@
     "fields": {
       "courtname": "Court C",
       "courttype": "N",
-      "city": "Kaohsiung"
+      "city": "Kaohsiung",
+      "photo": null
     }
   },
   {
@@ -137,7 +140,8 @@
     "fields": {
       "courtname": "Court D",
       "courttype": "D",
-      "city": "Tainan"
+      "city": "Tainan",
+      "photo": null
     }
   }
 ]
