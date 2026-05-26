@@ -1,30 +1,33 @@
 {% extends "master.html" %}
 
-{% block title %}
-  My Tennis Club - List of all members
-{% endblock %}
-
+{% block title %}My Tennis Club - 成員列表{% endblock %}
 
 {% block content %}
 
-  <h3>Young Members (age<20)</h3>
-  
-  <ul>
-    {% for x in mymembers %}
-      {% if x.age < 20 %}
-      <li><a href="details/{{ x.id }}">{{ x.firstname }} {{ x.lastname }}</a>, {{x.age}}</li>
-      {% endif %}
-    {% endfor %}
-  </ul>
+<h1 class="page-title">俱樂部成員</h1>
 
-  <h3>Adult Members (age>=20)</h3>
-  
-  <ul>
-    {% for x in mymembers %}
-      {% if x.age >= 20 %}
-      <li><a href="details/{{ x.id }}">{{ x.firstname }} {{ x.lastname }}</a>, {{x.age}}</li>
-      {% endif %}
-    {% endfor %}
-  </ul>
+<p class="section-label">青少年成員（年齡 &lt; 20）</p>
+<ul class="item-list">
+  {% for x in mymembers %}
+    {% if x.age < 20 %}
+    <li>
+      <a href="details/{{ x.id }}">{{ x.firstname }} {{ x.lastname }}</a>
+      <span class="item-meta">{{ x.age }} 歲</span>
+    </li>
+    {% endif %}
+  {% endfor %}
+</ul>
+
+<p class="section-label">成人成員（年齡 ≥ 20）</p>
+<ul class="item-list">
+  {% for x in mymembers %}
+    {% if x.age >= 20 %}
+    <li>
+      <a href="details/{{ x.id }}">{{ x.firstname }} {{ x.lastname }}</a>
+      <span class="item-meta">{{ x.age }} 歲</span>
+    </li>
+    {% endif %}
+  {% endfor %}
+</ul>
 
 {% endblock %}

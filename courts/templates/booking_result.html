@@ -1,20 +1,15 @@
 {% extends "master.html" %}
 
-{% block title %}
-My Tennis Club
-{% endblock %}
+{% block title %}預約結果{% endblock %}
 
 {% block content %}
 
-<p>
-{{ result }}
-
-{% if booking_form.errors %}
-<div style="color: red;">
-  {{ booking_form.errors }}
+<div class="result-box">
+  <div class="result-icon">
+    {% if success %}🎉{% else %}😞{% endif %}
+  </div>
+  <p class="result-text">{{ result }}</p>
+  <a href="/courts/" class="btn btn-secondary" style="margin-top:20px;">← 返回球場列表</a>
 </div>
-{% endif %}
-
-</p>
 
 {% endblock %}

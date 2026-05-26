@@ -46,13 +46,17 @@ def booking(request, court_id):
             if booking_form.is_valid():
                 booking_form.save()
                 print ('Booking successfully (saved)')
-                result = 'Booking ok'
+                result = '預約成功！'
+                success = True
             else:
                 print ('Booking fails (form is not valid)')
-                result = 'Booking fail'
+                errors = booking_form.errors.as_text()
+                result = f'預約失敗：{errors}'
+                success = False
             context = {
                 'booking_form': booking_form,
-                'result': result, 
+                'result': result,
+                'success': success,
             }    
             return render(request, 'booking_result.html', context)
         else:

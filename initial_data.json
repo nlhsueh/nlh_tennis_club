@@ -1,0 +1,143 @@
+[
+  {
+    "model": "auth.user",
+    "pk": 1,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$0KinFh5e4aFVgZq89nVRhm$JZ5q3nMyQIW4ThoU185evkoaquQAhEdccpdwt94jTvc=",
+      "last_login": null,
+      "is_superuser": true,
+      "username": "admin",
+      "first_name": "",
+      "last_name": "",
+      "email": "admin@example.com",
+      "is_staff": true,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 2,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$wFjPNryBzs27F1yGireMx1$wA9GauaxgonSc0dQbEvt60KaD4QZGPWCbnyj//EctkQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "alice",
+      "first_name": "Alice",
+      "last_name": "Wang",
+      "email": "alice@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 3,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$4N37PrrTjH6diPyxRP4pyt$vw23UAe/LAczq8PPURxHsVF3v9b60y+iK9T9v3UGioQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "bob",
+      "first_name": "Bob",
+      "last_name": "Chen",
+      "email": "bob@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 4,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$DsZ4cGapf3gVhpzkd9WQa0$A1J3Zm3QilD+TJN964TlyTbHSx0MYzkqLJ81qQGck5E=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "carol",
+      "first_name": "Carol",
+      "last_name": "Lee",
+      "email": "carol@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "members.member",
+    "pk": 1,
+    "fields": {
+      "firstname": "Alice",
+      "lastname": "Wang",
+      "phone": 912345678,
+      "joined_date": "2024-01-05",
+      "age": 28
+    }
+  },
+  {
+    "model": "members.member",
+    "pk": 2,
+    "fields": {
+      "firstname": "Bob",
+      "lastname": "Chen",
+      "phone": 923456789,
+      "joined_date": "2024-02-12",
+      "age": 31
+    }
+  },
+  {
+    "model": "members.member",
+    "pk": 3,
+    "fields": {
+      "firstname": "Carol",
+      "lastname": "Wang",
+      "phone": 934567890,
+      "joined_date": "2024-03-20",
+      "age": 25
+    }
+  },
+  {
+    "model": "courts.court",
+    "pk": 1,
+    "fields": {
+      "courtname": "Court A",
+      "courttype": "G",
+      "city": "Taipei"
+    }
+  },
+  {
+    "model": "courts.court",
+    "pk": 2,
+    "fields": {
+      "courtname": "Court B",
+      "courttype": "H",
+      "city": "Taichung"
+    }
+  },
+  {
+    "model": "courts.court",
+    "pk": 3,
+    "fields": {
+      "courtname": "Court C",
+      "courttype": "N",
+      "city": "Kaohsiung"
+    }
+  },
+  {
+    "model": "courts.court",
+    "pk": 4,
+    "fields": {
+      "courtname": "Court D",
+      "courttype": "D",
+      "city": "Tainan"
+    }
+  }
+]
