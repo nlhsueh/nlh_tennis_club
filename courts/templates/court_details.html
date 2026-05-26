@@ -1,18 +1,28 @@
 {% extends "master.html" %}
 
-{% block title %}
-  Details about {{ court.courtname }}
-{% endblock %}
-
+{% block title %}{{ court.courtname }} — 球場詳情{% endblock %}
 
 {% block content %}
-  <h2>{{ court.courtname }}</h2>
-  
-  <p>所在都市: {{ court.city }}</p>
-  <p>球場名稱: {{ court.courtname }}</p>
-  <p><a href= {% url 'booking' court.id %}> 預約 </a>
-  {% comment %} <p><a href='/courts/booking/{{court.id}}'> 預約此球場 </a> {% endcomment %}
 
-  <p>Back to: <a href='/courts'>Courts</a></p>
-    
+<h1 class="page-title">
+  {{ court.courtname }}
+  <span class="subtitle">{{ court.city }}</span>
+</h1>
+
+<div class="detail-card">
+  <div class="detail-row">
+    <span class="label">所在城市</span>
+    <span class="value">{{ court.city }}</span>
+  </div>
+  <div class="detail-row">
+    <span class="label">球場名稱</span>
+    <span class="value">{{ court.courtname }}</span>
+  </div>
+</div>
+
+<div style="display:flex; gap:10px; flex-wrap:wrap;">
+  <a href="{% url 'booking' court.id %}" class="btn btn-clay">📅 預約此球場</a>
+  <a href="/courts/" class="back-link">← 返回球場列表</a>
+</div>
+
 {% endblock %}

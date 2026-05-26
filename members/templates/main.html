@@ -1,32 +1,52 @@
 {% extends "master.html" %}
 
-{% block title %}
-  My Tennis Club
-{% endblock %}
-
+{% block title %}My Tennis Club{% endblock %}
 
 {% block content %}
-  <h1>My Tennis Club</h1>
 
-  <h3>Members</h3>
-  
-  <p>Check out all our <a href="/members/">members</a></p>
+<h1 class="page-title">
+  歡迎來到網球俱樂部
+  <span class="subtitle">選擇一個功能開始吧</span>
+</h1>
 
-  <h3>Courts</h3>
-  
-  <p>Check out all our <a href="/courts/">courts</a></p>
+<div class="link-card-group">
+  <a href="/members/" class="link-card">
+    <span class="link-card-icon">👥</span>
+    <span class="link-card-text">
+      <span class="link-card-title">成員列表</span>
+      <span class="link-card-desc">查看所有俱樂部成員</span>
+    </span>
+    <span class="link-card-arrow">›</span>
+  </a>
 
-  <h3>My bookings</h3>
-  
-  <p>Check out all our <a href="/courts/bookings/">my bookings</a></p>
+  <a href="/courts/" class="link-card">
+    <span class="link-card-icon">🏟</span>
+    <span class="link-card-text">
+      <span class="link-card-title">球場資訊</span>
+      <span class="link-card-desc">瀏覽所有可用球場</span>
+    </span>
+    <span class="link-card-arrow">›</span>
+  </a>
 
-  <hr>
-  
+  <a href="/courts/bookings/" class="link-card">
+    <span class="link-card-icon">📅</span>
+    <span class="link-card-text">
+      <span class="link-card-title">我的預約</span>
+      <span class="link-card-desc">查看您的所有球場預約紀錄</span>
+    </span>
+    <span class="link-card-arrow">›</span>
+  </a>
+</div>
+
+<hr class="divider">
+
+<div class="auth-row">
   {% if user.is_authenticated %}
-    <a href="{% url 'logout' %}">Logout </a> (Your have login as {{ user }}) 
+    <span class="username-badge">{{ user }}</span>
+    <a href="{% url 'logout' %}" class="btn btn-danger">🚪 登出</a>
   {% else %}
-    <a href="{% url 'login' %}">Login</a>
+    <a href="{% url 'login' %}" class="btn btn-primary">🔑 登入</a>
   {% endif %}
+</div>
 
-  
 {% endblock %}

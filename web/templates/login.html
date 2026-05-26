@@ -1,36 +1,46 @@
 {% extends "master.html" %}
 
-{% block title %}
-My Tennis Club
-{% endblock %}
+{% block title %}登入 — My Tennis Club{% endblock %}
 
 {% block content %}
+
+<h1 class="page-title">
+  會員登入
+  <span class="subtitle">請輸入您的帳號密碼</span>
+</h1>
+
 {% if login_form.errors %}
-    <div class="error">
-        <strong>表單錯誤：</strong>
-        {{ login_form.errors }}
-    </div>
+<div class="alert alert-error">
+  ⚠️ 表單錯誤：{{ login_form.errors }}
+</div>
 {% endif %}
+
 {% if message %}
-    <div class="error">
-        {{ message }}
-    </div>
+<div class="alert alert-error">
+  ⚠️ {{ message }}
+</div>
 {% endif %}
-<h1>My Tennis Club</h1>
 
-<h3>Login</h3>
-
-    {% if request.user.is_authenticated %}
-        <a href="{% url 'logout' %}">Logout</a>
-    {% else %}
-        <form action="." method="post">
-            {% csrf_token %}
-            <label for="username">Username: </label>
-            {{ login_form.username }}
-            <label for="password">Password: </label>
-            {{ login_form.password }}
-            <input type="submit" value="Submit">
-        </form>
-    {% endif %}
+{% if request.user.is_authenticated %}
+  <div class="auth-row">
+    <span class="username-badge">{{ request.user }}</span>
+    <a href="{% url 'logout' %}" class="btn btn-danger">🚪 登出</a>
+  </div>
+{% else %}
+  <div class="form-card">
+    <form action="." method="post">
+      {% csrf_token %}
+      <div class="form-field">
+        <label for="id_username">帳號</label>
+        {{ login_form.username }}
+      </div>
+      <div class="form-field">
+        <label for="id_password">密碼</label>
+        {{ login_form.password }}
+      </div>
+      <input type="submit" value="🔑 登入">
+    </form>
+  </div>
+{% endif %}
 
 {% endblock %}

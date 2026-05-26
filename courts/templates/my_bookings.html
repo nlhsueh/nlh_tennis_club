@@ -1,17 +1,25 @@
 {% extends "master.html" %}
 
-{% block title %}
-My Tennis Club - List of all bookings
-{% endblock %}
-
+{% block title %}我的預約紀錄{% endblock %}
 
 {% block content %}
 
-<h1>Bookings</h1>
+<h1 class="page-title">
+  我的預約紀錄
+  <span class="subtitle">您目前的所有球場預約</span>
+</h1>
 
-<ul>
-    {% for booking in bookings %}
-    <li>{{booking.user}} 預約了{{ booking.date }} 的{{ booking.court.courtname }}</li>
-    {% endfor %}
+<ul class="item-list">
+  {% for booking in bookings %}
+  <li>
+    <span style="flex:1;">{{ booking.court.courtname }}</span>
+    <span class="item-meta">📅 {{ booking.date }}</span>
+  </li>
+  {% empty %}
+  <li style="justify-content:center; color: var(--text-sub);">目前尚無預約紀錄</li>
+  {% endfor %}
 </ul>
+
+<a href="/courts/" class="back-link">← 返回球場列表</a>
+
 {% endblock %}
