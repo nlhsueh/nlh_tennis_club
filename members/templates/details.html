@@ -18,6 +18,20 @@
     <span class="label">加入日期</span>
     <span class="value">{{ mymember.joined_date }}</span>
   </div>
+  {% if mymember.user %}
+  <div class="detail-row" style="border-top: 1px dashed var(--border); padding-top: 12px; margin-top: 12px;">
+    <span class="label">帳號名稱</span>
+    <span class="value">{{ mymember.user.username }}</span>
+  </div>
+  <div class="detail-row">
+    <span class="label">電子郵件</span>
+    <span class="value">{{ mymember.user.email }}</span>
+  </div>
+  <div class="detail-row">
+    <span class="label">註冊日期</span>
+    <span class="value">{{ mymember.user.date_joined }}</span>
+  </div>
+  {% endif %}
 </div>
 
 <a href="/members/" class="back-link">← 返回成員列表</a>

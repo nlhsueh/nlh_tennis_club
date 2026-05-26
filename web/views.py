@@ -1,8 +1,10 @@
 from django.contrib.auth import authenticate
 from django.contrib import auth
 from django.shortcuts import render
+from datetime import date
 
 from web.forms import LoginForm
+from members.models import Member
 
 def login(request):
     ''' 登入 '''
@@ -16,6 +18,15 @@ def login(request):
             )
             if user is not None:
                 auth.login(request, user)
+                # 檢查該 user 是否有 Member Profile，如果沒有則自動新建一個
+                if not hasattr(user, 'member'):
+                    Member.objects.create(
+                        user=user,
+                        firstname=user.username,
+                        lastname="系統預建",
+                        phone=None,
+                        joined_date=date.today()
+                    )
                 return render(request, 'main.html', {
                     'user': request.user,
                     'message': 'login ok',

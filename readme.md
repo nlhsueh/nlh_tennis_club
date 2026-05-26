@@ -36,7 +36,13 @@ user = models.OneToOneField(User, on_delete=models.CASCADE, default= None, blank
 
 ---
 
-## 🏋️ 課堂練習
+## 🏋️ 課堂練習與參考解答 (Branch: `bind_ex`)
+
+> [!NOTE]
+> **本分支 (`bind_ex`) 已完成以下兩個練習的參考解答實作！**
+> 您可以直接在此分支中運行並對照查看完整程式碼。
+
+---
 
 ### 練習一：在成員詳情頁面顯示其 Django 系統帳號資訊
 
@@ -49,6 +55,9 @@ user = models.OneToOneField(User, on_delete=models.CASCADE, default= None, blank
    * 電子郵件：`{{ mymember.user.email }}`
    * 帳號啟用日期：`{{ mymember.user.date_joined }}`
 4. 完成後，點選任一成員，確認頁面能正確渲染出關聯 User 的系統資料。
+
+**💡 `bind_ex` 參考解答說明**：
+我們在 [/members/templates/details.html](/members/templates/details.html) 的詳情卡片中，加入了 `{% if mymember.user %}` 判斷式。當該成員成功關聯一個帳號時，模板會透過 `OneToOneField` 的跨表查詢，以虛線分隔區塊直接顯示該帳號的 **帳號名稱** (`mymember.user.username`)、**電子郵件** (`mymember.user.email`) 與 **註冊日期** (`mymember.user.date_joined`)，使系統層級資料與會籍資料一目了然。
 
 ---
 
@@ -72,3 +81,6 @@ user = models.OneToOneField(User, on_delete=models.CASCADE, default= None, blank
        )
    ```
 4. 測試使用 `admin` 帳號登入，確認登入後系統不會崩潰，且可以在「成員列表」中看到自動建立好的 `admin` 成員 Profile！
+
+**💡 `bind_ex` 參考解答說明**：
+我們在 [/web/views.py](/web/views.py) 中，於登入成功的流程（`auth.login` 之後），引入了 `Member` 模型與 `datetime.date`。使用極致優雅的 `hasattr(user, 'member')` 來判定該使用者是否缺少 Member Profile。若判定為缺失，系統將會以該帳號的 `username` 作為 `firstname`、`"系統預建"` 作為 `lastname`、以及當天日期作為加入時間，為其**在背景自動補建並建立一對一綁定**。這不但能防止點擊預約關聯查詢時拋出 Null 的系統崩潰，亦完成了管理帳號與會籍帳號的生命週期無縫串接！
