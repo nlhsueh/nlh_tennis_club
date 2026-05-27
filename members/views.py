@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.template import loader
 from .models import Member
+from courts.models import Court
 
 # Create your views here.
 def members(request):
@@ -23,8 +24,12 @@ def details(request, id):
 def main(request):
     print ('main is called')
     print(request.session.items()) 
+    courts = Court.objects.all()
     template = loader.get_template('main.html')
-    return HttpResponse(template.render({}, request))
+    context = {
+        'courts': courts,
+    }
+    return HttpResponse(template.render(context, request))
 
 def testing(request):
     template = loader.get_template('template.html')

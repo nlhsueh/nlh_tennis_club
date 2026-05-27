@@ -14,7 +14,17 @@
 
   <h3>Courts</h3>
   
-  <p>Check out all our <a href="/courts/">courts</a></p>
+  <ul>
+    {% for court in courts %}
+      <li>
+        <strong>{{ court.courtname }}</strong> ({{ court.get_courttype_display }}), {{ court.city }}
+        | <a href="{% url 'court_details' court.id %}">詳細資料</a>
+        | <a href="{% url 'booking' court.id %}">直接預約</a>
+      </li>
+    {% empty %}
+      <li>目前無任何球場資訊。</li>
+    {% endfor %}
+  </ul>
 
   <h3>My bookings</h3>
   
