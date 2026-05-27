@@ -1,19 +1,18 @@
 {% extends "master.html" %}
 
-{% block title %}
-  My Tennis Club - List of all members
-{% endblock %}
-
+{% block title %}My Tennis Club - 球場列表{% endblock %}
 
 {% block content %}
 
-  <h3>Courts</h3>
-  
-  <ul>
-    {% for x in courts %}
-      {% comment %} <li><a href="details/{{ x.id }}">{{ x.courtname }} {{ x.courttype }}</a>, {{x.city}}</li> {% endcomment %}
-      <li><a href= {% url 'court_details' x.id %}>{{ x.courtname }} {{ x.courttype }}</a>, {{x.city}}</li>      
-    {% endfor %}
-  </ul>
+<h1 class="page-title">所有球場</h1>
+
+<ul class="item-list">
+  {% for x in courts %}
+  <li>
+    <a href="{% url 'court_details' x.id %}">{{ x.courtname }}</a>
+    <span class="item-meta">{{ x.city }}</span>
+  </li>
+  {% endfor %}
+</ul>
 
 {% endblock %}

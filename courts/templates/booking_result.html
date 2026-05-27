@@ -1,20 +1,32 @@
 {% extends "master.html" %}
 
-{% block title %}
-My Tennis Club
-{% endblock %}
+{% block title %}預約結果{% endblock %}
 
 {% block content %}
 
-<p>
-{{ result }}
+<div class="result-box">
+  <div class="result-icon">
+    {% if "成功" in result or "ok" in result %}🎉
+    {% else %}⚠️
+    {% endif %}
+  </div>
+  <p class="result-text">{{ result }}</p>
 
-{% if booking_form.errors %}
-<div style="color: red;">
-  {{ booking_form.errors }}
+  {% if booking_form.errors %}
+  <div style="color: #dc3545; margin-top: 16px; text-align: left; background: #fff5f5; border: 1px solid #ffc9c9; padding: 12px; border-radius: 8px; font-size: 0.95rem;">
+    <strong style="color: #c92a2a;">預約失敗原因：</strong>
+    <ul style="margin: 6px 0 0 16px; padding: 0;">
+      {% for field, errors in booking_form.errors.items %}
+        {% for error in errors %}
+          <li>{{ error }}</li>
+        {% endfor %}
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <br>
+  <a href="/courts/" class="btn btn-secondary" style="margin-top:16px;">← 返回球場列表</a>
 </div>
-{% endif %}
-
-</p>
 
 {% endblock %}

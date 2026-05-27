@@ -4,6 +4,15 @@ from django.forms import SelectDateWidget, ValidationError
 from datetime import date
 
 class BookingForm(forms.ModelForm):
+    reason = forms.CharField(
+        widget=forms.Textarea(attrs={
+            'placeholder': '請輸入預約原因（至少 10 個字，此為必填欄位）',
+            'rows': 3,
+        }),
+        required=True,
+        label='用途'
+    )
+
     class Meta:
         model = Booking     # 對應的資料
 
@@ -18,19 +27,19 @@ class BookingForm(forms.ModelForm):
             'court': forms.Select(),                # 下拉式選單
             'date': SelectDateWidget(               
                 attrs={'initial': date.today()}),   # 日期選單
-            'reason': forms.Textarea(),                
         }
 
         labels = {
             'user': '使用者',
             'court': '球場',
             'date': '預約日期',
-            'reason': '用途',
         }
 
     def clean_reason(self):
         print ('clean_reason is called')
         reason = self.cleaned_data.get('reason')
+        if not reason:
+            raise ValidationError('預約原因不能為空。')
         if len(reason) <= 10:
             raise ValidationError(f'用途必須至少包含 10 個字元。目前只有 {len(reason)} 個字')
         return reason        
