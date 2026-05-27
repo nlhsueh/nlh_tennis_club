@@ -10,4 +10,6 @@ urlpatterns = [
     # 127.0.0.1/courts/bookings     show the bookings of the logined user
     path('booking/<int:court_id>/', views.booking, name='booking'),
     # 127.0.0.1/courts/booking/1    booking the court#1
+    path('cancel_booking/<int:booking_id>/', views.cancel_booking, name='cancel_booking'),
+    # 127.0.0.1/courts/cancel_booking/1  cancel booking
 ]

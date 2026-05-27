@@ -25,3 +25,9 @@ class BookingForm(forms.ModelForm):
             'court': '球場',
             'date': '預約日期'
         }
+
+    def clean_date(self):
+        booking_date = self.cleaned_data.get('date')
+        if booking_date and booking_date < date.today():
+            raise forms.ValidationError("預約日期不能是過去的日期。")
+        return booking_date

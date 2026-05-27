@@ -61,3 +61,14 @@ def my_bookings(request):
     for b in bookings:
         print (b)
     return render(request, 'my_bookings.html', {'bookings':bookings})
+
+@login_required
+def cancel_booking(request, booking_id):
+    try:
+        booking = Booking.objects.get(id=booking_id)
+        # 安全檢查：只能取消屬於自己的預約
+        if booking.user == request.user:
+            booking.delete()
+    except Booking.DoesNotExist:
+        pass
+    return redirect('my_bookings')

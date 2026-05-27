@@ -11,7 +11,10 @@ My Tennis Club - List of all bookings
 
 <ul>
     {% for booking in bookings %}
-    <li>{{booking.user}} 預約了{{ booking.date }} 的{{ booking.court.courtname }}</li>
+    <li>
+        {{booking.user}} 預約了{{ booking.date }} 的{{ booking.court.courtname }}
+        | <a href="{% url 'cancel_booking' booking.id %}" style="color: #dc3545; text-decoration: none; margin-left: 8px;" onclick="return confirm('確定要取消此預約嗎？');">取消預約</a>
+    </li>
     {% endfor %}
 </ul>
 {% endblock %}
