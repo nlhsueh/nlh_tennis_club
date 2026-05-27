@@ -91,3 +91,26 @@ python manage.py loaddata initial_data.json
 ```
 
 若要確認 `db.sqlite3` 不會被推到版本控制，請確保 `.gitignore` 中包含 `db.sqlite3`。
+
+## 延伸練習題 (Classroom Exercises)
+
+以下是兩個適合在課堂上進行的延伸練習題，供學生實作以深化對 Django Form 與 View 的理解：
+
+### 練習題一：防止預約過去的日期（表單自訂驗證）
+* **題目說明**：目前系統允許使用者預約過去的日期。請修改表單驗證邏輯，當使用者選擇的預約日期早於今天（系統當前日期）時，表單應該驗證失敗並顯示錯誤訊息：「預約日期不能是過去的日期」。
+* **引導提示**：
+    1. 前往 [/courts/forms.py](/courts/forms.py) 修改 `BookingForm`。
+    2. 在 `BookingForm` 內新增一個 `clean_date(self)` 方法，或者覆寫 `clean(self)` 方法。
+    3. 透過 `self.cleaned_data.get('date')` 取得使用者輸入的日期，並與當前日期（可使用 `django.utils.timezone.now().date()`）進行比較。
+    4. 如果輸入的日期小於今天，使用 `raise forms.ValidationError("預約日期不能是過去的日期")` 拋出錯誤。
+
+### 練習題二：取消預約功能（刪除資料與權限檢查）
+* **題目說明**：目前使用者只能在「我的預約」頁面查看預約，但無法取消。請實作一個「取消預約」的功能，在「我的預約」清單中，為每筆預約旁加上一個「取消預約」的按鈕或連結，點擊後會刪除該筆預約並重新導向回「我的預約」頁面。
+* **引導提示**：
+    1. **設計網址**：在 [/courts/urls.py](/courts/urls.py) 中新增一個 URL pattern，例如 `cancel_booking/<int:booking_id>/`。
+    2. **實作 View**：在 [/courts/views.py](/courts/views.py) 中新增一個 `cancel_booking(request, booking_id)` 的視圖：
+        * 需使用 `@login_required` 裝飾器確保使用者已登入。
+        * 根據 `booking_id` 取得該筆預約資料（例如 `Booking.objects.get(id=booking_id)`）。
+        * **安全檢查**：務必確認該筆預約的 `user` 確實是當前登入的 `request.user`，避免惡意使用者透過更改網址上的 ID 刪除別人的預約。
+        * 執行刪除動作（`.delete()`），並使用 `redirect` 重新導向回 `my_bookings`。
+    3. **更新模板**：在 [/courts/templates/my_bookings.html](/courts/templates/my_bookings.html) 的迴圈中，為每筆預約加上一個指向取消預約網址的連結或按鈕（例如 `<a href="{% url 'cancel_booking' booking.id %}">取消預約</a>`）。
