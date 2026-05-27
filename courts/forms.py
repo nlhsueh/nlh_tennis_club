@@ -41,5 +41,5 @@ class BookingForm(forms.ModelForm):
         if not reason:
             raise ValidationError('預約原因不能為空。')
         if len(reason) <= 10:
-            raise ValidationError(f'用途必須至少包含 10 個字元。目前只有 {len(reason)} 個字')
+            raise ValidationError(f'用途必須超過 10 個字元（至少 11 字）。目前只有 {len(reason)} 個字')
         return reason        
