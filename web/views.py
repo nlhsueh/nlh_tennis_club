@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate
 from django.contrib import auth
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 
 from web.forms import LoginForm
 
@@ -16,10 +16,7 @@ def login(request):
             )
             if user is not None:
                 auth.login(request, user)
-                return render(request, 'main.html', {
-                    'user': request.user,
-                    'message': 'login ok',
-                })
+                return redirect('main')
             message = 'Login failed (auth fail)'
         else:
             message = 'Login error (login form is not valid)'
@@ -37,11 +34,6 @@ def login(request):
 def logout(request):
     ''' 登出 '''
     auth.logout(request)
-    # main_html = loader.get_template('main.html')
-    context = {'user': request.user}
-
-    return render(request, 'main.html', {
-                    'user': request.user,
-                })
+    return redirect('main')
 
     # return HttpResponse(main_html.render(context, request))
