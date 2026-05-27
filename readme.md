@@ -35,6 +35,10 @@ from .models import Member
 admin.site.register(Member)
 ```
 
+> [!TIP]
+> **視覺化管理會員資料**：
+> 註冊完成後，當您登入並進入後台管理頁面（[/admin/](http://127.0.0.1:8000/admin/)）時，您會看到一個名為 **Members** 的區塊。您可以點擊進入，直接在網頁上視覺化地進行會員資料的**新增（Create）**、**查看（Read）**、**修改（Update）**與**刪除（Delete）**等 CRUD 資料操作。
+
 ---
 
 ## 資料庫限制
