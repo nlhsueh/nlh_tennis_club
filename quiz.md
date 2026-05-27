@@ -1,4 +1,4 @@
-# Django MVT 基礎課堂隨堂測驗 — Master-Details & Extending (Quiz)
+# Quiz
 
 本測驗旨在檢驗學生對於本單元（`details` 分支：Master-Details 架構、Template Extending 模板繼承、URL 參數傳遞與單一資料獲取）核心概念的理解。
 
