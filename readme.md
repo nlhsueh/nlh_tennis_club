@@ -34,3 +34,46 @@
     2. 新增一個 `clean_date(self)` 方法來驗證 `date` 欄位。
     3. 透過 `datetime.timedelta(days=30)` 計算出 30 天後的上限日期。
     4. 比對使用者輸入的日期，若大於上限日期，則 `raise ValidationError(...)`。
+
+---
+
+## 延伸練習解答與說明 (Branch `validation.ex` Solution Guide)
+
+本專案的 `validation.ex` 分支中已包含此兩題練習的完整實作與解答，以下為解答說明：
+
+### 練習題一：解答說明
+在 [/courts/forms.py](/courts/forms.py) 中，我們修改了 `BookingForm` 類別的 `clean_reason(self)` 方法：
+
+```python
+    def clean_reason(self):
+        print ('clean_reason is called')
+        reason = self.cleaned_data.get('reason')
+        if not reason:
+            raise ValidationError('預約原因不能為空。')
+        if len(reason) <= 10:
+            raise ValidationError(f'用途必須超過 10 個字元（至少 11 字）。目前只有 {len(reason)} 個字')
+        
+        # 練習題一：過濾敏感或測試字詞
+        forbidden_words = ['test', 'demo', '測試', '範例']
+        reason_lower = reason.lower()
+        for word in forbidden_words:
+            if word in reason_lower:
+                raise ValidationError(f'預約原因不能包含測試或範例字詞（如 {word}）。')
+        return reason        
+```
+* **運作機制**：藉由設定禁止關鍵字陣列 `forbidden_words`，並使用 `in` 關鍵字來比對轉為小寫的 `reason_lower`。一旦偵測到包含禁止字詞，即丟出包含具體敏感關鍵字的 `ValidationError`。
+
+### 練習題二：解答說明
+在 [/courts/forms.py](/courts/forms.py) 中，我們為 `BookingForm` 類別新增了 `clean_date(self)` 方法，並導入了 `timedelta`：
+
+```python
+    def clean_date(self):
+        booking_date = self.cleaned_data.get('date')
+        if booking_date:
+            # 練習題二：限制只能預約 30 天以內的日期
+            max_date = date.today() + timedelta(days=30)
+            if booking_date > max_date:
+                raise ValidationError(f'預約日期最多只能是自今天起算 30 天以內的日期（最晚為 {max_date}）。目前您選擇了 {booking_date}。')
+        return booking_date
+```
+* **運作機制**：Django 的表單提供 `clean_<fieldname>()` 鉤子來針對個別欄位做深度檢驗。我們藉由 `from datetime import date, timedelta` 取得今天的日期並透過 `date.today() + timedelta(days=30)` 計算出最遠的允許預約日，最後比對使用者所選的日期是否超限。
