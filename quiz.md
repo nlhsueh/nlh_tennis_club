@@ -1,4 +1,4 @@
-# 🎾 Django MVT 基礎課堂隨堂測驗 (Quiz)
+# Django MVT 基礎課堂隨堂測驗 (Quiz)
 
 本測驗旨在檢驗學生對於本單元（`member` 分支：Django Model、Migration、Django Shell 資料操作與 MVT 基本資料渲染）核心概念的理解。
 
