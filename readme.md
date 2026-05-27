@@ -6,6 +6,12 @@
 更新：
 * 加入 joined_date 及 phone 等欄位，設定這些欄位的屬性，例如 default, verbose_name 等
 * admin.py 中，admin 對 member 的註冊
+* **批次新增會員資料**：可在 Django Shell 環境下執行 [/members/addMember.py](/members/addMember.py) 腳本，一次快速匯入 10 筆測試會員資料。
+  ```shell
+  python manage.py shell
+  # 進入 shell 後執行下列指令：
+  exec(open('members/addMember.py').read())
+  ```
 
 學習內容
 * 進入 admin 請觀察欄位的變化
