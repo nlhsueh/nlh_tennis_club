@@ -1,4 +1,4 @@
-# Django MVT 基礎課堂隨堂測驗 — Database & Admin (Quiz)
+# Quiz
 
 本測驗旨在檢驗學生對於本單元（`admin` 分支：Django Admin、Database Constraints 資料庫限制、欄位異動處理與管理者建立）核心概念的理解。
 
