@@ -1,226 +1,212 @@
-# Django MVT 會員系統 — 隨堂測驗 (Quiz)
+## Django MVT 基礎課堂隨堂測驗 — 首頁與除錯模式設定 (Quiz)
 
-本測驗旨在檢驗學生對於本單元「Django 會員系統（Master-Details 架構、URL 變數傳遞、與母版樣板繼承）」的學習成效。題目緊扣本單元的分支程式碼與基本概念。
-
----
-
-## 一、 選擇題 (Multiple Choice) — 共 5 題
-
-### Q1. 關於 Django 中的 `{% extends "master.html" %}` 樣板標籤，下列敘述何者正確？
-* (A) 它必須放在 HTML 檔案的最尾端。
-* (B) 它可以用來導入多個不同的母版樣板，例如 `{% extends "a.html" "b.html" %}`。
-* (C) 它必須作為子樣板（Child Template）檔案中的第一個樣板標籤。
-* (D) 它是用來定義可以在母版中被覆寫的區塊名稱。
-
-<details>
-<summary>💡 點擊查看解答與解析</summary>
-
-**正確答案**：**(C)**
-
-**解析**：
-* 在 Django 樣板系統中，`{% extends %}` 標籤是用來聲明樣板繼承關係。它**必須**是子樣板檔案中的第一個樣板標籤。如果它的前面有其他 HTML 內容或樣板標籤，樣板解析器在載入時會出錯或忽略繼承關係。
-* (A) 必須放在檔案最上方；(B) 只能繼承一個母版；(D) 定義區塊名稱的是 `{% block %}` 標籤。
-</details>
+本測驗旨在檢驗學生對於本單元（`index` 分支：系統首頁建立、除錯模式關閉與自訂 `404` 錯誤說明頁面、模板導航連結）核心概念的理解。
 
 ---
 
-### Q2. 在本單元的子系統路由 `members/urls.py` 中，有以下設定：
-```python
-path('members/details/<int:id>', views.details, name='details')
-```
-請問其中的 `<int:id>` 主要作用是什麼？
-* (A) 限制該網址只能由特定的使用者訪問。
-* (B) 它是一個路徑變數（URL Parameter），會匹配網址中的一個整數，並將其作為名為 `id` 的參數傳遞給後端的 `views.details` 函數。
-* (C) 它是 Django 內建用來自動遞增資料庫主鍵（Primary Key）的指令。
-* (D) 它是一個內建的防毒檢驗碼，用來防止惡意的 SQL 注入。
+## 📝 一、單選題 (Multiple Choice Questions)
+
+### 1. 在 Django 專案的設定檔 `settings.py` 中，哪一個變數是用來控制「除錯模式」的開關？當我們要將專案部署上線（Production）時，該變數應如何設定？
+* (A) `DEBUG_MODE = False`
+* (B) `DEBUG = False`
+* (C) `ERROR_LOG = True`
+* (D) `TEST_ENVIRONMENT = False`
 
 <details>
-<summary>💡 點擊查看解答與解析</summary>
+<summary>🔑 點擊查看答案與解析</summary>
 
 **正確答案**：**(B)**
 
 **解析**：
-* `<int:id>` 是 Django 網址路由的路徑轉換器（Path Converter）。
-* `<int: ...>` 表示匹配網址路徑中的一個整數（整數類型），而 `id` 是這個被捕獲變數的名稱。當網址匹配成功時（例如 `/members/details/3`），Django 會自動將該整數作為關鍵字參數 `id=3` 傳遞給 `views.details(request, id)` 函數。
+* 在 Django 中，**`DEBUG`** 是布林型態變數，用來控制是否開啟除錯模式。
+* 當 `DEBUG = True` 時，若網頁出錯，會顯示非常詳細的報錯資訊（StackTrace、變數狀態等）；當 `DEBUG = False` 時，則會隱藏細節，改用簡潔的狀態頁面（如 404、500）回覆用戶。
+* 因此，部署上線時為了安全性與隱私，**必須**將其設定為 `False`。
 </details>
 
 ---
 
-### Q3. 觀察本單元的 `members/views.py` 程式碼，當點擊特定會員進入其詳細資料頁面時，View 函數使用了 `Member.objects.get(id=id)` 來查詢資料。請問 `.get()` 方法在找不到符合該 id 的資料時會發生什麼事？
-* (A) 回傳一個空的清單 `[]`，網頁不會報錯。
-* (B) 回傳 `None` 值，並自動跳轉到首頁。
-* (C) 拋出 `Member.DoesNotExist` 的例外錯誤（Exception），若未妥善捕捉會導致網頁伺服器產生 500 錯誤。
-* (D) 自動在資料庫中隨機新增一筆該 id 的測試資料。
+### 2. 當我們在 `settings.py` 中將 `DEBUG` 設定為 `False` 後，若沒有正確設定哪一個變數，Django 在啟動或接收請求時會直接拋出 `CommandError` 或 `Bad Request (400)` 錯誤？
+* (A) `SECURE_HOSTS`
+* (B) `TRUSTED_DOMAINS`
+* (C) `ALLOWED_HOSTS`
+* (D) `SERVER_NAMES`
 
 <details>
-<summary>💡 點擊查看解答與解析</summary>
+<summary>🔑 點擊查看答案與解析</summary>
 
 **正確答案**：**(C)**
 
 **解析**：
-* Django ORM 的 `.get()` 方法預期資料庫中**必須且只能**回傳「剛好一筆」符合條件的資料。
-* 如果在資料庫中找不到該條件的資料，它會拋出 `DoesNotExist` 異常；若查到多於一筆，則會拋出 `MultipleObjectsReturned` 異常。如果想要在查無資料時顯示 404 頁面，通常會搭配 `get_object_or_404()` 來使用。
+* 當除錯模式關閉（`DEBUG = False`）時，Django 為了防範 HTTP Host Header 攻擊，會嚴格檢查 Request 的域名是否合法。
+* **`ALLOWED_HOSTS`** 是一個清單，用來指定該 Django 專案允許運行的主機名稱或 IP 地址。若在測試階段想允許所有 Host，可以設定為 `ALLOWED_HOSTS = ['*']`。
 </details>
 
 ---
 
-### Q4. 在母版 `master.html` 中我們宣告了 `{% block content %}{% endblock %}`，而在子樣板 `all_members.html` 中我們寫了 `{% block content %} ... {% endblock %}`。這種設計架構的主要優點是什麼？
-* (A) 它可以完全取代後端的 Python View 程式碼。
-* (B) 它可以自動將資料庫的表格內容轉成網頁表格。
-* (C) 它可以建立一個一致性的外觀骨架（如導覽列、頁尾），並讓各個子頁面只專注於自己專屬的網頁內容（提高程式重用性與維護性）。
-* (D) 它能將網頁載入速度提升十倍以上。
+### 3. 當 `DEBUG = False` 且使用者造訪了不存在的路由時，Django 會自動尋找並渲染自訂的 `404` 錯誤網頁。請問該自訂模板檔案的檔名與預設存放位置應為下列何者？
+* (A) 檔名為 `error.html`，放在專案根目錄下
+* (B) 檔名為 `404.html`，放在 Template 目錄下（例如 `templates/404.html`）
+* (C) 檔名為 `page_not_found.html`，放在靜態資料夾 `static/` 內
+* (D) 檔名為 `missing.html`，放在 `settings.py` 同級目錄下
 
 <details>
-<summary>💡 點擊查看解答與解析</summary>
-
-**正確答案**：**(C)**
-
-**解析**：
-* 樣板繼承（Template Inheritance）的主要目的在於「不要重複自己 (DRY, Don't Repeat Yourself)」。
-* 母版負責維護一致的排版骨架與導覽架構，而子樣板只需要透過複寫 `block` 來填入各自專屬的內容。當網站需要更動整體外觀（如修改導覽列文字）時，只需修改 `master.html` 一個檔案即可，極大地降低了網頁系統的維護成本。
-</details>
-
----
-
-### Q5. 若我們想要在網頁上建立一個連結，當使用者點擊它時，能自動回到本專案的首頁（Index/Main Page），依據 `members/urls.py` 中 `path('', views.main, name='main')` 的定義，下列哪一個 HTML 標記最為正確？
-* (A) `<a href="{% url 'members' %}">首頁</a>`
-* (B) `<a href="{% url 'main' %}">首頁</a>`
-* (C) `<a href="main.html">首頁</a>`
-* (D) `<a href="{% extends 'main' %}">首頁</a>`
-
-<details>
-<summary>💡 點擊查看解答與解析</summary>
+<summary>🔑 點擊查看答案與解析</summary>
 
 **正確答案**：**(B)**
 
 **解析**：
-* 在 `members/urls.py` 的路徑設定中，我們透過 `name='main'` 將首頁的路由路徑命名為 `"main"`。
-* 在 HTML 樣板中，使用 `{% url 'main' %}` 會被 Django 樣板引擎解析，自動生成該路由對應的真實網址（此處為根目錄 `/`）。這是避免寫死網址（Hardcoding）的最佳實踐。
+* Django 內建的 404 處理器在找不到資源時，會自動在註冊的模板路徑中尋找名為 **`404.html`** 的檔案。
+* 我們只需在模板資料夾（例如 `members/templates/404.html`，或是全域 templates 資料夾）中建立一個名為 `404.html` 的檔案，Django 就會自動載入它。
 </details>
 
 ---
 
-## 二、 簡答題 (Short Answer) — 共 2 題
-
-### Q6. 請解釋「Master-Details（概述與細節）」設計模式在網頁系統中的常見應用情境，並以本單元的 `all_members.html` 與 `details.html` 之間的互動流程為例進行說明。
+### 4. 我們想要為網球俱樂部建立一個「系統主畫面（首頁）」，並希望當使用者存取 `http://127.0.0.1:8000/` 時能直接進入該首頁。在 `my_tennis_club/urls.py` 中，正確的根路由 path 宣告方式為何？
+* (A) `path('/', include('members.urls'))`
+* (B) `path('index/', include('members.urls'))`
+* (C) `path('', include('members.urls'))`
+* (D) `path('*', include('members.urls'))`
 
 <details>
-<summary>💡 點擊查看解答與解析</summary>
+<summary>🔑 點擊查看答案與解析</summary>
 
-**參考答案**：
-* **常見應用情境**：
-  在許多網頁應用程式中，為避免單一頁面過於擁擠、載入緩慢或不便閱讀，通常會先提供一個「概要列表」（Master），例如商品清單、會員清單等。當使用者對清單中的某個項目感興趣並點擊時，系統才會導向展示該項目所有詳細屬性的「細節頁面」（Details）。
-* **本單元流程**：
-  1. 概要頁面 `all_members.html` 巡覽並列出所有會員的姓名，每筆姓名都包裹在一個指向特定 ID 的超連結中，例如 `<a href="details/{{ x.id }}">`。
-  2. 使用者點擊 Alice 的名字後，網址傳送 `/members/details/1` 到 Django 路由。
-  3. 路由捕獲 `id=1` 並傳遞給 `views.details(request, id)` 函數。
-  4. 函數向資料庫撈取單一物件，將其放入 `mymember` 變數並傳遞給 `details.html` 進行渲染，成功在專屬頁面展示 Alice 的電話與入會日期等完整資訊。
+**正確答案**：**(C)**
+
+**解析**：
+* 在 Django 的 `path()` 路由比對中，**空字串 `''`** 代表專案的根路徑（Root URL）。
+* ⚠️ 注意：Django 的路由匹配會自動忽略最前面的斜線，因此不需要在 `path()` 的開頭加上 `/`，所以 (A) `path('/')` 是不正確的。
 </details>
 
 ---
 
-### Q7. 請指出「母版繼承（Template Inheritance）」中，母版（Master Template）與子樣板（Child Template）各自扮演的角色，以及在子樣板中如何使用關鍵字來複寫母版的內容？
+### 5. 如果我們在路由中為首頁設定了別名：`path('', views.main, name='main')`。為了讓繼承母模板 `master.html` 的所有分頁都能快速「回到首頁」，我們應該在 HTML 的 `<a>` 標籤中，使用哪一個最符合 Django 最佳實踐的動態解析語法？
+* (A) `<a href="/members/main/">回到首頁</a>`
+* (B) `<a href="{% url 'main' %}">回到首頁</a>`
+* (C) `<a href="{{ url_main }}">回到首頁</a>`
+* (D) `<a href="{% redirect 'main' %}">回到首頁</a>`
 
 <details>
-<summary>💡 點擊查看解答與解析</summary>
+<summary>🔑 點擊查看答案與解析</summary>
 
-**參考答案**：
-* **母版 (Master Template)**：
-  扮演「母片骨架」的角色。它宣告整個網站或專案共通的 HTML 骨架結構（例如引入 CSS/JS、導覽列、頁尾宣告），並在骨架中透過 `{% block 區塊名稱 %}{% endblock %}` 語法定義若干個「預留插槽」，等待子樣板來填充內容。
-* **子樣板 (Child Template)**：
-  扮演「特定頁面專屬內容」的角色。它本身沒有完整的 HTML 外殼，而是在檔案的最上方使用 `{% extends "母版名稱.html" %}` 宣告要繼承哪一個母版，接著再透過 `{% block 區塊名稱 %}專屬內容{% endblock %}` 將內容精準地填入母版對應的插槽位置，藉此完成頁面組裝。
+**正確答案**：**(B)**
+
+**解析**：
+* 使用 **`{% url '路由別名' %}`** 是 Django 模板中最推薦的寫法。
+* 它可以根據 `urls.py` 中定義的 `name='main'` 動態反向解析出對應的真實網址。
+* 這樣做的好處是：未來如果修改了 `urls.py` 中的 URL 路徑，HTML 模板中的超連結完全不需要手動修改，避免了硬編碼（Hardcoding）路徑所帶來的維護難題。
 </details>
 
 ---
 
-## 三、 程式填空題 (Fill in the Blank) — 共 2 題
+## 💬 二、簡答題 (Short Answer Questions)
 
-### Q8. 請完成以下 `members/views.py` 中 `details` 視圖（View）函數的填空，使其能依據傳入的 `id` 參數從資料庫撈取單一會員，並渲染 `details.html` 樣板。
+### 6. 請簡述為什麼在「正式生產部署環境（Production Environment）」中，絕對不可開啟除錯模式（必須將 `DEBUG` 設為 `False`）？這會帶來哪些嚴重的資安隱患？
+
+<details>
+<summary>🔑 點擊查看答案與解析</summary>
+
+**參考解答**：
+1. **敏感資訊外洩**：當網頁程式出錯時，`DEBUG = True` 會在瀏覽器上顯示非常詳細的 traceback（堆疊追蹤資訊），其中包含伺服器的內部實體檔案路徑、Python 程式碼片段、第三方套件版本等。
+2. **機密參數暴露**：報錯頁面中甚至會顯示 Django 所有的環境變數與設定資訊，包括 `SECRET_KEY`、資料庫連線密碼、API 密鑰等，一旦暴露將導致伺服器或資料庫被完全掌控。
+3. **增加被攻擊機率**：惡意攻擊者能藉由這些詳細的錯誤訊息，精準得知系統所使用的框架漏洞、資料庫結構，進而輕鬆發起 SQL Injection 或代碼執行等精準攻擊。
+</details>
+
+---
+
+### 7. 請說明在 `DEBUG = False` 模式下，當 Django 遇到 `Http404` 異常時，它是如何搜尋並渲染 `404.html` 模板的？如果我們同時在多個 App 的 `templates/` 資料夾下都建立 `404.html`，會發生什麼事？
+
+<details>
+<summary>🔑 點擊查看答案與解析</summary>
+
+**參考解答**：
+* **搜尋機制**：
+  - Django 觸發 404 錯誤時，會調用內建的 `django.views.defaults.page_not_found` 視圖。
+  - 該視圖會透過配置的模板引擎（Templates Engines）載入器，依序在 `settings.py` 中設定的 `TEMPLATES` -> `DIRS` 列表路徑中尋找是否存在 `404.html`。
+  - 如果沒有，則會按照 `INSTALLED_APPS` 裡註冊的 App 順序，在每個 App 的 `templates/` 目錄下尋找 `404.html`。
+* **多個 `404.html` 衝突結果**：
+  - Django 模板載入器採用「**先找到先贏（First-match-wins）**」原則。
+  - 當多個 App 內都存在 `404.html` 時，Django 會渲染在 `INSTALLED_APPS` 中**註冊順序最靠前**的那個 App 下的 `404.html`，其餘的將會被忽略。因此，最佳做法是將全域錯誤頁面放在專案層級的 `templates/` 資料夾下。
+</details>
+
+---
+
+## 💻 三、程式碼填充題 (Fill in the Blank Questions)
+
+### 8. 為了將本網球系統切換到生產環境的安全狀態，我們需要修改 `settings.py` 的設定。請在下列程式碼的空缺處（標示為 `___(1)___`、`___(2)___`）填入正確的設定值，使其能夠關閉除錯功能並允許所有 Host 進行測試：
+
 ```python
-def details(request, id):
-    # 1. 依據傳入的 id 參數查詢單一會員資料
-    mymember = _______________________________________________
-    
-    # 2. 載入 details.html 樣板
-    template = _______________________________________________
-    
-    # 3. 封裝傳給樣板的上下文資料
-    context = {
-        'mymember': mymember,
-    }
-    
-    # 4. 渲染樣板並回傳
-    return HttpResponse(template.render(context, request))
+# my_tennis_club/settings.py
+
+# 1. 關閉除錯模式
+DEBUG = ___(1)___
+
+# 2. 允許任何主機網域存取該 Django 系統
+ALLOWED_HOSTS = [___(2)___]
 ```
 
 <details>
-<summary>💡 點擊查看解答與解析</summary>
+<summary>🔑 點擊查看答案與解析</summary>
 
-**正確答案**：
+**填空答案**：
+* `(1)`: `False`
+* `(2)`: `'*'` （或 `"*"`）
 
-* 填空 1：**`Member.objects.get(id=id)`**
-* 填空 2：**`loader.get_template('details.html')`**
-
-**完整程式碼呈現**：
+**完整設定呈現**：
 ```python
-def details(request, id):
-    mymember = Member.objects.get(id=id)
-    template = loader.get_template('details.html')
-    context = {
-        'mymember': mymember,
-    }
-    return HttpResponse(template.render(context, request))
+# my_tennis_club/settings.py
+
+DEBUG = False
+
+ALLOWED_HOSTS = ['*']
 ```
 </details>
 
 ---
 
-### Q9. 請完成以下子樣板 `details.html` 的填空，使其能繼承 `'master.html'` 母版，並覆寫母版中的 `title` 與 `content` 區塊，以印出該會員的名字（`mymember.firstname`）。
-```html
-<!-- 1. 繼承 master.html 母版 -->
-(a)______ extends "master.html" (b)______
+### 9. 我們在 `members/views.py` 中撰寫了 `main` 視圖來處理首頁請求，並希望該視圖能載入 `main.html` 模板。同時，我們在 `master.html` 中加入了導覽列首頁連結。請填入空缺處（標示為 `___(1)___`、`___(2)___`、`___(3)___`）的程式碼：
 
-<!-- 2. 覆寫 title 區塊 -->
-(c)______ block title (d)______
-  詳細資料 - (e)______ mymember.firstname (f)______
-(g)______ endblock (h)______
+```python
+# members/views.py
+from django.shortcuts import render
+from django.http import HttpResponse
+from django.template import loader
 
-<!-- 3. 覆寫 content 區塊 -->
-(i)______ block content (j)______
-  <h1>會員姓名：(e)______ mymember.firstname (f)______</h1>
-  <p>回到：<a href="/members">會員列表</a></p>
-(k)______ endblock (l)______
+def main(request):
+  template = loader.get_template('___(1)___')
+  return HttpResponse(template.render({}, request))
 ```
 
-<details>
-<summary>💡 點擊查看解答與解析</summary>
-
-**正確答案**：
-
-* (a) **`{%`**
-* (b) **`%}`**
-* (c) **`{%`**
-* (d) **`%}`**
-* (e) **`{{`**
-* (f) **`}}`**
-* (g) **`{%`**
-* (h) **`%}`**
-* (i) **`{%`**
-* (j) **`%}`**
-* (k) **`{%`**
-* (l) **`%}`**
-
-**完整樣板內容**：
 ```html
-{% extends "master.html" %}
+<!-- members/templates/master.html -->
+<!DOCTYPE html>
+<html>
+<head>
+  <title>{% block title %}{% endblock %}</title>
+</head>
+<body>
 
-{% block title %}
-  詳細資料 - {{ mymember.firstname }}
-{% endblock %}
+<div class="topnav">
+  <!-- 動態連結到名為 'main' 的路由 -->
+  <a href="___(2)___">Home</a> | 
+  <a href="___(3)___">Members</a>
+</div>
 
 {% block content %}
-  <h1>會員姓名：{{ mymember.firstname }}</h1>
-  <p>回到：<a href="/members">會員列表</a></p>
 {% endblock %}
+
+</body>
+</html>
 ```
+
+<details>
+<summary>🔑 點擊查看答案與解析</summary>
+
+**填空答案**：
+* `(1)`: `main.html`
+* `(2)`: `{% url 'main' %}`
+* `(3)`: `{% url 'members' %}`
+
+**解析**：
+* 在視圖中，我們需要指定載入首頁模板 `main.html`。
+* 在母模板中，使用 `{% url 'main' %}` 導向首頁路由，`{% url 'members' %}` 導向會員列表路由，可實現高度靈活的動態導覽。
 </details>
