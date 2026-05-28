@@ -22,25 +22,25 @@
 {% endif %}
 
 {% if request.user.is_authenticated %}
-  <div class="auth-row">
-    <span class="username-badge">{{ request.user }}</span>
-    <a href="{% url 'logout' %}" class="btn btn-danger">🚪 登出</a>
-  </div>
+<div class="auth-row">
+  <span class="username-badge">{{ request.user }}</span>
+  <a href="{% url 'logout' %}" class="btn btn-danger">🚪 登出</a>
+</div>
 {% else %}
-  <div class="form-card">
-    <form action="." method="post">
-      {% csrf_token %}
-      <div class="form-field">
-        <label for="id_username">帳號</label>
-        {{ login_form.username }}
-      </div>
-      <div class="form-field">
-        <label for="id_password">密碼</label>
-        {{ login_form.password }}
-      </div>
-      <input type="submit" value="🔑 登入">
-    </form>
-  </div>
+<div class="form-card">
+  <form action="." method="post">
+    {% csrf_token %}
+    <div class="form-field">
+      <label for="id_username">帳號</label>
+      {{ login_form.username }}
+    </div>
+    <div class="form-field">
+      <label for="id_password">密碼</label>
+      {{ login_form.password }}
+    </div>
+    <input type="submit" value="🔑 登入">
+  </form>
+</div>
 {% endif %}
 
 {% endblock %}
