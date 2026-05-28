@@ -1,5 +1,9 @@
 *.pyc
 **/*.pyc
 .DS_Store
-db.sqlite3
+.venv/
 venv/
+__pycache__/
+db.sqlite3
+*.log
+*.pot
