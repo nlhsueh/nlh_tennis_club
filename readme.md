@@ -1,6 +1,6 @@
-# version bind_user
+# version `bind_user.ex`
 
-前一版本：img
+前一版本：`bind_user`
 
 [/members/models.py](/members/models.py)
 * 加上 `user` 的外鍵
