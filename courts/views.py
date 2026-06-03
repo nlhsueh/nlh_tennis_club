@@ -29,6 +29,13 @@ def courts(request):
   return HttpResponse(template.render(context, request))
 
 def booking_form(request, court_id):
+    if not request.user.is_authenticated:
+        return HttpResponse(f'''
+        <div class="text-center" style="padding: 20px 0;">
+          <p class="text-muted" style="font-size: 14px; margin-bottom: 14px;">請先登入後再進行預訂。</p>
+          <a href="/login/?next=/courts/" class="btn btn-primary" style="padding: 8px 24px; font-size: 13px; border-radius: 99px;">前往登入</a>
+        </div>
+        ''')
     court = Court.objects.get(id=court_id)
     existing_bookings = Booking.objects.filter(court=court)
     today_date = date.today().strftime('%Y-%m-%d')
@@ -58,9 +65,10 @@ def create_booking(request):
     if request.method == "POST":
         court_id = request.POST.get('court_id')
         booking_date = request.POST.get('booking_date')
+        reason = request.POST.get('reason', '')
         try:
             court = Court.objects.get(id=court_id)
-            booking = Booking(court=court, user=request.user, date=booking_date, reason='')
+            booking = Booking(court=court, user=request.user, date=booking_date, reason=reason)
             booking.save()
             return HttpResponse(f'''
             <div class="text-center" style="padding: 10px 0;">
@@ -78,6 +86,7 @@ def create_booking(request):
                 'court': court,
                 'existing_bookings': existing_bookings,
                 'today_date': today_date,
+                'reason': reason,
                 'error_message': '發生錯誤，此日期已被預訂，請選擇其他日期！'
             })
 
