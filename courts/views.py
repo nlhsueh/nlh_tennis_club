@@ -66,29 +66,51 @@ def create_booking(request):
         court_id = request.POST.get('court_id')
         booking_date = request.POST.get('booking_date')
         reason = request.POST.get('reason', '')
-        try:
-            court = Court.objects.get(id=court_id)
-            booking = Booking(court=court, user=request.user, date=booking_date, reason=reason)
-            booking.save()
-            return HttpResponse(f'''
-            <div class="text-center" style="padding: 10px 0;">
-              <span style="font-size: 40px; display: block; margin-bottom: 10px;">✅</span>
-              <h5 style="color: var(--green-dark); font-weight: 700; margin-bottom: 8px;">預訂成功！</h5>
-              <p class="text-muted" style="font-size: 13px; margin-bottom: 16px;">您已成功預訂 {court.courtname} ({booking_date})。</p>
-              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="window.location.reload()" style="padding: 6px 20px; font-size: 13px;">確定</button>
-            </div>
-            ''', status=201)
-        except Exception as e:
-            court = Court.objects.get(id=court_id)
-            existing_bookings = Booking.objects.filter(court=court)
-            today_date = date.today().strftime('%Y-%m-%d')
-            return render(request, 'fragments/booking_form.html', {
-                'court': court,
-                'existing_bookings': existing_bookings,
-                'today_date': today_date,
-                'reason': reason,
-                'error_message': '發生錯誤，此日期已被預訂，請選擇其他日期！'
-            })
+        
+        # Build form data dict to validate with BookingForm
+        form_data = {
+            'user': request.user.id,
+            'court': court_id,
+            'date': booking_date,
+            'reason': reason
+        }
+        
+        booking_form = BookingForm(form_data)
+        if booking_form.is_valid():
+            try:
+                booking = booking_form.save()
+                return HttpResponse(f'''
+                <div class="text-center" style="padding: 10px 0;">
+                  <span style="font-size: 40px; display: block; margin-bottom: 10px;">✅</span>
+                  <h5 style="color: var(--green-dark); font-weight: 700; margin-bottom: 8px;">預訂成功！</h5>
+                  <p class="text-muted" style="font-size: 13px; margin-bottom: 16px;">您已成功預訂 {booking.court.courtname} ({booking_date})。</p>
+                  <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="window.location.reload()" style="padding: 6px 20px; font-size: 13px;">確定</button>
+                </div>
+                ''', status=201)
+            except Exception as e:
+                error_message = '發生錯誤，此日期已被預訂，請選擇其他日期！'
+        else:
+            # Extract validation error messages
+            if booking_form.errors.get('reason'):
+                error_message = booking_form.errors.get('reason')[0]
+            elif booking_form.errors.get('date'):
+                error_message = f"預約日期錯誤: {booking_form.errors.get('date')[0]}"
+            elif booking_form.non_field_errors():
+                error_message = booking_form.non_field_errors()[0]
+            else:
+                error_message = '欄位驗證錯誤，請檢查輸入內容！'
+        
+        # If we reach here, it failed validation or save
+        court = Court.objects.get(id=court_id)
+        existing_bookings = Booking.objects.filter(court=court)
+        today_date = date.today().strftime('%Y-%m-%d')
+        return render(request, 'fragments/booking_form.html', {
+            'court': court,
+            'existing_bookings': existing_bookings,
+            'today_date': today_date,
+            'reason': reason,
+            'error_message': error_message
+        })
 
 from django.views.decorators.csrf import csrf_exempt
 
