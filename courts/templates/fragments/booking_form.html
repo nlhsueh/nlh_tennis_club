@@ -1,8 +1,13 @@
 <!-- 預訂表單片段 -->
+{% if error_message %}
+  <div class="alert alert-error" style="margin-bottom: 14px; font-size: 13px; padding: 10px 14px;">
+    ⚠️ {{ error_message }}
+  </div>
+{% endif %}
+
 <form class="form-card" 
       hx-post="{% url 'create_booking' %}"
-      hx-target="#booking-result"
-      hx-on::after-request="if(event.detail.xhr.status===201) { alert('預訂成功！'); window.location.reload(); }"
+      hx-target="#booking-form-container"
       style="max-width: 100%; border: none; padding: 0; background: transparent; display: flex; flex-direction: column; gap: 14px;">
   {% csrf_token %}
   
@@ -11,6 +16,7 @@
   <div class="form-field">
     <label for="booking_date">預訂日期</label>
     <input type="date" id="booking_date" name="booking_date" 
+           value="{{ today_date }}"
            hx-post="{% url 'check_availability' %}"
            hx-target="#availability-status"
            hx-include="[name='court_id']"

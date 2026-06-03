@@ -39,7 +39,7 @@
     "model": "auth.user",
     "pk": 3,
     "fields": {
-      "password": "pbkdf2_sha256$1200000$4N37PrrTjH6diPyxRP4pyt$vw23UAe/LAczq8PPURxHsVF3v9b60y+iK9T9v3UGioQ=",
+      "password": "pbkdf2_sha256$1200000$wFjPNryBzs27F1yGireMx1$wA9GauaxgonSc0dQbEvt60KaD4QZGPWCbnyj//EctkQ=",
       "last_login": null,
       "is_superuser": false,
       "username": "bob",
@@ -57,13 +57,121 @@
     "model": "auth.user",
     "pk": 4,
     "fields": {
-      "password": "pbkdf2_sha256$1200000$DsZ4cGapf3gVhpzkd9WQa0$A1J3Zm3QilD+TJN964TlyTbHSx0MYzkqLJ81qQGck5E=",
+      "password": "pbkdf2_sha256$1200000$wFjPNryBzs27F1yGireMx1$wA9GauaxgonSc0dQbEvt60KaD4QZGPWCbnyj//EctkQ=",
       "last_login": null,
       "is_superuser": false,
       "username": "carol",
       "first_name": "Carol",
-      "last_name": "Lee",
+      "last_name": "Wang",
       "email": "carol@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 5,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$wFjPNryBzs27F1yGireMx1$wA9GauaxgonSc0dQbEvt60KaD4QZGPWCbnyj//EctkQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "david",
+      "first_name": "David",
+      "last_name": "Lin",
+      "email": "david@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 6,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$wFjPNryBzs27F1yGireMx1$wA9GauaxgonSc0dQbEvt60KaD4QZGPWCbnyj//EctkQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "emily",
+      "first_name": "Emily",
+      "last_name": "Huang",
+      "email": "emily@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 7,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$wFjPNryBzs27F1yGireMx1$wA9GauaxgonSc0dQbEvt60KaD4QZGPWCbnyj//EctkQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "frank",
+      "first_name": "Frank",
+      "last_name": "Tsai",
+      "email": "frank@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 8,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$wFjPNryBzs27F1yGireMx1$wA9GauaxgonSc0dQbEvt60KaD4QZGPWCbnyj//EctkQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "grace",
+      "first_name": "Grace",
+      "last_name": "Chang",
+      "email": "grace@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 9,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$wFjPNryBzs27F1yGireMx1$wA9GauaxgonSc0dQbEvt60KaD4QZGPWCbnyj//EctkQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "henry",
+      "first_name": "Henry",
+      "last_name": "Wu",
+      "email": "henry@example.com",
+      "is_staff": false,
+      "is_active": true,
+      "date_joined": "2024-01-01T00:00:00Z",
+      "groups": [],
+      "user_permissions": []
+    }
+  },
+  {
+    "model": "auth.user",
+    "pk": 10,
+    "fields": {
+      "password": "pbkdf2_sha256$1200000$wFjPNryBzs27F1yGireMx1$wA9GauaxgonSc0dQbEvt60KaD4QZGPWCbnyj//EctkQ=",
+      "last_login": null,
+      "is_superuser": false,
+      "username": "ivy",
+      "first_name": "Ivy",
+      "last_name": "Liu",
+      "email": "ivy@example.com",
       "is_staff": false,
       "is_active": true,
       "date_joined": "2024-01-01T00:00:00Z",
@@ -108,6 +216,78 @@
     }
   },
   {
+    "model": "members.member",
+    "pk": 4,
+    "fields": {
+      "firstname": "David",
+      "lastname": "Lin",
+      "phone": 945678901,
+      "joined_date": "2024-04-10",
+      "age": 17,
+      "user": 5
+    }
+  },
+  {
+    "model": "members.member",
+    "pk": 5,
+    "fields": {
+      "firstname": "Emily",
+      "lastname": "Huang",
+      "phone": 956789012,
+      "joined_date": "2024-05-15",
+      "age": 15,
+      "user": 6
+    }
+  },
+  {
+    "model": "members.member",
+    "pk": 6,
+    "fields": {
+      "firstname": "Frank",
+      "lastname": "Tsai",
+      "phone": 967890123,
+      "joined_date": "2024-06-01",
+      "age": 19,
+      "user": 7
+    }
+  },
+  {
+    "model": "members.member",
+    "pk": 7,
+    "fields": {
+      "firstname": "Grace",
+      "lastname": "Chang",
+      "phone": 978901234,
+      "joined_date": "2024-06-15",
+      "age": 22,
+      "user": 8
+    }
+  },
+  {
+    "model": "members.member",
+    "pk": 8,
+    "fields": {
+      "firstname": "Henry",
+      "lastname": "Wu",
+      "phone": 989012345,
+      "joined_date": "2024-07-01",
+      "age": 45,
+      "user": 9
+    }
+  },
+  {
+    "model": "members.member",
+    "pk": 9,
+    "fields": {
+      "firstname": "Ivy",
+      "lastname": "Liu",
+      "phone": 990123456,
+      "joined_date": "2024-07-15",
+      "age": 16,
+      "user": 10
+    }
+  },
+  {
     "model": "courts.court",
     "pk": 1,
     "fields": {
@@ -145,6 +325,46 @@
       "courttype": "D",
       "city": "Tainan",
       "photo": "court_photos/us.jpeg"
+    }
+  },
+  {
+    "model": "courts.court",
+    "pk": 5,
+    "fields": {
+      "courtname": "Court E",
+      "courttype": "H",
+      "city": "Taipei",
+      "photo": "court_photos/taichung.webp"
+    }
+  },
+  {
+    "model": "courts.court",
+    "pk": 6,
+    "fields": {
+      "courtname": "Court F",
+      "courttype": "G",
+      "city": "Taichung",
+      "photo": "court_photos/contre.jpeg"
+    }
+  },
+  {
+    "model": "courts.court",
+    "pk": 7,
+    "fields": {
+      "courtname": "Court G",
+      "courttype": "D",
+      "city": "Kaohsiung",
+      "photo": "court_photos/us.jpeg"
+    }
+  },
+  {
+    "model": "courts.court",
+    "pk": 8,
+    "fields": {
+      "courtname": "Court H",
+      "courttype": "N",
+      "city": "Tainan",
+      "photo": "court_photos/roland.jpeg"
     }
   },
   {

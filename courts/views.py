@@ -31,10 +31,12 @@ def courts(request):
 def booking_form(request, court_id):
     court = Court.objects.get(id=court_id)
     existing_bookings = Booking.objects.filter(court=court)
+    today_date = date.today().strftime('%Y-%m-%d')
     
     return render(request, 'fragments/booking_form.html', {
         'court': court,
-        'existing_bookings': existing_bookings
+        'existing_bookings': existing_bookings,
+        'today_date': today_date
     })
 
 def check_availability(request):
@@ -60,9 +62,24 @@ def create_booking(request):
             court = Court.objects.get(id=court_id)
             booking = Booking(court=court, user=request.user, date=booking_date, reason='')
             booking.save()
-            return HttpResponse('<div class="alert alert-success">預訂成功！</div>', status=201)
+            return HttpResponse(f'''
+            <div class="text-center" style="padding: 10px 0;">
+              <span style="font-size: 40px; display: block; margin-bottom: 10px;">✅</span>
+              <h5 style="color: var(--green-dark); font-weight: 700; margin-bottom: 8px;">預訂成功！</h5>
+              <p class="text-muted" style="font-size: 13px; margin-bottom: 16px;">您已成功預訂 {court.courtname} ({booking_date})。</p>
+              <button type="button" class="btn btn-primary" data-bs-dismiss="modal" onclick="window.location.reload()" style="padding: 6px 20px; font-size: 13px;">確定</button>
+            </div>
+            ''', status=201)
         except Exception as e:
-            return HttpResponse('<div class="alert alert-danger">發生錯誤或日期已被預訂。</div>')
+            court = Court.objects.get(id=court_id)
+            existing_bookings = Booking.objects.filter(court=court)
+            today_date = date.today().strftime('%Y-%m-%d')
+            return render(request, 'fragments/booking_form.html', {
+                'court': court,
+                'existing_bookings': existing_bookings,
+                'today_date': today_date,
+                'error_message': '發生錯誤，此日期已被預訂，請選擇其他日期！'
+            })
 
 from django.views.decorators.csrf import csrf_exempt
 
