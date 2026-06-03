@@ -516,3 +516,45 @@ python manage.py runserver
 * **修復未定義之 JavaScript 錯誤**：將 `booking_form.html` 中因找不到 `showSuccessNotification` 而導致的錯誤，暫時更換為原生的 `alert('預訂成功！')` 與 `window.location.reload()` 來確保操作回饋正常運作。
 * ✨ **新增：我的預約清單即時取消 (動態動畫)**：在 `my_bookings.html` 中實作了 `hx-delete` 與 `hx-target="closest li"`。點擊取消預訂時，會發送刪除請求到後端，並且搭配 `hx-swap="outerHTML swap:0.5s"` 以及自訂 CSS 類別 `.htmx-swapping`，實現預約項目淡出並向右滑動消失的華麗過場效果。
 * ✨ **新增：會員編輯成功後自動關閉 Modal**：在 `member_edit_form.html` 中加入了 `hx-on::after-request`，當表單送出且後端回傳 200 成功狀態時，自動呼叫 Bootstrap 的 JavaScript API 來把 Modal 關閉，同時主列表中的會員資料已經被 HTMX 完美替換，達成極致的順暢體驗！
+
+---
+
+## ⚖️ HTMX 與傳統全頁刷新（bind_user 分支）之比較與優勢分析
+
+為展示 HTMX 技術之優越性，我們在 `bind_user` 分支中同樣以**傳統全頁刷新（Classical Full-Page Reload）**方式實作了「成員即時搜尋」與「球場篩選」功能。以下為兩者之比較與 HTMX 的優勢分析：
+
+### 1. 成員搜尋與篩選 (Member Search)
+* **傳統方式 (`bind_user` 分支)**：
+  - 當使用者在輸入框中填入關鍵字並按下「搜尋」按鈕時，瀏覽器會觸發一個整個頁面的 `GET` 請求（例如 `/members/?search=alice`）。
+  - 後端重新讀取所有關聯並生成整個 HTML 頁面（包括導航欄、頁尾、Google Fonts 及 CSS 靜態檔）。
+  - **缺點**：每次搜尋都會造成**頁面瞬間白屏/閃爍**，且使用者先前滾動的頁面滾動條位置（Scroll Position）會丟失，造成體驗上的卡頓。
+* **HTMX 方式 (`htmx` 分支)**：
+  - 使用 `hx-trigger="input changed delay:300ms"` 屬性。當使用者打字時，會在背景自動以 AJAX 發送非同步請求，且在打字停止 300ms 後才送出，避免頻繁請求。
+  - 後端偵測到 `HX-Request` 標頭後，**只回傳局部 HTML 片段** (`fragments/member_list.html`)，瀏覽器只用該片段局部更新 `#member-list`，不刷新整個頁面。
+  - **優點**：輸入時列表會**無縫且流暢地動態過濾**，完全沒有任何閃爍，體驗如同單頁應用程式 (SPA)。
+
+### 2. 球場類型與城市篩選 (Court Filter)
+* **傳統方式 (`bind_user` 分支)**：
+  - 選擇下拉選單後，透過 `onchange="this.form.submit()"` 或點擊篩選按鈕觸發全頁面 `GET` 重新載入，頁面再次經歷完整的重繪與靜態檔案加載。
+* **HTMX 方式 (`htmx` 分支)**：
+  - 使用 `hx-get`、`hx-target` 與 `hx-include`，選擇時僅在背景發送 AJAX 請求，且將「球場類型」與「城市」兩個選單的值同時打包發送，局部重新渲染表格內容。
+  - **優點**：響應時間極短，無任何全頁重載延遲。
+
+### 3. 成員詳情與預訂表單 (Modals & Form Submission)
+* **傳統方式 (`bind_user` 分支)**：
+  - 點擊成員或球場時，瀏覽器會直接導向新頁面（如 `/members/details/1` 或 `/courts/booking/1/`）。如果預訂成功或失敗，會跳轉到預訂結果頁面，需要使用者點擊「返回」才能回列表，流程繁贅。
+* **HTMX 方式 (`htmx` 分支)**：
+  - 點擊行時，直接以 `hx-get` 將詳情頁面渲染在彈出視窗（Bootstrap Modal）中，無需跳轉頁面。
+  - 預訂提交時，HTMX 直接將表單提交，若成功則在 Modal 中顯示綠色成功打勾畫面與「確定」按鈕；若失敗，則只更新表單上方的錯誤提示，使用者無須離開當前畫面。
+  - 點擊取消預約時，甚至可以利用 HTMX 提供的 `swap` 延時與 CSS 過渡（`.htmx-swapping`），實現刪除項目向右滑出並漸隱消失的流暢動畫效果。
+
+### 📊 數據對比摘要
+
+| 指標 | 傳統全頁刷新 (`bind_user`) | HTMX 局部動態更新 (`htmx`) |
+| :--- | :--- | :--- |
+| **頁面刷新** | 全頁重載 (Full Reload) | 局部 DOM 替換 (Micro-updates) |
+| **網路傳輸量** | 大（包含所有重複的外層 Layout 與資源） | 極小（僅傳輸需要的 HTML 程式碼片段） |
+| **使用者體驗** | 頁面閃爍、滾動位置丟失、等待感明顯 | 無縫流暢、打字即時篩選、原地彈出操作 |
+| **JavaScript 程式量**| 零（完全依賴瀏覽器行為，但體驗較差） | 極少（直接寫在 HTML 屬性中，無需寫複雜的 AJAX） |
+| **動畫過場** | 無法實現 (全頁載入無法做過渡動畫) | 支援 (如項目刪除時的 CSS 滑出與淡出) |
+
