@@ -1,32 +1,33 @@
-<!-- 場館列表片段 -->
-<div class="row">
-  {% for court in courts %}
-    <div class="col-md-4 mb-4">
-      <div class="card" 
-           hx-get="{% url 'court_details' court.id %}"
-           hx-target="#court-detail-modal"
-           data-bs-toggle="modal"
-           data-bs-target="#courtModal"
-           style="cursor: pointer;">
-        {% if court.photo %}
-          <img src="{{ court.photo.url }}" class="card-img-top" alt="{{ court.courtname }}">
-        {% else %}
-          <div class="bg-light card-img-top" style="height: 200px; display: flex; align-items: center; justify-content: center;">
-            <span class="text-muted">無圖片</span>
-          </div>
-        {% endif %}
-        <div class="card-body">
-          <h5 class="card-title">{{ court.courtname }}</h5>
-          <p class="card-text">
-            <strong>城市</strong>：{{ court.city }}<br>
-            <strong>類型</strong>：{{ court.get_courttype_display }}
-          </p>
-        </div>
+<!-- 場館列表行片段 -->
+{% for c in courts %}
+<tr>
+  <td><strong>{{ c.id }}</strong></td>
+  <td>
+    <span class="court-link"
+          hx-get="{% url 'court_details' c.id %}"
+          hx-target="#court-detail-modal"
+          data-bs-toggle="modal"
+          data-bs-target="#courtModal"
+          style="cursor: pointer;">
+      {{ c.courtname }}
+    </span>
+  </td>
+  <td>{{ c.city }}</td>
+  <td>
+    <span class="badge bg-success" style="background-color: var(--green-mid) !important;">{{ c.get_courttype_display }}</span>
+  </td>
+  <td>
+    {% if c.photo %}
+      <div class="court-table-img-wrapper">
+        <img src="{{ c.photo.url }}" alt="{{ c.courtname }}" class="court-table-img">
       </div>
-    </div>
-  {% empty %}
-    <div class="col-12">
-      <p class="text-muted">沒有找到符合條件的場館。</p>
-    </div>
-  {% endfor %}
-</div>
+    {% else %}
+      <span class="text-muted small">無照片</span>
+    {% endif %}
+  </td>
+</tr>
+{% empty %}
+<tr>
+  <td colspan="5" class="text-center text-muted">沒有找到符合條件的場館。</td>
+</tr>
+{% endfor %}

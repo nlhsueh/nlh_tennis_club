@@ -1,40 +1,45 @@
 <!-- 成員編輯表單片段 -->
-<form hx-post="{% url 'update_member' member.id %}"
+<div class="modal-header" style="border-bottom: 1px solid var(--border); padding: 16px 20px;">
+  <h5 class="modal-title" style="font-size: 18px; font-weight: 700; color: var(--green-dark);">編輯成員</h5>
+  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+</div>
+
+<form class="form-card" 
+      hx-post="{% url 'update_member' member.id %}"
       hx-target="#member-{{ member.id }}"
       hx-swap="outerHTML"
       hx-on::after-request="if(event.detail.xhr.status === 200) bootstrap.Modal.getInstance(document.getElementById('memberModal')).hide()"
-      class="needs-validation">
+      style="max-width: 100%; border: none; padding: 0; background: transparent; display: flex; flex-direction: column;">
   {% csrf_token %}
-  <div class="mb-3">
-    <label for="firstname" class="form-label">名字</label>
-    <input type="text" class="form-control" id="firstname" name="firstname" 
-           value="{{ member.firstname }}" required>
-  </div>
   
-  <div class="mb-3">
-    <label for="lastname" class="form-label">姓氏</label>
-    <input type="text" class="form-control" id="lastname" name="lastname" 
-           value="{{ member.lastname }}" required>
+  <div class="modal-body" style="padding: 20px; display: flex; flex-direction: column; gap: 14px;">
+    <div class="form-field">
+      <label for="firstname">名字</label>
+      <input type="text" id="firstname" name="firstname" value="{{ member.firstname }}" required>
+    </div>
+    
+    <div class="form-field">
+      <label for="lastname">姓氏</label>
+      <input type="text" id="lastname" name="lastname" value="{{ member.lastname }}" required>
+    </div>
+    
+    <div class="form-field">
+      <label for="phone">電話</label>
+      <input type="text" id="phone" name="phone" value="{{ member.phone|default:'' }}">
+    </div>
+    
+    <div class="form-field">
+      <label for="age">年齡</label>
+      <input type="text" id="age" name="age" value="{{ member.age }}">
+    </div>
   </div>
-  
-  <div class="mb-3">
-    <label for="phone" class="form-label">電話</label>
-    <input type="tel" class="form-control" id="phone" name="phone" 
-           value="{{ member.phone|default:'' }}">
-  </div>
-  
-  <div class="mb-3">
-    <label for="age" class="form-label">年齡</label>
-    <input type="number" class="form-control" id="age" name="age" 
-           value="{{ member.age }}">
-  </div>
-  
-  <div class="mb-3">
-    <button type="submit" class="btn btn-success">保存</button>
+
+  <div class="modal-footer" style="border-top: 1px solid var(--border); padding: 14px 20px; display: flex; gap: 8px; justify-content: flex-end;">
+    <button type="submit" class="btn btn-primary">保存</button>
     <button type="button" class="btn btn-secondary"
             hx-get="{% url 'member_detail' member.id %}"
-            hx-target="this"
-            hx-swap="outerHTML">
+            hx-target="#modal-content"
+            hx-swap="innerHTML">
       取消
     </button>
   </div>

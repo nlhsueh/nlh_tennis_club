@@ -1,19 +1,36 @@
 <!-- 成員詳情模態片段 -->
-<div class="modal-header">
-  <h5 class="modal-title">成員詳情</h5>
+<div class="modal-header" style="border-bottom: 1px solid var(--border); padding: 16px 20px;">
+  <h5 class="modal-title" style="font-size: 18px; font-weight: 700; color: var(--green-dark);">成員詳情</h5>
   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
-<div class="modal-body">
-  <p><strong>姓名</strong>：{{ mymember.lastname }}{{ mymember.firstname }}</p>
-  <p><strong>使用者名稱</strong>：{{ mymember.user }}</p>
-  <p><strong>年齡</strong>：{{ mymember.age }} 歲</p>
-  <p><strong>電話</strong>：{{ mymember.phone }}</p>
-  <p><strong>入會日期</strong>：{{ mymember.joined_date }}</p>
+<div class="modal-body" style="padding: 20px;">
+  <div class="detail-card" style="margin-bottom: 0; box-shadow: none; background: transparent; border: none; padding: 0;">
+    <div class="detail-row" style="margin-bottom: 12px;">
+      <span class="label">姓名</span>
+      <span class="value">{{ mymember.lastname }}{{ mymember.firstname }}</span>
+    </div>
+    <div class="detail-row" style="margin-bottom: 12px;">
+      <span class="label">使用者名稱</span>
+      <span class="value">{% if mymember.user %}{{ mymember.user }}{% else %}<span class="text-muted">未綁定</span>{% endif %}</span>
+    </div>
+    <div class="detail-row" style="margin-bottom: 12px;">
+      <span class="label">年齡</span>
+      <span class="value">{{ mymember.age }} 歲</span>
+    </div>
+    <div class="detail-row" style="margin-bottom: 12px;">
+      <span class="label">電話</span>
+      <span class="value">{% if mymember.phone %}{{ mymember.phone }}{% else %}<span class="text-muted">未設定</span>{% endif %}</span>
+    </div>
+    <div class="detail-row" style="margin-bottom: 12px;">
+      <span class="label">加入日期</span>
+      <span class="value">{% if mymember.joined_date %}{{ mymember.joined_date }}{% else %}<span class="text-muted">未設定</span>{% endif %}</span>
+    </div>
+  </div>
 </div>
-<div class="modal-footer">
+<div class="modal-footer" style="border-top: 1px solid var(--border); padding: 14px 20px;">
   <button type="button" class="btn btn-primary"
           hx-get="{% url 'edit_member_form' mymember.id %}"
-          hx-target="#modal-body"
+          hx-target="#modal-content"
           hx-swap="innerHTML">
     編輯
   </button>

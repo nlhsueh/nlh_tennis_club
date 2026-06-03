@@ -1,6 +1,18 @@
 <!-- 成員列表片段 -->
+<p class="section-label">青少年成員（年齡 &lt; 20）</p>
+<ul class="list-group mb-4">
+  {% for x in mymembers %}
+    {% if x.age < 20 %}
+      {% include "fragments/member_item.html" %}
+    {% endif %}
+  {% endfor %}
+</ul>
+
+<p class="section-label">成人成員（年齡 ≥ 20）</p>
 <ul class="list-group">
   {% for x in mymembers %}
-    {% include "fragments/member_item.html" %}
+    {% if x.age >= 20 %}
+      {% include "fragments/member_item.html" %}
+    {% endif %}
   {% endfor %}
 </ul>

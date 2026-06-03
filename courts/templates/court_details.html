@@ -1,24 +1,64 @@
 {% extends "master.html" %}
 
-{% block title %}
-  Details about {{ court.courtname }}
-{% endblock %}
+{% block title %}{{ court.courtname }} — 球場詳情{% endblock %}
 
 {% block content %}
 
-<div class="container m-5">
-    <div class="card mx-auto" style="width: 18rem;">
-      <img src= {{ court.photo.url }} class="card-img-top">
-      <div class="card-body">
-        <h5 class="card-title">{{ court.courtname }}</h5>
-        <p class="card-text"> {{ court.get_courttype_display }}球場，坐落於{{ court.city }}的知名球場。</p>
-        <a href={% url 'booking' court.id %} class="btn btn-primary">預約</a>
+<div class="card shadow-sm border-0 rounded-4 overflow-hidden mb-4" style="background: var(--surface); margin-top: 10px;">
+  {% if court.photo %}
+    <div class="court-detail-img-container">
+      <img src="{{ court.photo.url }}" class="card-img-top court-detail-img" alt="{{ court.courtname }}">
+    </div>
+  {% else %}
+    <div class="court-detail-img-container bg-light d-flex align-items-center justify-content-center text-muted" style="height: 240px;">
+      <span>📷 暫無球場照片</span>
+    </div>
+  {% endif %}
+
+  <div class="card-body p-4">
+    <h1 class="card-title h3 mb-2" style="color: var(--green-dark); font-weight: 700;">
+      {{ court.courtname }}
+    </h1>
+    <p class="text-muted mb-4">📍 {{ court.city }}</p>
+
+    <div class="detail-card mb-4" style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r); padding: 20px;">
+      <div class="detail-row mb-3 d-flex justify-content-between align-items-center border-bottom pb-2">
+        <span class="label" style="font-size: 11px; font-weight: 700; color: var(--text-sub); text-transform: uppercase;">球場名稱</span>
+        <span class="value" style="font-weight: 600;">{{ court.courtname }}</span>
+      </div>
+      <div class="detail-row mb-3 d-flex justify-content-between align-items-center border-bottom pb-2">
+        <span class="label" style="font-size: 11px; font-weight: 700; color: var(--text-sub); text-transform: uppercase;">所在城市</span>
+        <span class="value" style="font-weight: 600;">{{ court.city }}</span>
+      </div>
+      <div class="detail-row d-flex justify-content-between align-items-center">
+        <span class="label" style="font-size: 11px; font-weight: 700; color: var(--text-sub); text-transform: uppercase;">球場型態</span>
+        <span class="badge bg-success fs-6" style="padding: 6px 12px; font-weight: 600;">{{ court.get_courttype_display }}</span>
       </div>
     </div>
+
+    <div class="d-flex align-items-center gap-3 flex-wrap">
+      <a href="{% url 'booking' court.id %}" class="btn btn-clay px-4 py-2" style="border-radius: 99px;">📅 預約此球場</a>
+      <a href="/courts/" class="back-link m-0">← 返回球場列表</a>
+    </div>
+  </div>
 </div>
 
-<div class="container m-5">
-  <p>Back to: <a href='/courts'>Courts</a></p>
-</div>
-    
+<style>
+  .court-detail-img-container {
+    width: 100%;
+    height: 320px;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .court-detail-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+  .court-detail-img:hover {
+    transform: scale(1.03);
+  }
+</style>
+
 {% endblock %}

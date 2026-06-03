@@ -1,21 +1,38 @@
-<div class="modal-header">
-  <h5 class="modal-title">{{ court.courtname }}</h5>
+<!-- 場館詳情模態片段 -->
+<div class="modal-header" style="border-bottom: 1px solid var(--border); padding: 16px 20px;">
+  <h5 class="modal-title" style="font-size: 18px; font-weight: 700; color: var(--green-dark);">{{ court.courtname }}</h5>
   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
-<div class="modal-body">
+<div class="modal-body" style="padding: 20px;">
   {% if court.photo %}
-    <img src="{{ court.photo.url }}" class="img-fluid mb-3" style="max-height: 200px; object-fit: cover; width: 100%;" alt="{{ court.courtname }}">
+    <div style="width: 100%; height: 200px; border-radius: 12px; overflow: hidden; margin-bottom: 16px; border: 1px solid var(--border);">
+      <img src="{{ court.photo.url }}" style="width: 100%; height: 100%; object-fit: cover;" alt="{{ court.courtname }}">
+    </div>
   {% endif %}
-  <p><strong>類型：</strong> {{ court.get_courttype_display }}</p>
-  <p><strong>城市：</strong> {{ court.city }}</p>
   
-  <hr>
-  <h5>預訂此場館</h5>
+  <div class="detail-card mb-4" style="background: var(--surface-2); border: 1px solid var(--border); border-radius: var(--r); padding: 16px;">
+    <div class="detail-row mb-3 d-flex justify-content-between align-items-center border-bottom pb-2">
+      <span class="label" style="font-size: 11px; font-weight: 700; color: var(--text-sub); text-transform: uppercase;">球場名稱</span>
+      <span class="value" style="font-weight: 600;">{{ court.courtname }}</span>
+    </div>
+    <div class="detail-row mb-3 d-flex justify-content-between align-items-center border-bottom pb-2">
+      <span class="label" style="font-size: 11px; font-weight: 700; color: var(--text-sub); text-transform: uppercase;">所在城市</span>
+      <span class="value" style="font-weight: 600;">{{ court.city }}</span>
+    </div>
+    <div class="detail-row d-flex justify-content-between align-items-center">
+      <span class="label" style="font-size: 11px; font-weight: 700; color: var(--text-sub); text-transform: uppercase;">球場型態</span>
+      <span class="badge bg-success fs-6" style="padding: 6px 12px; font-weight: 600; background-color: var(--green-mid) !important;">{{ court.get_courttype_display }}</span>
+    </div>
+  </div>
+
+  <hr style="border: none; border-top: 1px solid var(--border); margin: 20px 0;">
+  
+  <h5 style="font-size: 16px; font-weight: 700; color: var(--green-dark); margin-bottom: 14px;">📅 預訂此場館</h5>
   <div id="booking-form-container"
        hx-get="{% url 'booking_form' court.id %}"
        hx-trigger="load">
     <div class="text-center">
-      <div class="spinner-border text-primary" role="status">
+      <div class="spinner-border text-success" role="status">
         <span class="visually-hidden">載入中...</span>
       </div>
     </div>

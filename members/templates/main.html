@@ -1,43 +1,41 @@
 {% extends "master.html" %}
 {% load static %}
 
-{% block title %}
-  My Tennis Club
-{% endblock %}
-
+{% block title %}My Tennis Club{% endblock %}
 
 {% block content %}
 
-{% comment %} 放一些照片好看 {% endcomment %}
-<div class="container mt-2">
-  <div class="row mt-1">
-    <div class="col-sm-3 mt-1"><img src={% static '/img/centre.jpeg' %} class="rounded" width="100%" height="100%"></div>
-    <div class="col-sm-3 mt-1"><img src={% static '/img/garros.png' %} class="rounded" width="100%" height="100%"></div>
-    <div class="col-sm-3 mt-1"><img src={% static '/img/centre.jpeg' %} class="rounded" width="100%" height="100%"></div>
-    <div class="col-sm-3 mt-1"><img src={% static '/img/garros.png' %} class="rounded" width="100%" height="100%"></div>
-  </div>
+<h1 class="page-title">
+  歡迎來到網球俱樂部
+  <span class="subtitle">選擇一個功能開始吧</span>
+</h1>
+
+<div class="link-card-group">
+  <a href="/members/" class="link-card">
+    <span class="link-card-icon">👥</span>
+    <span class="link-card-text">
+      <span class="link-card-title">成員列表</span>
+      <span class="link-card-desc">查看所有俱樂部成員</span>
+    </span>
+    <span class="link-card-arrow">›</span>
+  </a>
+
+  <a href="/courts/" class="link-card">
+    <span class="link-card-icon">🏟</span>
+    <span class="link-card-text">
+      <span class="link-card-title">球場資訊</span>
+      <span class="link-card-desc">瀏覽所有可用球場</span>
+    </span>
+    <span class="link-card-arrow">›</span>
+  </a>
+
+  <a href="/courts/bookings/" class="link-card">
+    <span class="link-card-icon">📅</span>
+    <span class="link-card-text">
+      <span class="link-card-title">我的預約</span>
+      <span class="link-card-desc">查看您的所有球場預約紀錄</span>
+    </span>
+    <span class="link-card-arrow">›</span>
+  </a>
 </div>
-
-{% comment %} 會員與球場 {% endcomment %}
-<div class="container mt-2">
-  <div class='row'>
-    <div class="col-md-6">
-        <h2 class='text-success'>Members</h2>
-        <p>
-          歡迎加入我們的網站！作為我們網球俱樂部的會員，您將享有一系列獨家福利和精彩體驗。首先，會員將獲得提前預訂球場的特權，確保您在最繁忙的時間獲得理想的場地。此外，我們將定期舉辦會員專屬活動，包括錦標賽、培訓工作坊和社交活動，這是與其他網球愛好者建立聯繫的絕佳機會。會員還可享受獨家折扣，涵蓋球場租用、訓練課程和俱樂部商品等。加入我們的會員群體，一同沉浸在網球的樂趣中，發現更多運動和社交的可能性。現在就加入，體驗尊貴的會員待遇，共同建立一個熱情而充滿活力的網球社區！</p>
-        
-          <button type="button" class="btn btn-primary" onclick="window.location.href='/members'">See Members</button>  
-    </div>
-
-    <div class="col-md-6">
-        <h2 class='text-success'>Court</h2>
-        <p>
-          網球球場，是一個凝聚運動激情與技藝表現的場所。其獨特的綠茵場地散發著活力，每一個白色的基線都宛如一道韻律的音符，等待著網球的優雅飛舞。在陽光灑落的時刻，球場成為夢想的舞臺，每一場比賽都是一場勇敢闖蕩的冒險。球場的環境充滿了友誼的味道，彷彿在每一個角落都有著無窮的可能性，等待著選手和愛好者們共同揮灑熱情，創造出屬於網球奇蹟的時刻。这是一個激勵心靈、塑造身體、促進交流的場地，球場不僅是比賽的舞臺，更是夢想與努力的見證者。</p>
-        
-          <button type="button" class="btn btn-primary" onclick="window.location.href='/courts'">See Courts</button>  
-    </div>
-  </div>    
-</div>
-
-  
 {% endblock %}

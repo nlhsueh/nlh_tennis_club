@@ -1,39 +1,43 @@
 {% extends "master.html" %}
 
-{% block title %}
-My Tennis Club - List of all bookings
-{% endblock %}
-
+{% block title %}我的預約紀錄{% endblock %}
 
 {% block content %}
 
-<div class="container m-3">
+<h1 class="page-title">
+  我的預約紀錄
+  {% if member %}
+    <span class="subtitle">親愛的 {{ member.lastname }}{{ member.firstname }}，您目前的所有球場預約</span>
+  {% else %}
+    <span class="subtitle">您目前的所有球場預約</span>
+  {% endif %}
+</h1>
 
-    <h3 class="text-success m-2">{{ mymember.lastname}}{{ member.firstname }} ({{ member.user }}) 的預約</h3>
+<style>
+  .htmx-swapping {
+    opacity: 0;
+    transform: translateX(100%);
+  }
+</style>
 
-    <style>
-      .htmx-swapping {
-        opacity: 0;
-        transform: translateX(100%);
-      }
-    </style>
+<ul class="item-list">
+  {% for booking in bookings %}
+  <li style="transition: all 0.5s ease-out; display: flex; align-items: center; justify-content: space-between;">
+    <span style="flex:1; font-weight: 600; color: var(--green-dark);">{{ booking.court.courtname }}</span>
+    <span class="item-meta" style="margin-right: 12px;">📅 {{ booking.date }}</span>
+    <button type="button" class="btn btn-danger"
+            hx-delete="{% url 'cancel_booking' booking.id %}"
+            hx-target="closest li"
+            hx-swap="outerHTML swap:500ms"
+            style="padding: 4px 12px; font-size: 11px;">
+      取消
+    </button>
+  </li>
+  {% empty %}
+  <li style="justify-content:center; color: var(--text-sub);">目前尚無預約紀錄</li>
+  {% endfor %}
+</ul>
 
-    <ul class="list-group">
-        {% for booking in bookings %}
-            <li class="list-group-item bg-transparent d-flex justify-content-between align-items-center"
-                style="transition: all 0.5s ease-out;">
-                <span>預約了 <strong>{{ booking.date }}</strong> 的 <strong>{{ booking.court.courtname }}</strong></span>
-                <button type="button" class="btn btn-sm btn-outline-danger"
-                        hx-delete="{% url 'cancel_booking' booking.id %}"
-                        hx-target="closest li"
-                        hx-swap="outerHTML swap:500ms">
-                    取消預訂
-                </button>
-            </li>
-        {% empty %}
-            <li class="list-group-item bg-transparent text-muted">目前沒有預約。</li>
-        {% endfor %}
-    </ul>
+<a href="/courts/" class="back-link">← 返回球場列表</a>
 
-</div>
 {% endblock %}
