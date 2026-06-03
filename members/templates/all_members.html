@@ -6,6 +6,15 @@
 
 <h1 class="page-title">俱樂部成員</h1>
 
+<form method="get" action="" style="max-width: 400px; margin: 0 auto 24px; display: flex; gap: 8px;">
+  <input type="text" 
+         name="search" 
+         placeholder="搜尋成員..."
+         value="{{ search_query|default:'' }}"
+         style="padding: 10px 18px; border-radius: 99px; border: 1.5px solid var(--border); font-family: inherit; font-size: 14px; outline: none; flex: 1; background: var(--surface);">
+  <button type="submit" class="btn btn-primary" style="padding: 10px 20px; border-radius: 99px; font-size: 13px; font-weight: 600;">搜尋</button>
+</form>
+
 <p class="section-label">青少年成員（年齡 &lt; 20）</p>
 <ul class="list-group mb-4">
   {% for x in mymembers %}

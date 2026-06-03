@@ -10,10 +10,19 @@ from django.contrib.auth.decorators import login_required
 
 def courts(request):
   courts = Court.objects.all()
-  courts = Court.objects.all()
+  court_type = request.GET.get('court-type')
+  city = request.GET.get('city')
+  
+  if court_type:
+      courts = courts.filter(courttype=court_type)
+  if city:
+      courts = courts.filter(city=city)
+      
   template = loader.get_template('all_courts.html')
   context = {
     'courts': courts,
+    'selected_type': court_type,
+    'selected_city': city,
   }
   return HttpResponse(template.render(context, request))
 

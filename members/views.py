@@ -5,12 +5,21 @@ from .models import Member
 
 from django.contrib.staticfiles import finders
 
+from django.db.models import Q
+
 # Create your views here.
 def members(request):
     mymembers = Member.objects.all()
+    search_query = request.GET.get('search', '')
+    if search_query:
+        mymembers = mymembers.filter(
+            Q(firstname__icontains=search_query) |
+            Q(lastname__icontains=search_query)
+        )
     template = loader.get_template('all_members.html')
     context = {
       'mymembers': mymembers,
+      'search_query': search_query,
     }
     return HttpResponse(template.render(context, request))
 

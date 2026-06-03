@@ -6,6 +6,26 @@
 
 <h1 class="page-title">所有球場</h1>
 
+<form method="get" action="" style="max-width: 500px; margin: 0 auto 24px; display: flex; gap: 8px;">
+  <select name="court-type" onchange="this.form.submit()" style="padding: 10px 15px; border-radius: 99px; border: 1.5px solid var(--border); font-family: inherit; font-size: 14px; outline: none; width: 40%; background: var(--surface);">
+    <option value="">全部類型</option>
+    <option value="G" {% if selected_type == 'G' %}selected{% endif %}>草地 (G)</option>
+    <option value="H" {% if selected_type == 'H' %}selected{% endif %}>硬地 (H)</option>
+    <option value="N" {% if selected_type == 'N' %}selected{% endif %}>泥地 (N)</option>
+    <option value="D" {% if selected_type == 'D' %}selected{% endif %}>地毯 (D)</option>
+  </select>
+
+  <select name="city" onchange="this.form.submit()" style="padding: 10px 15px; border-radius: 99px; border: 1.5px solid var(--border); font-family: inherit; font-size: 14px; outline: none; width: 40%; background: var(--surface);">
+    <option value="">全部城市</option>
+    <option value="Taipei" {% if selected_city == 'Taipei' %}selected{% endif %}>台北</option>
+    <option value="Taichung" {% if selected_city == 'Taichung' %}selected{% endif %}>台中</option>
+    <option value="Kaohsiung" {% if selected_city == 'Kaohsiung' %}selected{% endif %}>高雄</option>
+    <option value="Tainan" {% if selected_city == 'Tainan' %}selected{% endif %}>台南</option>
+  </select>
+
+  <button type="submit" class="btn btn-primary" style="padding: 10px 20px; border-radius: 99px; font-size: 13px; font-weight: 600; flex-shrink: 0;">篩選</button>
+</form>
+
 <div class="table-responsive">
   <table class="table table-striped table-bordered align-middle">
     <thead class="table-dark">
