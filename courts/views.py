@@ -145,11 +145,23 @@ def my_bookings(request):
     return render(request, 'my_bookings.html', context)
 
 def getMember(request):
-    print (request.user)
+    print(request.user)
     try:
         member = Member.objects.get(user=request.user)
-        print (member)
+        print(member)
         return member
-    except:
-        print (f"The user {request.user} is not a member")
+    except Member.DoesNotExist:
+        # Fallback: Attempt to auto-link member by matching username to firstname
+        if request.user.is_authenticated:
+            username = request.user.username.lower()
+            member = Member.objects.filter(firstname__iexact=username, user__isnull=True).first()
+            if member:
+                member.user = request.user
+                member.save()
+                print(f"Auto-linked member {member} to user {request.user}")
+                return member
+        print(f"The user {request.user} is not a member")
+        return render(request, 'booking_error.html', None)
+    except Exception as e:
+        print(f"Error retrieving member: {e}")
         return render(request, 'booking_error.html', None)
