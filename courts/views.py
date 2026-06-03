@@ -137,6 +137,8 @@ def my_bookings(request):
     for b in bookings:
         print (b)
     member = getMember(request)    
+    if isinstance(member, HttpResponse):
+        return member
     print ('member.firstname', member.firstname)
     context = {'member': member,
                'bookings': bookings}
