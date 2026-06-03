@@ -43,4 +43,17 @@
   </div>
 {% endif %}
 
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    var usernameInput = document.getElementById("id_username");
+    var passwordInput = document.getElementById("id_password");
+    if (usernameInput && !usernameInput.value) {
+      usernameInput.value = "alice";
+    }
+    if (passwordInput && !passwordInput.value) {
+      passwordInput.value = "Alice123!";
+    }
+  });
+</script>
+
 {% endblock %}

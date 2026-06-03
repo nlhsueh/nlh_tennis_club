@@ -3,7 +3,7 @@
     "model": "auth.user",
     "pk": 1,
     "fields": {
-      "password": "pbkdf2_sha256$1200000$0KinFh5e4aFVgZq89nVRhm$JZ5q3nMyQIW4ThoU185evkoaquQAhEdccpdwt94jTvc=",
+      "password": "pbkdf2_sha256$260000$qtkLQ9aCtAh2XFr83hoBDz$a54CuOusqKqH+TCy2oNeCgwORHPsnETlRrjoo5FdF7k=",
       "last_login": null,
       "is_superuser": true,
       "username": "admin",
@@ -21,7 +21,7 @@
     "model": "auth.user",
     "pk": 2,
     "fields": {
-      "password": "pbkdf2_sha256$1200000$wFjPNryBzs27F1yGireMx1$wA9GauaxgonSc0dQbEvt60KaD4QZGPWCbnyj//EctkQ=",
+      "password": "pbkdf2_sha256$260000$qtkLQ9aCtAh2XFr83hoBDz$a54CuOusqKqH+TCy2oNeCgwORHPsnETlRrjoo5FdF7k=",
       "last_login": null,
       "is_superuser": false,
       "username": "alice",
@@ -39,7 +39,7 @@
     "model": "auth.user",
     "pk": 3,
     "fields": {
-      "password": "pbkdf2_sha256$1200000$wFjPNryBzs27F1yGireMx1$wA9GauaxgonSc0dQbEvt60KaD4QZGPWCbnyj//EctkQ=",
+      "password": "pbkdf2_sha256$260000$qtkLQ9aCtAh2XFr83hoBDz$a54CuOusqKqH+TCy2oNeCgwORHPsnETlRrjoo5FdF7k=",
       "last_login": null,
       "is_superuser": false,
       "username": "bob",
@@ -57,7 +57,7 @@
     "model": "auth.user",
     "pk": 4,
     "fields": {
-      "password": "pbkdf2_sha256$1200000$wFjPNryBzs27F1yGireMx1$wA9GauaxgonSc0dQbEvt60KaD4QZGPWCbnyj//EctkQ=",
+      "password": "pbkdf2_sha256$260000$qtkLQ9aCtAh2XFr83hoBDz$a54CuOusqKqH+TCy2oNeCgwORHPsnETlRrjoo5FdF7k=",
       "last_login": null,
       "is_superuser": false,
       "username": "carol",
@@ -75,7 +75,7 @@
     "model": "auth.user",
     "pk": 5,
     "fields": {
-      "password": "pbkdf2_sha256$1200000$wFjPNryBzs27F1yGireMx1$wA9GauaxgonSc0dQbEvt60KaD4QZGPWCbnyj//EctkQ=",
+      "password": "pbkdf2_sha256$260000$qtkLQ9aCtAh2XFr83hoBDz$a54CuOusqKqH+TCy2oNeCgwORHPsnETlRrjoo5FdF7k=",
       "last_login": null,
       "is_superuser": false,
       "username": "david",
@@ -93,7 +93,7 @@
     "model": "auth.user",
     "pk": 6,
     "fields": {
-      "password": "pbkdf2_sha256$1200000$wFjPNryBzs27F1yGireMx1$wA9GauaxgonSc0dQbEvt60KaD4QZGPWCbnyj//EctkQ=",
+      "password": "pbkdf2_sha256$260000$qtkLQ9aCtAh2XFr83hoBDz$a54CuOusqKqH+TCy2oNeCgwORHPsnETlRrjoo5FdF7k=",
       "last_login": null,
       "is_superuser": false,
       "username": "emily",
@@ -111,7 +111,7 @@
     "model": "auth.user",
     "pk": 7,
     "fields": {
-      "password": "pbkdf2_sha256$1200000$wFjPNryBzs27F1yGireMx1$wA9GauaxgonSc0dQbEvt60KaD4QZGPWCbnyj//EctkQ=",
+      "password": "pbkdf2_sha256$260000$qtkLQ9aCtAh2XFr83hoBDz$a54CuOusqKqH+TCy2oNeCgwORHPsnETlRrjoo5FdF7k=",
       "last_login": null,
       "is_superuser": false,
       "username": "frank",
@@ -129,7 +129,7 @@
     "model": "auth.user",
     "pk": 8,
     "fields": {
-      "password": "pbkdf2_sha256$1200000$wFjPNryBzs27F1yGireMx1$wA9GauaxgonSc0dQbEvt60KaD4QZGPWCbnyj//EctkQ=",
+      "password": "pbkdf2_sha256$260000$qtkLQ9aCtAh2XFr83hoBDz$a54CuOusqKqH+TCy2oNeCgwORHPsnETlRrjoo5FdF7k=",
       "last_login": null,
       "is_superuser": false,
       "username": "grace",
@@ -147,7 +147,7 @@
     "model": "auth.user",
     "pk": 9,
     "fields": {
-      "password": "pbkdf2_sha256$1200000$wFjPNryBzs27F1yGireMx1$wA9GauaxgonSc0dQbEvt60KaD4QZGPWCbnyj//EctkQ=",
+      "password": "pbkdf2_sha256$260000$qtkLQ9aCtAh2XFr83hoBDz$a54CuOusqKqH+TCy2oNeCgwORHPsnETlRrjoo5FdF7k=",
       "last_login": null,
       "is_superuser": false,
       "username": "henry",
@@ -165,7 +165,7 @@
     "model": "auth.user",
     "pk": 10,
     "fields": {
-      "password": "pbkdf2_sha256$1200000$wFjPNryBzs27F1yGireMx1$wA9GauaxgonSc0dQbEvt60KaD4QZGPWCbnyj//EctkQ=",
+      "password": "pbkdf2_sha256$260000$qtkLQ9aCtAh2XFr83hoBDz$a54CuOusqKqH+TCy2oNeCgwORHPsnETlRrjoo5FdF7k=",
       "last_login": null,
       "is_superuser": false,
       "username": "ivy",
@@ -373,7 +373,7 @@
     "fields": {
       "court": 1,
       "user": 2,
-      "date": "2026-06-03",
+      "date": "2026-06-01",
       "reason": "例行練習"
     }
   },
@@ -382,9 +382,99 @@
     "pk": 2,
     "fields": {
       "court": 2,
-      "user": 3,
+      "user": 2,
+      "date": "2026-06-02",
+      "reason": "技術指導"
+    }
+  },
+  {
+    "model": "courts.booking",
+    "pk": 3,
+    "fields": {
+      "court": 3,
+      "user": 2,
+      "date": "2026-06-03",
+      "reason": "單打對抗"
+    }
+  },
+  {
+    "model": "courts.booking",
+    "pk": 4,
+    "fields": {
+      "court": 4,
+      "user": 2,
       "date": "2026-06-04",
+      "reason": "雙打練習"
+    }
+  },
+  {
+    "model": "courts.booking",
+    "pk": 5,
+    "fields": {
+      "court": 5,
+      "user": 2,
+      "date": "2026-06-05",
+      "reason": "體能訓練"
+    }
+  },
+  {
+    "model": "courts.booking",
+    "pk": 6,
+    "fields": {
+      "court": 6,
+      "user": 2,
+      "date": "2026-06-06",
+      "reason": "反手特訓"
+    }
+  },
+  {
+    "model": "courts.booking",
+    "pk": 7,
+    "fields": {
+      "court": 7,
+      "user": 2,
+      "date": "2026-06-07",
+      "reason": "發球練習"
+    }
+  },
+  {
+    "model": "courts.booking",
+    "pk": 8,
+    "fields": {
+      "court": 8,
+      "user": 2,
+      "date": "2026-06-08",
+      "reason": "假日放鬆"
+    }
+  },
+  {
+    "model": "courts.booking",
+    "pk": 9,
+    "fields": {
+      "court": 1,
+      "user": 2,
+      "date": "2026-06-09",
+      "reason": "模擬賽"
+    }
+  },
+  {
+    "model": "courts.booking",
+    "pk": 10,
+    "fields": {
+      "court": 2,
+      "user": 2,
+      "date": "2026-06-10",
       "reason": "友誼賽"
+    }
+  },
+  {
+    "model": "courts.booking",
+    "pk": 11,
+    "fields": {
+      "court": 3,
+      "user": 3,
+      "date": "2026-06-11",
+      "reason": "小組訓練"
     }
   }
 ]

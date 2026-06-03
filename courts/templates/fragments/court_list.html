@@ -1,16 +1,14 @@
 <!-- 場館列表行片段 -->
 {% for c in courts %}
-<tr>
+<tr class="court-row"
+    hx-get="{% url 'court_details' c.id %}"
+    hx-target="#court-detail-modal"
+    data-bs-toggle="modal"
+    data-bs-target="#courtModal"
+    style="cursor: pointer;">
   <td><strong>{{ c.id }}</strong></td>
   <td>
-    <span class="court-link"
-          hx-get="{% url 'court_details' c.id %}"
-          hx-target="#court-detail-modal"
-          data-bs-toggle="modal"
-          data-bs-target="#courtModal"
-          style="cursor: pointer;">
-      {{ c.courtname }}
-    </span>
+    <span class="court-link">{{ c.courtname }}</span>
   </td>
   <td>{{ c.city }}</td>
   <td>

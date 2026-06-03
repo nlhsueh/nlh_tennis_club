@@ -81,8 +81,15 @@
     text-decoration: none;
     transition: color 0.15s ease-in-out;
   }
-  .court-link:hover {
-    color: var(--clay);
+  tr.court-row {
+    transition: background-color 0.15s ease-in-out;
+  }
+  tr.court-row:hover {
+    background-color: rgba(82, 183, 136, 0.08) !important;
+  }
+  tr.court-row:hover .court-link {
+    color: var(--clay) !important;
+    text-decoration: underline !important;
   }
   .court-table-img-wrapper {
     width: 80px;
