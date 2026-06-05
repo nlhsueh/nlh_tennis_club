@@ -552,3 +552,11 @@ python manage.py runserver
 | **JavaScript 程式量**| 零（完全依賴瀏覽器行為，但體驗較差） | 極少（直接寫在 HTML 屬性中，無需寫複雜的 AJAX） |
 | **動畫過場** | 無法實現 (全頁載入無法做過渡動畫) | 支援 (如項目刪除時的 CSS 滑出與淡出) |
 
+---
+
+## 🚀 雲端部署 (Render.com)
+
+本專案支援手動/藍圖部署至 Render.com 平台。關於詳細的部署步驟、環境變數設定與常見問題排錯（如 SQLite 找不到資料表等），請參閱：
+*   👉 **[Render.com 部署與排錯指南](deploy_on_render.md)**
+
+
