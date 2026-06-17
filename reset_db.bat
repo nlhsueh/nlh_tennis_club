@@ -1,5 +1,6 @@
 @echo off
 cd /d %~dp0
+set PYTHONUTF8=1
 if exist db.sqlite3 del /f /q db.sqlite3
 if exist db.sqlite3-journal del /f /q db.sqlite3-journal
 

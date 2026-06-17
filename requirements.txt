@@ -1,10 +1,19 @@
-asgiref==3.11.1
-dj-database-url==1.0.0
-Django==3.2.18
-gunicorn==26.0.0
-packaging==26.2
-pillow==12.2.0
-psycopg2-binary==2.9.10
-pytz==2026.2
-sqlparse==0.5.5
-whitenoise==6.5.0
+asgiref>=3.11.1
+dj-database-url>=1.0.0
+
+# Django 3.2+ 限制的最低 Python 版本為 3.6+。
+# 執行 pip 時會依據環境自動升級（如：Python 3.12 會選用 Django 4.2+；Python 3.13 會選用 Django 5.1+）。
+Django>=3.2.18
+
+# gunicorn：不支援 Windows (win32)，故僅在非 Windows 系統下安裝。
+gunicorn>=26.0.0; sys_platform != 'win32'
+
+packaging>=26.2
+pillow>=12.2.0
+psycopg2-binary>=2.9.10
+pytz>=2026.2
+sqlparse>=0.5.5
+whitenoise>=6.5.0
+
+# legacy-cgi：Python 3.13+ 移除了 cgi 模組，此套件用於新版 Python 下的相容性維護。
+legacy-cgi; python_version >= '3.13'
